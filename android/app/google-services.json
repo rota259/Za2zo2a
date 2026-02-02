@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1026041146477",
+    "project_id": "fluutter-task-mostafa",
+    "storage_bucket": "fluutter-task-mostafa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026041146477:android:2ad882ee5f8e028620e364",
+        "android_client_info": {
+          "package_name": "com.example.flutter_tasks_mostafa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0uUHxIoeCAET9Um3Yu2n-yWIMTpL0qV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
