@@ -1,0 +1,47 @@
+﻿
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\loading_overlay.dart:21:33 - deprecated_member_use
+warning - The value of the field '_dioClient' isn't used - lib\features\auth\data\repos\auth_repo.dart:5:19 - unused_field
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\earnings\views\earnings_view.dart:97:84 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\views\home_view.dart:278:30 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\views\widgets\app_drawer.dart:125:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\views\widgets\app_drawer.dart:252:28 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\payment\views\payment_view.dart:84:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\views\profile_view.dart:280:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\views\profile_view.dart:355:40 - deprecated_member_use
+warning - The value of the field '_dioClient' isn't used - lib\features\ride\data\repos\ride_repo.dart:5:19 - unused_field
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\active_trip_view.dart:177:68 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\active_trip_view.dart:284:68 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\driver_rating_view.dart:229:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\finding_driver_view.dart:86:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\ride_selection_view.dart:44:97 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\ride\views\ride_selection_view.dart:120:77 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:60:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:77:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:100:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:167:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:246:52 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:330:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\safety\views\safety_view.dart:360:30 - deprecated_member_use
+warning - The value of the field '_dioClient' isn't used - lib\features\trips\data\repos\trips_repo.dart:5:19 - unused_field
+
+flutter : 24 issues 
+found. (ran in 3.2s)
+At line:1 char:1
++ flutter analyze 
+--machine > 
+analyze_out.json 2>&1; 
+Get-Content analyz ...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo     
+         : 
+NotSpecified: (2    4 
+issues found. (ran     
+in 3.2s):String) [],   
+  RemoteException
+    + 
+FullyQualifiedError    
+Id : NativeCommandErr  
+  or
+ 

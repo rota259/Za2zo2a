@@ -1,160 +1,129 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tasks_mostafa/core/theme/app_colors.dart';
-import 'package:flutter_tasks_mostafa/features/auth/view_models/signup_view_model.dart';
-import 'package:flutter_tasks_mostafa/features/auth/views/login_view.dart';
-import 'package:flutter_tasks_mostafa/features/auth/views/widgets/widget_field.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_text_styles.dart';
+import '../../../core/utils/responsive.dart';
+import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/custom_text_field.dart';
+import '../../../core/widgets/loading_overlay.dart';
+import '../cubit/auth_cubit.dart';
+import '../cubit/auth_state.dart';
 
-class SignupView extends StatelessWidget {
-  final _email = TextEditingController();
-  final _pass = TextEditingController();
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
-  SignupView({super.key});
+  @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<SignupViewModel>(context);
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: BackButton(color: Colors.black),
-        title: Text(
-          "Create new account",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Icon(
-                  Icons.camera_alt_outlined,
-                  size: 30,
-                  color: Colors.grey,
-                ),
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSuccess) {
+          context.push('/otp'); // Navigate to OTP screen after signup
+        } else if (state is AuthError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
+          );
+        }
+      },
+      builder: (context, state) {
+        return LoadingOverlay(
+          isLoading: state is AuthLoading,
+          child: Scaffold(
+            backgroundColor: AppColors.background,
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
+                onPressed: () => context.pop(),
               ),
-              SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Profile Photo",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(context.widthPct(24)),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Change",
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Text('Create Account', style: AppTextStyles.h1(context)),
+                      SizedBox(height: context.heightPct(8)),
+                      Text('Sign up to get started', style: AppTextStyles.bodyMedium(context)),
+                      SizedBox(height: context.heightPct(32)),
+                      
+                      CustomTextField(
+                        controller: _nameController,
+                        hintText: 'Full Name',
+                        prefixIcon: const Icon(Icons.person_outline),
                       ),
-                      SizedBox(width: 16),
-                      Text(
-                        "Delete",
-                        style: TextStyle(
-                          color: AppColors.error,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      SizedBox(height: context.heightPct(16)),
+                      CustomTextField(
+                        controller: _emailController,
+                        hintText: 'Email address',
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: context.heightPct(16)),
+                      CustomTextField(
+                        controller: _phoneController,
+                        hintText: 'Phone Number',
+                        prefixIcon: const Icon(Icons.phone_outlined),
+                        keyboardType: TextInputType.phone,
+                      ),
+                      SizedBox(height: context.heightPct(16)),
+                      CustomTextField(
+                        controller: _passwordController,
+                        hintText: 'Password',
+                        prefixIcon: const Icon(Icons.lock_outline),
+                        obscureText: true,
+                        suffixIcon: const Icon(Icons.visibility_off_outlined),
+                      ),
+                      
+                      SizedBox(height: context.heightPct(32)),
+                      CustomButton(
+                        text: 'Sign Up',
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().signup(
+                              _nameController.text,
+                              _emailController.text,
+                              _phoneController.text,
+                              _passwordController.text,
+                            );
+                          }
+                        },
+                      ),
+                      
+                      SizedBox(height: context.heightPct(24)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Already have an account? ", style: AppTextStyles.bodyMedium(context)),
+                          GestureDetector(
+                            onTap: () => context.pop(),
+                            child: Text('Sign in', style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 30),
-          field("full name", Icons.person_outline),
-          field("email", Icons.email_outlined, controller: _email),
-          field("phone", Icons.phone_android, prefixText: "+20 | "),
-          field(
-            "Country",
-            Icons.location_on_outlined,
-            suffixIcon: Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-          ),
-          field(
-            "City",
-            Icons.location_city_outlined,
-            suffixIcon: Icon(Icons.keyboard_arrow_down, color: Colors.grey),
-          ),
-          field(
-            "Password",
-            Icons.lock_outline,
-            controller: _pass,
-            isPass: true,
-          ),
-          field("Confirm Password", Icons.lock_outline, isPass: true),
-          if (vm.error != null) ...[
-            SizedBox(height: 10),
-            Text(vm.error!, style: TextStyle(color: Colors.red)),
-          ],
-          SizedBox(height: 24),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              padding: EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-            onPressed: vm.isLoading
-                ? null
-                : () => vm.signup(_email.text, _pass.text),
-            child: vm.isLoading
-                ? CircularProgressIndicator(color: Colors.white)
-                : Text(
-                    "Create Account",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Already have an account? ",
-                style: TextStyle(color: Colors.grey),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginView()),
-                  );
-                },
-                child: Text(
-                  "Sign In",
-                  style: TextStyle(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
