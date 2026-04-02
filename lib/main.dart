@@ -21,6 +21,15 @@ import 'features/payment/cubit/payment_cubit.dart';
 import 'features/earnings/cubit/earnings_cubit.dart';
 import 'core/theme/theme_cubit.dart';
 
+import 'features/driver/driver_home/data/repos/driver_home_repo.dart';
+import 'features/driver/driver_home/cubit/driver_home_cubit.dart';
+import 'features/driver/driver_trip/data/repos/driver_trip_repo.dart';
+import 'features/driver/driver_trip/cubit/driver_trip_cubit.dart';
+import 'features/driver/driver_earnings/data/repos/driver_earnings_repo.dart';
+import 'features/driver/driver_earnings/cubit/driver_earnings_cubit.dart';
+import 'features/driver/driver_profile/data/repos/driver_profile_repo.dart';
+import 'features/driver/driver_profile/cubit/driver_profile_cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); // Keeping Firebase as it was in original
@@ -30,11 +39,19 @@ void main() async {
   final authRepo = AuthRepo(dioClient);
   final rideRepo = RideRepo(dioClient);
   final tripsRepo = TripsRepo(dioClient);
+  final driverHomeRepo = DriverHomeRepo(dioClient);
+  final driverTripRepo = DriverTripRepo(dioClient);
+  final driverEarningsRepo = DriverEarningsRepo(dioClient);
+  final driverProfileRepo = DriverProfileRepo(dioClient);
 
   runApp(MyApp(
     authRepo: authRepo,
     rideRepo: rideRepo,
     tripsRepo: tripsRepo,
+    driverHomeRepo: driverHomeRepo,
+    driverTripRepo: driverTripRepo,
+    driverEarningsRepo: driverEarningsRepo,
+    driverProfileRepo: driverProfileRepo,
   ));
 }
 
@@ -42,12 +59,20 @@ class MyApp extends StatelessWidget {
   final AuthRepo authRepo;
   final RideRepo rideRepo;
   final TripsRepo tripsRepo;
+  final DriverHomeRepo driverHomeRepo;
+  final DriverTripRepo driverTripRepo;
+  final DriverEarningsRepo driverEarningsRepo;
+  final DriverProfileRepo driverProfileRepo;
 
   const MyApp({
     super.key,
     required this.authRepo,
     required this.rideRepo,
     required this.tripsRepo,
+    required this.driverHomeRepo,
+    required this.driverTripRepo,
+    required this.driverEarningsRepo,
+    required this.driverProfileRepo,
   });
 
   @override
@@ -62,6 +87,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
         BlocProvider<EarningsCubit>(create: (context) => EarningsCubit()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+        BlocProvider<DriverHomeCubit>(create: (context) => DriverHomeCubit(driverHomeRepo)),
+        BlocProvider<DriverTripCubit>(create: (context) => DriverTripCubit(driverTripRepo)),
+        BlocProvider<DriverEarningsCubit>(create: (context) => DriverEarningsCubit(driverEarningsRepo)),
+        BlocProvider<DriverProfileCubit>(create: (context) => DriverProfileCubit(driverProfileRepo)),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
