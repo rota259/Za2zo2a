@@ -21,33 +21,31 @@ import '../../features/earnings/views/earnings_view.dart';
 import '../../features/notifications/views/notifications_view.dart';
 import '../../features/safety/views/safety_view.dart';
 
+import '../../features/driver/driver_home/views/driver_home_view.dart';
+import '../../features/driver/driver_trip/views/driver_active_trip_view.dart';
+import '../../features/driver/driver_trip/views/driver_trip_summary_view.dart';
+import '../../features/driver/driver_trip/views/driver_trip_history_view.dart';
+import '../../features/driver/driver_earnings/views/driver_earnings_view.dart';
+import '../../features/driver/driver_profile/views/driver_profile_view.dart';
+import '../../features/driver/driver_payment/views/driver_payment_view.dart';
+
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/driver/home',
     routes: [
       GoRoute(
         path: '/',
         builder: (context, state) => const SplashView(), // To be defined
       ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginView(),
-      ),
-      GoRoute(
-        path: '/signup',
-        builder: (context, state) => const SignupView(),
-      ),
-      GoRoute(
-        path: '/otp',
-        builder: (context, state) => const OtpView(),
-      ),
-      GoRoute(
-        path: '/home',
-        builder: (context, state) => const HomeView(),
-      ),
+      GoRoute(path: '/login', builder: (context, state) => const LoginView()),
+      GoRoute(path: '/signup', builder: (context, state) => const SignupView()),
+      GoRoute(path: '/otp', builder: (context, state) => const OtpView()),
+      GoRoute(path: '/home', builder: (context, state) => const HomeView()),
       GoRoute(
         path: '/home/search/:type',
-        builder: (context, state) => SearchLocationView(locationType: state.pathParameters['type'] ?? 'destination'),
+        builder: (context, state) => SearchLocationView(
+          locationType: state.pathParameters['type'] ?? 'destination',
+        ),
       ),
       GoRoute(
         path: '/home/ride-selection',
@@ -93,9 +91,34 @@ class AppRouter {
         path: '/notifications',
         builder: (context, state) => const NotificationsView(),
       ),
+      GoRoute(path: '/safety', builder: (context, state) => const SafetyView()),
       GoRoute(
-        path: '/safety',
-        builder: (context, state) => const SafetyView(),
+        path: '/driver/home',
+        builder: (context, state) => const DriverHomeView(),
+      ),
+      GoRoute(
+        path: '/driver/active-trip',
+        builder: (context, state) => const DriverActiveTripView(),
+      ),
+      GoRoute(
+        path: '/driver/trip-summary',
+        builder: (context, state) => const DriverTripSummaryView(),
+      ),
+      GoRoute(
+        path: '/driver/trips',
+        builder: (context, state) => const DriverTripHistoryView(),
+      ),
+      GoRoute(
+        path: '/driver/earnings',
+        builder: (context, state) => const DriverEarningsView(),
+      ),
+      GoRoute(
+        path: '/driver/profile',
+        builder: (context, state) => const DriverProfileView(),
+      ),
+      GoRoute(
+        path: '/driver/payment',
+        builder: (context, state) => const DriverPaymentView(),
       ),
     ],
   );
