@@ -28,7 +28,9 @@ class _SettingsViewState extends State<SettingsView> {
         ),
         title: Text(
           'Settings',
-          style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.h3(
+            context,
+          ).copyWith(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -48,7 +50,8 @@ class _SettingsViewState extends State<SettingsView> {
                     child: CircleAvatar(
                       radius: context.widthPct(50),
                       backgroundImage: const NetworkImage(
-                          'https://i.pravatar.cc/150?u=alexvolt'),
+                        'https://i.pravatar.cc/150?u=alexvolt',
+                      ),
                     ),
                   ),
                   Positioned(
@@ -61,8 +64,11 @@ class _SettingsViewState extends State<SettingsView> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white, width: 2),
                       ),
-                      child: Icon(Icons.edit,
-                          color: Colors.white, size: context.widthPct(16)),
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: context.widthPct(16),
+                      ),
                     ),
                   ),
                 ],
@@ -71,16 +77,12 @@ class _SettingsViewState extends State<SettingsView> {
             SizedBox(height: context.heightPct(16)),
             Text(
               'Alex Volt',
-              style: AppTextStyles.h2(context).copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyles.h2(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
             ),
-            Text(
-              'alex@za2zo2a.com',
-              style: AppTextStyles.bodySmall(context),
-            ),
-            Text(
-              '+1 (555) 012-3456',
-              style: AppTextStyles.bodySmall(context),
-            ),
+            Text('alex@za2zo2a.com', style: AppTextStyles.bodySmall(context)),
+            Text('+1 (555) 012-3456', style: AppTextStyles.bodySmall(context)),
             SizedBox(height: context.heightPct(30)),
 
             // ── Preferences Section
@@ -118,7 +120,10 @@ class _SettingsViewState extends State<SettingsView> {
               iconColor: Colors.blueGrey,
               iconBg: AppColors.grey100,
               title: 'Add Home',
-              trailing: Icon(Icons.add_circle_outline, color: AppColors.grey400),
+              trailing: Icon(
+                Icons.add_circle_outline,
+                color: AppColors.grey400,
+              ),
               onTap: () {},
             ),
             _SettingsTile(
@@ -126,7 +131,10 @@ class _SettingsViewState extends State<SettingsView> {
               iconColor: Colors.blueGrey,
               iconBg: AppColors.grey100,
               title: 'Add Work',
-              trailing: Icon(Icons.add_circle_outline, color: AppColors.grey400),
+              trailing: Icon(
+                Icons.add_circle_outline,
+                color: AppColors.grey400,
+              ),
               onTap: () {},
             ),
 
@@ -144,7 +152,11 @@ class _SettingsViewState extends State<SettingsView> {
               iconColor: Colors.blueGrey,
               iconBg: AppColors.grey100,
               title: 'Terms of Service',
-              trailing: Icon(Icons.open_in_new, color: AppColors.grey400, size: 18),
+              trailing: Icon(
+                Icons.open_in_new,
+                color: AppColors.grey400,
+                size: 18,
+              ),
               onTap: () {},
             ),
 
@@ -158,7 +170,9 @@ class _SettingsViewState extends State<SettingsView> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFF3F4F6),
                     elevation: 0,
-                    padding: EdgeInsets.symmetric(vertical: context.heightPct(14)),
+                    padding: EdgeInsets.symmetric(
+                      vertical: context.heightPct(14),
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(context.widthPct(12)),
                     ),
@@ -184,10 +198,9 @@ class _SettingsViewState extends State<SettingsView> {
             SizedBox(height: context.heightPct(24)),
             Text(
               'ZA2ZO2A VERSION 4.2.0 (BUILD 882)',
-              style: AppTextStyles.caption(context).copyWith(
-                color: AppColors.grey400,
-                letterSpacing: 1.1,
-              ),
+              style: AppTextStyles.caption(
+                context,
+              ).copyWith(color: AppColors.grey400, letterSpacing: 1.1),
             ),
             SizedBox(height: context.heightPct(32)),
           ],
@@ -249,12 +262,15 @@ class _SettingsTile extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.w600),
+        style: AppTextStyles.bodyLarge(
+          context,
+        ).copyWith(fontWeight: FontWeight.w600),
       ),
       subtitle: subtitle != null
           ? Text(subtitle!, style: AppTextStyles.bodySmall(context))
           : null,
-      trailing: trailing ??
+      trailing:
+          trailing ??
           Icon(Icons.chevron_right, color: AppColors.grey400, size: 20),
       onTap: onTap,
     );

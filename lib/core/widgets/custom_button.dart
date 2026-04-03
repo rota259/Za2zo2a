@@ -25,17 +25,19 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: context.heightPct(56), // 56 corresponds to AppDimensions.buttonHeightMobile
+      height: context.heightPct(
+        56,
+      ), // 56 corresponds to AppDimensions.buttonHeightMobile
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: isOutlined 
-              ? Colors.transparent 
+          backgroundColor: isOutlined
+              ? Colors.transparent
               : (backgroundColor ?? AppColors.primary),
           elevation: isOutlined ? 0 : 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(context.widthPct(12)),
-            side: isOutlined 
-                ? BorderSide(color: backgroundColor ?? AppColors.primary) 
+            side: isOutlined
+                ? BorderSide(color: backgroundColor ?? AppColors.primary)
                 : BorderSide.none,
           ),
         ),
@@ -52,8 +54,8 @@ class CustomButton extends StatelessWidget {
             : Text(
                 text,
                 style: AppTextStyles.button(context).copyWith(
-                  color: isOutlined 
-                      ? (textColor ?? AppColors.primary) 
+                  color: isOutlined
+                      ? (textColor ?? AppColors.primary)
                       : (textColor ?? AppColors.textInverse),
                 ),
               ),

@@ -13,17 +13,21 @@ class DriverEarningsCubit extends Cubit<DriverEarningsState> {
       final earnings = await _repo.getEarnings();
       emit(DriverEarningsLoaded(earnings: earnings));
     } catch (e) {
-      emit(const DriverEarningsError('Failed to load earnings. Please try again.'));
+      emit(
+        const DriverEarningsError('Failed to load earnings. Please try again.'),
+      );
     }
   }
 
   void selectPeriod(String period) {
     if (state is DriverEarningsLoaded) {
       final current = state as DriverEarningsLoaded;
-      emit(DriverEarningsLoaded(
-        earnings: current.earnings,
-        selectedPeriod: period,
-      ));
+      emit(
+        DriverEarningsLoaded(
+          earnings: current.earnings,
+          selectedPeriod: period,
+        ),
+      );
     }
   }
 }

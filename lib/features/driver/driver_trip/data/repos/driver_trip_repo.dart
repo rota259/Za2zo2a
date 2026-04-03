@@ -82,7 +82,11 @@ class DriverTripRepo {
     // TODO: await _dioClient.dio.post('/driver/trips/$tripId/complete', data: {'fare': fare});
   }
 
-  Future<void> submitRiderRating(String tripId, double rating, String? comment) async {
+  Future<void> submitRiderRating(
+    String tripId,
+    double rating,
+    String? comment,
+  ) async {
     await Future.delayed(const Duration(milliseconds: 300));
     // TODO: await _dioClient.dio.post('/driver/trips/$tripId/rating', data: {...});
   }

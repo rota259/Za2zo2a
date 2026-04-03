@@ -5,7 +5,7 @@ import 'ride_state.dart';
 
 class RideCubit extends Cubit<RideState> {
   final RideRepo _rideRepo;
-  
+
   RideCubit(this._rideRepo) : super(RideInitial());
 
   Future<void> fetchRideOptions() async {

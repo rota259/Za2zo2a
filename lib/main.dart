@@ -18,7 +18,6 @@ import 'features/trips/cubit/trips_cubit.dart';
 
 import 'features/profile/cubit/profile_cubit.dart';
 import 'features/payment/cubit/payment_cubit.dart';
-import 'features/earnings/cubit/earnings_cubit.dart';
 import 'core/theme/theme_cubit.dart';
 
 import 'features/driver/driver_home/data/repos/driver_home_repo.dart';
@@ -44,15 +43,17 @@ void main() async {
   final driverEarningsRepo = DriverEarningsRepo(dioClient);
   final driverProfileRepo = DriverProfileRepo(dioClient);
 
-  runApp(MyApp(
-    authRepo: authRepo,
-    rideRepo: rideRepo,
-    tripsRepo: tripsRepo,
-    driverHomeRepo: driverHomeRepo,
-    driverTripRepo: driverTripRepo,
-    driverEarningsRepo: driverEarningsRepo,
-    driverProfileRepo: driverProfileRepo,
-  ));
+  runApp(
+    MyApp(
+      authRepo: authRepo,
+      rideRepo: rideRepo,
+      tripsRepo: tripsRepo,
+      driverHomeRepo: driverHomeRepo,
+      driverTripRepo: driverTripRepo,
+      driverEarningsRepo: driverEarningsRepo,
+      driverProfileRepo: driverProfileRepo,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -85,12 +86,19 @@ class MyApp extends StatelessWidget {
         BlocProvider<TripsCubit>(create: (context) => TripsCubit(tripsRepo)),
         BlocProvider<ProfileCubit>(create: (context) => ProfileCubit()),
         BlocProvider<PaymentCubit>(create: (context) => PaymentCubit()),
-        BlocProvider<EarningsCubit>(create: (context) => EarningsCubit()),
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-        BlocProvider<DriverHomeCubit>(create: (context) => DriverHomeCubit(driverHomeRepo)),
-        BlocProvider<DriverTripCubit>(create: (context) => DriverTripCubit(driverTripRepo)),
-        BlocProvider<DriverEarningsCubit>(create: (context) => DriverEarningsCubit(driverEarningsRepo)),
-        BlocProvider<DriverProfileCubit>(create: (context) => DriverProfileCubit(driverProfileRepo)),
+        BlocProvider<DriverHomeCubit>(
+          create: (context) => DriverHomeCubit(driverHomeRepo),
+        ),
+        BlocProvider<DriverTripCubit>(
+          create: (context) => DriverTripCubit(driverTripRepo),
+        ),
+        BlocProvider<DriverEarningsCubit>(
+          create: (context) => DriverEarningsCubit(driverEarningsRepo),
+        ),
+        BlocProvider<DriverProfileCubit>(
+          create: (context) => DriverProfileCubit(driverProfileRepo),
+        ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

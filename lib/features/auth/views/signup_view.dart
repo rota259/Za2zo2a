@@ -32,7 +32,10 @@ class _SignupViewState extends State<SignupView> {
           context.push('/otp'); // Navigate to OTP screen after signup
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: AppColors.error,
+            ),
           );
         }
       },
@@ -59,9 +62,12 @@ class _SignupViewState extends State<SignupView> {
                     children: [
                       Text('Create Account', style: AppTextStyles.h1(context)),
                       SizedBox(height: context.heightPct(8)),
-                      Text('Sign up to get started', style: AppTextStyles.bodyMedium(context)),
+                      Text(
+                        'Sign up to get started',
+                        style: AppTextStyles.bodyMedium(context),
+                      ),
                       SizedBox(height: context.heightPct(32)),
-                      
+
                       CustomTextField(
                         controller: _nameController,
                         hintText: 'Full Name',
@@ -89,7 +95,7 @@ class _SignupViewState extends State<SignupView> {
                         obscureText: true,
                         suffixIcon: const Icon(Icons.visibility_off_outlined),
                       ),
-                      
+
                       SizedBox(height: context.heightPct(32)),
                       CustomButton(
                         text: 'Sign Up',
@@ -104,15 +110,24 @@ class _SignupViewState extends State<SignupView> {
                           }
                         },
                       ),
-                      
+
                       SizedBox(height: context.heightPct(24)),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Already have an account? ", style: AppTextStyles.bodyMedium(context)),
+                          Text(
+                            "Already have an account? ",
+                            style: AppTextStyles.bodyMedium(context),
+                          ),
                           GestureDetector(
                             onTap: () => context.pop(),
-                            child: Text('Sign in', style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Sign in',
+                              style: AppTextStyles.bodyMedium(context).copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ],
                       ),

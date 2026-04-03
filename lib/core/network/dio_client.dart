@@ -30,7 +30,9 @@ class DioClient {
         },
         onResponse: (response, handler) {
           if (kDebugMode) {
-            print('API Response: \${response.statusCode} - \${response.requestOptions.path}');
+            print(
+              'API Response: \${response.statusCode} - \${response.requestOptions.path}',
+            );
           }
           return handler.next(response);
         },

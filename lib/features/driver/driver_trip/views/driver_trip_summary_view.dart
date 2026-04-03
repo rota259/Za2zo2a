@@ -34,18 +34,28 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
               children: [
                 // Top AppBar
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: context.widthPct(16), vertical: context.heightPct(12)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(16),
+                    vertical: context.heightPct(12),
+                  ),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: context.widthPct(18),
                         backgroundColor: Colors.blueGrey.shade800,
-                        child: Icon(Icons.person, color: Colors.amber.shade200, size: context.widthPct(20)),
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.amber.shade200,
+                          size: context.widthPct(20),
+                        ),
                       ),
                       SizedBox(width: context.widthPct(12)),
                       Text(
                         'VoltRide',
-                        style: AppTextStyles.h2(context).copyWith(fontWeight: FontWeight.bold, fontSize: context.fontPct(20)),
+                        style: AppTextStyles.h2(context).copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: context.fontPct(20),
+                        ),
                       ),
                       const Spacer(),
                       Icon(Icons.sensors, color: AppColors.primary, size: 20),
@@ -55,12 +65,14 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
 
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(24)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(24),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: context.heightPct(40)),
-                        
+
                         // Checkmark Icon
                         Container(
                           padding: EdgeInsets.all(context.widthPct(12)),
@@ -74,19 +86,27 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
                               color: AppColors.primary,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.check, color: Colors.white, size: context.widthPct(30)),
+                            child: Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: context.widthPct(30),
+                            ),
                           ),
                         ),
                         SizedBox(height: context.heightPct(24)),
 
                         Text(
                           'Trip Ended',
-                          style: AppTextStyles.h1(context).copyWith(fontWeight: FontWeight.w900),
+                          style: AppTextStyles.h1(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.w900),
                         ),
                         SizedBox(height: context.heightPct(8)),
                         Text(
                           'How was your experience with the rider?',
-                          style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.textSecondary),
+                          style: AppTextStyles.bodyMedium(
+                            context,
+                          ).copyWith(color: AppColors.textSecondary),
                         ),
                         SizedBox(height: context.heightPct(32)),
 
@@ -95,21 +115,43 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
                           padding: EdgeInsets.all(context.widthPct(16)),
                           decoration: BoxDecoration(
                             color: AppColors.grey50,
-                            borderRadius: BorderRadius.circular(context.widthPct(16)),
+                            borderRadius: BorderRadius.circular(
+                              context.widthPct(16),
+                            ),
                           ),
                           child: Row(
                             children: [
                               CircleAvatar(
                                 radius: context.widthPct(24),
                                 backgroundColor: Colors.blueGrey.shade900,
-                                child: Text('E', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                                child: Text(
+                                  'E',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
                               ),
                               SizedBox(width: context.widthPct(16)),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Elena Rodriguez', style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
-                                  Text('RIDER SINCE 2022', style: TextStyle(fontSize: 10, color: AppColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                                  Text(
+                                    'Elena Rodriguez',
+                                    style: AppTextStyles.h3(
+                                      context,
+                                    ).copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'RIDER SINCE 2022',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: AppColors.textSecondary,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
@@ -126,19 +168,35 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
                           itemCount: 5,
                           itemSize: context.widthPct(40),
                           itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(Icons.star, color: Colors.orange),
+                          itemBuilder: (context, _) =>
+                              Icon(Icons.star, color: Colors.orange),
                           onRatingUpdate: (rating) {
                             setState(() => _riderRating = rating);
                           },
                         ),
                         SizedBox(height: context.heightPct(12)),
-                        Text('GREAT PERFORMANCE', style: TextStyle(fontSize: 12, color: Colors.orange, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                        Text(
+                          'GREAT PERFORMANCE',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
+                        ),
                         SizedBox(height: context.heightPct(32)),
 
                         // Optional Feedback
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text('OPTIONAL FEEDBACK', style: TextStyle(fontSize: 10, color: AppColors.textSecondary, fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'OPTIONAL FEEDBACK',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: AppColors.textSecondary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                         SizedBox(height: context.heightPct(8)),
                         TextField(
@@ -175,15 +233,23 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
-                              padding: EdgeInsets.symmetric(vertical: context.heightPct(16)),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: EdgeInsets.symmetric(
+                                vertical: context.heightPct(16),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                             onPressed: () {
                               context.read<DriverTripCubit>().reset();
                             },
                             child: Text(
                               'Submit Review >',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),
@@ -205,7 +271,13 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, -2))],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 10,
+            offset: Offset(0, -2),
+          ),
+        ],
       ),
       child: SafeArea(
         child: Padding(
@@ -213,10 +285,27 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _NavIcon(icon: Icons.dashboard_outlined, label: 'HOME', onTap: () => context.go('/driver/home')),
-              _NavIcon(icon: Icons.account_balance_wallet_outlined, label: 'EARNINGS', onTap: () => context.go('/driver/earnings')),
-              _NavIcon(icon: Icons.rocket_launch_outlined, label: 'BOOSTER', isActive: true, onTap: () {}),
-              _NavIcon(icon: Icons.person_outline, label: 'PROFILE', onTap: () => context.go('/driver/profile')),
+              _NavIcon(
+                icon: Icons.dashboard_outlined,
+                label: 'HOME',
+                onTap: () => context.go('/driver/home'),
+              ),
+              _NavIcon(
+                icon: Icons.account_balance_wallet_outlined,
+                label: 'EARNINGS',
+                onTap: () => context.go('/driver/earnings'),
+              ),
+              _NavIcon(
+                icon: Icons.rocket_launch_outlined,
+                label: 'BOOSTER',
+                isActive: true,
+                onTap: () {},
+              ),
+              _NavIcon(
+                icon: Icons.person_outline,
+                label: 'PROFILE',
+                onTap: () => context.go('/driver/profile'),
+              ),
             ],
           ),
         ),
@@ -238,7 +327,14 @@ class _FeedbackTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.grey200),
       ),
-      child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.black87,
+        ),
+      ),
     );
   }
 }
@@ -249,7 +345,12 @@ class _NavIcon extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-  const _NavIcon({required this.icon, required this.label, this.isActive = false, required this.onTap});
+  const _NavIcon({
+    required this.icon,
+    required this.label,
+    this.isActive = false,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -258,9 +359,20 @@ class _NavIcon extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: isActive ? AppColors.primary : AppColors.grey400, size: context.widthPct(24)),
+          Icon(
+            icon,
+            color: isActive ? AppColors.primary : AppColors.grey400,
+            size: context.widthPct(24),
+          ),
           SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: context.fontPct(9), color: isActive ? AppColors.primary : AppColors.grey400, fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: context.fontPct(9),
+              color: isActive ? AppColors.primary : AppColors.grey400,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );

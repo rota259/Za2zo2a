@@ -10,13 +10,13 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     color: AppColors.textPrimary,
   );
-  
+
   static TextStyle h2(BuildContext context) => GoogleFonts.inter(
     fontSize: context.fontPct(24),
     fontWeight: FontWeight.bold,
     color: AppColors.textPrimary,
   );
-  
+
   static TextStyle h3(BuildContext context) => GoogleFonts.inter(
     fontSize: context.fontPct(20),
     fontWeight: FontWeight.w600,
@@ -29,19 +29,19 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: AppColors.textPrimary,
   );
-  
+
   static TextStyle bodyMedium(BuildContext context) => GoogleFonts.inter(
     fontSize: context.fontPct(14),
     fontWeight: FontWeight.normal,
     color: AppColors.textPrimary,
   );
-  
+
   static TextStyle bodySmall(BuildContext context) => GoogleFonts.inter(
     fontSize: context.fontPct(12),
     fontWeight: FontWeight.normal,
     color: AppColors.textSecondary,
   );
-  
+
   static TextStyle caption(BuildContext context) => GoogleFonts.inter(
     fontSize: context.fontPct(10),
     fontWeight: FontWeight.normal,

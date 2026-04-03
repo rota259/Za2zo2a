@@ -10,18 +10,18 @@ class AuthRepo {
     // TODO: Connect to real API
     // Ensure we have a fake delay for dummy login
     await Future.delayed(const Duration(seconds: 2));
-    
+
     // final response = await _dioClient.dio.post(
     //   ApiEndpoints.login,
     //   data: {'email': email, 'password': password},
     // );
     // return AuthModel.fromJson(response.data);
-    
+
     // Mock response
     if (email == 'error@test.com') {
       throw Exception('Invalid credentials');
     }
-    
+
     return AuthModel(
       id: '1',
       name: 'Alex Volt',
@@ -31,9 +31,14 @@ class AuthRepo {
     );
   }
 
-  Future<AuthModel> signup(String name, String email, String phone, String password) async {
+  Future<AuthModel> signup(
+    String name,
+    String email,
+    String phone,
+    String password,
+  ) async {
     await Future.delayed(const Duration(seconds: 2));
-    
+
     return AuthModel(
       id: '2',
       name: name,

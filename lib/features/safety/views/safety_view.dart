@@ -15,8 +15,16 @@ class _SafetyViewState extends State<SafetyView> {
   bool _holding = false;
 
   final List<_Contact> _contacts = const [
-    _Contact(name: 'Sarah Jenkins', relation: 'Wife', phone: '+1 (555) 012-3456'),
-    _Contact(name: 'Marcus Volt', relation: 'Brother', phone: '+1 (555) 012-7890'),
+    _Contact(
+      name: 'Sarah Jenkins',
+      relation: 'Wife',
+      phone: '+1 (555) 012-3456',
+    ),
+    _Contact(
+      name: 'Marcus Volt',
+      relation: 'Brother',
+      phone: '+1 (555) 012-7890',
+    ),
   ];
 
   @override
@@ -36,7 +44,11 @@ class _SafetyViewState extends State<SafetyView> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.fromLTRB(
-            context.widthPct(16), context.heightPct(8), context.widthPct(16), context.heightPct(40)),
+          context.widthPct(16),
+          context.heightPct(8),
+          context.widthPct(16),
+          context.heightPct(40),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,31 +72,41 @@ class _SafetyViewState extends State<SafetyView> {
                       color: Colors.white.withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.wifi_tethering, color: Colors.white, size: context.widthPct(36)),
+                    child: Icon(
+                      Icons.wifi_tethering,
+                      color: Colors.white,
+                      size: context.widthPct(36),
+                    ),
                   ),
                   SizedBox(height: context.heightPct(12)),
-                  Text('SOS EMERGENCY',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: context.fontPct(22),
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                      )),
+                  Text(
+                    'SOS EMERGENCY',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: context.fontPct(22),
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
                   SizedBox(height: context.heightPct(8)),
-                  Text('Immediately notify authorities and your\nemergency contacts.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.85),
-                        fontSize: context.fontPct(13),
-                        height: 1.4,
-                      )),
+                  Text(
+                    'Immediately notify authorities and your\nemergency contacts.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.85),
+                      fontSize: context.fontPct(13),
+                      height: 1.4,
+                    ),
+                  ),
                   SizedBox(height: context.heightPct(20)),
                   GestureDetector(
                     onLongPress: () {
                       setState(() => _holding = true);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: const Text('🚨 SOS Activated! Contacting emergency services...'),
+                          content: const Text(
+                            '🚨 SOS Activated! Contacting emergency services...',
+                          ),
                           backgroundColor: AppColors.error,
                         ),
                       );
@@ -97,8 +119,12 @@ class _SafetyViewState extends State<SafetyView> {
                         vertical: context.heightPct(14),
                       ),
                       decoration: BoxDecoration(
-                        color: _holding ? Colors.white.withOpacity(0.9) : Colors.white,
-                        borderRadius: BorderRadius.circular(context.widthPct(50)),
+                        color: _holding
+                            ? Colors.white.withOpacity(0.9)
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(50),
+                        ),
                         border: Border.all(color: Colors.white, width: 2),
                       ),
                       child: Text(
@@ -133,16 +159,30 @@ class _SafetyViewState extends State<SafetyView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.map, color: Colors.white70, size: context.widthPct(40)),
+                          Icon(
+                            Icons.map,
+                            color: Colors.white70,
+                            size: context.widthPct(40),
+                          ),
                           SizedBox(height: context.heightPct(4)),
-                          Text('New York', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
+                          Text(
+                            'New York',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Positioned(
                       top: context.heightPct(40),
                       left: context.widthPct(60),
-                      child: Icon(Icons.location_on, color: AppColors.primary, size: context.widthPct(28)),
+                      child: Icon(
+                        Icons.location_on,
+                        color: AppColors.primary,
+                        size: context.widthPct(28),
+                      ),
                     ),
                   ],
                 ),
@@ -167,20 +207,31 @@ class _SafetyViewState extends State<SafetyView> {
                       color: AppColors.primary.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.share_location, color: AppColors.primary, size: context.widthPct(22)),
+                    child: Icon(
+                      Icons.share_location,
+                      color: AppColors.primary,
+                      size: context.widthPct(22),
+                    ),
                   ),
                   SizedBox(width: context.widthPct(14)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Share Trip Status',
-                            style: AppTextStyles.bodyLarge(context)
-                                .copyWith(fontWeight: FontWeight.bold)),
+                        Text(
+                          'Share Trip Status',
+                          style: AppTextStyles.bodyLarge(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(height: context.heightPct(4)),
-                        Text('Keep your loved ones informed. Let them track your ride in real-time until you arrive safely.',
-                            style: AppTextStyles.bodySmall(context)
-                                .copyWith(color: AppColors.textSecondary, height: 1.4)),
+                        Text(
+                          'Keep your loved ones informed. Let them track your ride in real-time until you arrive safely.',
+                          style: AppTextStyles.bodySmall(context).copyWith(
+                            color: AppColors.textSecondary,
+                            height: 1.4,
+                          ),
+                        ),
                         SizedBox(height: context.heightPct(14)),
                         SizedBox(
                           width: double.infinity,
@@ -188,14 +239,23 @@ class _SafetyViewState extends State<SafetyView> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(context.widthPct(50))),
-                              padding: EdgeInsets.symmetric(vertical: context.heightPct(14)),
+                                borderRadius: BorderRadius.circular(
+                                  context.widthPct(50),
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                vertical: context.heightPct(14),
+                              ),
                               elevation: 0,
                             ),
                             onPressed: () {},
-                            child: Text('Share with Family',
-                                style: AppTextStyles.button(context)
-                                    .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                            child: Text(
+                              'Share with Family',
+                              style: AppTextStyles.button(context).copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -211,17 +271,29 @@ class _SafetyViewState extends State<SafetyView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Emergency Contacts',
-                    style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  'Emergency Contacts',
+                  style: AppTextStyles.h3(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.bold),
+                ),
                 GestureDetector(
                   onTap: () {},
                   child: Row(
                     children: [
-                      Icon(Icons.add_circle_outline, color: AppColors.primary, size: context.fontPct(16)),
+                      Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.primary,
+                        size: context.fontPct(16),
+                      ),
                       SizedBox(width: context.widthPct(4)),
-                      Text('Add New',
-                          style: AppTextStyles.bodySmall(context)
-                              .copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                      Text(
+                        'Add New',
+                        style: AppTextStyles.bodySmall(context).copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -230,45 +302,66 @@ class _SafetyViewState extends State<SafetyView> {
             SizedBox(height: context.heightPct(12)),
 
             // ── Contacts list
-            ..._contacts.map((c) => Container(
-                  margin: EdgeInsets.only(bottom: context.heightPct(10)),
-                  padding: EdgeInsets.all(context.widthPct(16)),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(context.widthPct(12)),
-                    boxShadow: const [BoxShadow(color: Color(0x0A000000), blurRadius: 6, offset: Offset(0, 2))],
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(context.widthPct(10)),
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(Icons.person_outline, color: AppColors.primary, size: context.widthPct(20)),
+            ..._contacts.map(
+              (c) => Container(
+                margin: EdgeInsets.only(bottom: context.heightPct(10)),
+                padding: EdgeInsets.all(context.widthPct(16)),
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.circular(context.widthPct(12)),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x0A000000),
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(context.widthPct(10)),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withOpacity(0.1),
+                        shape: BoxShape.circle,
                       ),
-                      SizedBox(width: context.widthPct(14)),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(c.name,
-                                style: AppTextStyles.bodyLarge(context)
-                                    .copyWith(fontWeight: FontWeight.bold)),
-                            Text('${c.relation} • ${c.phone}',
-                                style: AppTextStyles.bodySmall(context)
-                                    .copyWith(color: AppColors.textSecondary)),
-                          ],
-                        ),
+                      child: Icon(
+                        Icons.person_outline,
+                        color: AppColors.primary,
+                        size: context.widthPct(20),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.phone_outlined, color: AppColors.primary),
-                        onPressed: () {},
+                    ),
+                    SizedBox(width: context.widthPct(14)),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            c.name,
+                            style: AppTextStyles.bodyLarge(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '${c.relation} • ${c.phone}',
+                            style: AppTextStyles.bodySmall(
+                              context,
+                            ).copyWith(color: AppColors.textSecondary),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.phone_outlined,
+                        color: AppColors.primary,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
             SizedBox(height: context.heightPct(24)),
 
@@ -307,8 +400,12 @@ class _BottomCard extends StatelessWidget {
   final String subtitle;
   final VoidCallback onTap;
 
-  const _BottomCard(
-      {required this.icon, required this.title, required this.subtitle, required this.onTap});
+  const _BottomCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -330,15 +427,26 @@ class _BottomCard extends StatelessWidget {
                 color: AppColors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(context.widthPct(8)),
               ),
-              child: Icon(icon, color: AppColors.primary, size: context.widthPct(20)),
+              child: Icon(
+                icon,
+                color: AppColors.primary,
+                size: context.widthPct(20),
+              ),
             ),
             SizedBox(height: context.heightPct(8)),
-            Text(title,
-                style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
+            Text(
+              title,
+              style: AppTextStyles.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: context.heightPct(2)),
-            Text(subtitle,
-                style:
-                    AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+            Text(
+              subtitle,
+              style: AppTextStyles.bodySmall(
+                context,
+              ).copyWith(color: AppColors.textSecondary),
+            ),
           ],
         ),
       ),
@@ -350,7 +458,11 @@ class _Contact {
   final String name;
   final String relation;
   final String phone;
-  const _Contact({required this.name, required this.relation, required this.phone});
+  const _Contact({
+    required this.name,
+    required this.relation,
+    required this.phone,
+  });
 }
 
 class _GridPainter extends CustomPainter {

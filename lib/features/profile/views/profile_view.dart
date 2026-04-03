@@ -63,9 +63,15 @@ class _ProfileViewState extends State<ProfileView> {
         listener: (context, state) {},
         builder: (context, state) {
           final name = state is ProfileLoaded ? state.name : 'Alex Rivera';
-          final email = state is ProfileLoaded ? state.email : 'alex.rivera@voltride.com';
-          final phone = state is ProfileLoaded ? state.phone : '+1 (555) 123-4567';
-          final imagePath = state is ProfileLoaded ? state.profileImagePath : null;
+          final email = state is ProfileLoaded
+              ? state.email
+              : 'alex.rivera@voltride.com';
+          final phone = state is ProfileLoaded
+              ? state.phone
+              : '+1 (555) 123-4567';
+          final imagePath = state is ProfileLoaded
+              ? state.profileImagePath
+              : null;
 
           if (state is ProfileLoaded) {
             _nameController.text = name;
@@ -100,7 +106,10 @@ class _ProfileViewState extends State<ProfileView> {
                               padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: AppColors.primary, width: 3),
+                                border: Border.all(
+                                  color: AppColors.primary,
+                                  width: 3,
+                                ),
                               ),
                               child: CircleAvatar(
                                 radius: context.widthPct(46),
@@ -109,7 +118,11 @@ class _ProfileViewState extends State<ProfileView> {
                                     ? FileImage(File(imagePath))
                                     : null,
                                 child: imagePath == null
-                                    ? Icon(Icons.person, size: context.widthPct(46), color: AppColors.grey500)
+                                    ? Icon(
+                                        Icons.person,
+                                        size: context.widthPct(46),
+                                        color: AppColors.grey500,
+                                      )
                                     : null,
                               ),
                             ),
@@ -123,7 +136,9 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: AppColors.primary,
-                                  borderRadius: BorderRadius.circular(context.widthPct(20)),
+                                  borderRadius: BorderRadius.circular(
+                                    context.widthPct(20),
+                                  ),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -138,7 +153,11 @@ class _ProfileViewState extends State<ProfileView> {
                                       ),
                                     ),
                                     SizedBox(width: context.widthPct(4)),
-                                    Icon(Icons.verified, color: Colors.white, size: context.fontPct(10)),
+                                    Icon(
+                                      Icons.verified,
+                                      color: Colors.white,
+                                      size: context.fontPct(10),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -151,7 +170,9 @@ class _ProfileViewState extends State<ProfileView> {
                       // Name
                       Text(
                         name,
-                        style: AppTextStyles.h2(context).copyWith(fontWeight: FontWeight.bold),
+                        style: AppTextStyles.h2(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: context.heightPct(6)),
 
@@ -159,7 +180,11 @@ class _ProfileViewState extends State<ProfileView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.star, color: AppColors.warning, size: context.fontPct(16)),
+                          Icon(
+                            Icons.star,
+                            color: AppColors.warning,
+                            size: context.fontPct(16),
+                          ),
                           SizedBox(width: context.widthPct(4)),
                           Text(
                             '4.9',
@@ -170,7 +195,9 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Text(
                             ' (128 reviews)',
-                            style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary),
+                            style: AppTextStyles.bodySmall(
+                              context,
+                            ).copyWith(color: AppColors.textSecondary),
                           ),
                         ],
                       ),
@@ -179,7 +206,9 @@ class _ProfileViewState extends State<ProfileView> {
                       // Member since
                       Text(
                         'Member since March 2022',
-                        style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary),
+                        style: AppTextStyles.bodySmall(
+                          context,
+                        ).copyWith(color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -189,7 +218,9 @@ class _ProfileViewState extends State<ProfileView> {
 
                 // ───── STATS ROW ─────
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(20),
+                  ),
                   child: Row(
                     children: [
                       // Total Trips
@@ -219,7 +250,9 @@ class _ProfileViewState extends State<ProfileView> {
 
                 // ───── PERSONAL INFORMATION ─────
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(20),
+                  ),
                   child: Text(
                     'PERSONAL INFORMATION',
                     style: AppTextStyles.bodySmall(context).copyWith(
@@ -233,7 +266,9 @@ class _ProfileViewState extends State<ProfileView> {
 
                 // Info Cards
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(20),
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.background,
                     borderRadius: BorderRadius.circular(context.widthPct(12)),
@@ -274,7 +309,9 @@ class _ProfileViewState extends State<ProfileView> {
                 GestureDetector(
                   onTap: () => context.push('/home/payment'),
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(20),
+                    ),
                     padding: EdgeInsets.all(context.widthPct(20)),
                     decoration: BoxDecoration(
                       color: AppColors.primary.withOpacity(0.08),
@@ -288,7 +325,11 @@ class _ProfileViewState extends State<ProfileView> {
                             color: AppColors.primary,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(Icons.credit_card, color: Colors.white, size: context.widthPct(22)),
+                          child: Icon(
+                            Icons.credit_card,
+                            color: Colors.white,
+                            size: context.widthPct(22),
+                          ),
                         ),
                         SizedBox(width: context.widthPct(16)),
                         Expanded(
@@ -297,16 +338,23 @@ class _ProfileViewState extends State<ProfileView> {
                             children: [
                               Text(
                                 'Payment Methods',
-                                style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold),
+                                style: AppTextStyles.bodyLarge(
+                                  context,
+                                ).copyWith(fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 'Default: Visa ending in 4242',
-                                style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary),
+                                style: AppTextStyles.bodySmall(
+                                  context,
+                                ).copyWith(color: AppColors.textSecondary),
                               ),
                             ],
                           ),
                         ),
-                        Icon(Icons.chevron_right, color: AppColors.textSecondary),
+                        Icon(
+                          Icons.chevron_right,
+                          color: AppColors.textSecondary,
+                        ),
                       ],
                     ),
                   ),
@@ -355,7 +403,11 @@ class _StatCard extends StatelessWidget {
               color: AppColors.primary.withOpacity(0.1),
               borderRadius: BorderRadius.circular(context.widthPct(8)),
             ),
-            child: Icon(icon, color: AppColors.primary, size: context.widthPct(22)),
+            child: Icon(
+              icon,
+              color: AppColors.primary,
+              size: context.widthPct(22),
+            ),
           ),
           SizedBox(height: context.heightPct(12)),
           Text(
@@ -372,7 +424,9 @@ class _StatCard extends StatelessWidget {
               children: [
                 TextSpan(
                   text: value,
-                  style: AppTextStyles.h2(context).copyWith(fontWeight: FontWeight.bold),
+                  style: AppTextStyles.h2(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.bold),
                 ),
                 if (unit.isNotEmpty)
                   TextSpan(
@@ -425,7 +479,11 @@ class _InfoRow extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(icon, color: AppColors.grey400, size: context.widthPct(20)),
+                Icon(
+                  icon,
+                  color: AppColors.grey400,
+                  size: context.widthPct(20),
+                ),
                 SizedBox(width: context.widthPct(16)),
                 Expanded(
                   child: Column(
@@ -456,7 +514,11 @@ class _InfoRow extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(color: AppColors.primary, width: 1.5),
                     ),
-                    child: Icon(Icons.check, color: AppColors.primary, size: context.fontPct(12)),
+                    child: Icon(
+                      Icons.check,
+                      color: AppColors.primary,
+                      size: context.fontPct(12),
+                    ),
                   ),
               ],
             ),

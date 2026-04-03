@@ -39,12 +39,16 @@ class TripSummaryView extends StatelessWidget {
                 CircleAvatar(
                   radius: context.widthPct(40),
                   backgroundColor: AppColors.success,
-                  child: Icon(Icons.check, color: Colors.white, size: context.widthPct(40)),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: context.widthPct(40),
+                  ),
                 ),
                 SizedBox(height: context.heightPct(16)),
                 Text('You have arrived!', style: AppTextStyles.h2(context)),
                 SizedBox(height: context.heightPct(40)),
-                
+
                 // Receipt Card
                 Container(
                   padding: EdgeInsets.all(context.widthPct(24)),
@@ -55,9 +59,15 @@ class TripSummaryView extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      _ReceiptRow('Total Price', '\$${ride.price.toStringAsFixed(2)}', isTotal: true),
+                      _ReceiptRow(
+                        'Total Price',
+                        '\$${ride.price.toStringAsFixed(2)}',
+                        isTotal: true,
+                      ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: context.heightPct(16)),
+                        padding: EdgeInsets.symmetric(
+                          vertical: context.heightPct(16),
+                        ),
                         child: const Divider(),
                       ),
                       const _ReceiptRow('Distance', '8.2 km'), // Dummy data
@@ -82,7 +92,10 @@ class TripSummaryView extends StatelessWidget {
                     context.read<RideCubit>().cancelRide();
                     context.go('/home');
                   },
-                  child: Text('Skip for now', style: AppTextStyles.bodyMedium(context)),
+                  child: Text(
+                    'Skip for now',
+                    style: AppTextStyles.bodyMedium(context),
+                  ),
                 ),
               ],
             ),
@@ -107,11 +120,19 @@ class _ReceiptRow extends StatelessWidget {
       children: [
         Text(
           label,
-          style: isTotal ? AppTextStyles.h3(context) : AppTextStyles.bodyMedium(context).copyWith(color: AppColors.textSecondary),
+          style: isTotal
+              ? AppTextStyles.h3(context)
+              : AppTextStyles.bodyMedium(
+                  context,
+                ).copyWith(color: AppColors.textSecondary),
         ),
         Text(
           value,
-          style: isTotal ? AppTextStyles.h2(context) : AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
+          style: isTotal
+              ? AppTextStyles.h2(context)
+              : AppTextStyles.bodyMedium(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
         ),
       ],
     );

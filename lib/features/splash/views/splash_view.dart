@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   void _navigateToNext() async {
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
-      context.go('/login');
+      context.go('/role-selection');
     }
   }
 
@@ -42,10 +42,9 @@ class _SplashViewState extends State<SplashView> {
             SizedBox(height: context.heightPct(16)),
             Text(
               'Za2zo2a',
-              style: AppTextStyles.h1(context).copyWith(
-                color: Colors.white,
-                fontSize: context.fontPct(36),
-              ),
+              style: AppTextStyles.h1(
+                context,
+              ).copyWith(color: Colors.white, fontSize: context.fontPct(36)),
             ),
           ],
         ),

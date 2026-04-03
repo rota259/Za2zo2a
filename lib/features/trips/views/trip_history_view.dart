@@ -65,7 +65,13 @@ class _TripHistoryViewState extends State<TripHistoryView>
             decoration: BoxDecoration(
               color: AppColors.background,
               borderRadius: BorderRadius.circular(context.widthPct(12)),
-              boxShadow: [BoxShadow(color: Color(0x14000000), blurRadius: 8, offset: Offset(0, 2))],
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x14000000),
+                  blurRadius: 8,
+                  offset: Offset(0, 2),
+                ),
+              ],
             ),
             child: Row(
               children: [
@@ -75,14 +81,21 @@ class _TripHistoryViewState extends State<TripHistoryView>
                     CircleAvatar(
                       radius: context.widthPct(28),
                       backgroundColor: const Color(0xFF3D2B1F),
-                      child: Icon(Icons.person, color: const Color(0xFFE5CC98), size: context.widthPct(30)),
+                      child: Icon(
+                        Icons.person,
+                        color: const Color(0xFFE5CC98),
+                        size: context.widthPct(30),
+                      ),
                     ),
                     Positioned(
                       bottom: -4,
                       left: 6,
                       right: 6,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFFD700),
                           borderRadius: BorderRadius.circular(4),
@@ -105,19 +118,33 @@ class _TripHistoryViewState extends State<TripHistoryView>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Marcus Thompson',
-                          style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                      Text(
+                        'Marcus Thompson',
+                        style: AppTextStyles.h3(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(height: context.heightPct(4)),
                       Row(
                         children: [
-                          Icon(Icons.star, color: AppColors.warning, size: context.fontPct(14)),
+                          Icon(
+                            Icons.star,
+                            color: AppColors.warning,
+                            size: context.fontPct(14),
+                          ),
                           SizedBox(width: context.widthPct(4)),
-                          Text('4.9 Rating',
-                              style: AppTextStyles.bodySmall(context)
-                                  .copyWith(color: AppColors.textSecondary)),
-                          Text(' • Member since 2022',
-                              style: AppTextStyles.bodySmall(context)
-                                  .copyWith(color: AppColors.textSecondary)),
+                          Text(
+                            '4.9 Rating',
+                            style: AppTextStyles.bodySmall(
+                              context,
+                            ).copyWith(color: AppColors.textSecondary),
+                          ),
+                          Text(
+                            ' • Member since 2022',
+                            style: AppTextStyles.bodySmall(
+                              context,
+                            ).copyWith(color: AppColors.textSecondary),
+                          ),
                         ],
                       ),
                     ],
@@ -136,7 +163,9 @@ class _TripHistoryViewState extends State<TripHistoryView>
               unselectedLabelColor: AppColors.textSecondary,
               indicatorColor: AppColors.primary,
               indicatorWeight: 2.5,
-              labelStyle: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold),
+              labelStyle: AppTextStyles.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
               tabs: const [
                 Tab(text: 'All Rides'),
                 Tab(text: 'Personal'),
@@ -159,7 +188,11 @@ class _TripHistoryViewState extends State<TripHistoryView>
                   final trips = state.trips;
                   if (trips.isEmpty) {
                     return Center(
-                        child: Text('No recent trips', style: AppTextStyles.bodyLarge(context)));
+                      child: Text(
+                        'No recent trips',
+                        style: AppTextStyles.bodyLarge(context),
+                      ),
+                    );
                   }
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -173,9 +206,15 @@ class _TripHistoryViewState extends State<TripHistoryView>
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return Padding(
-                          padding: EdgeInsets.only(bottom: context.heightPct(12)),
-                          child: Text('Recent Trips',
-                              style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                          padding: EdgeInsets.only(
+                            bottom: context.heightPct(12),
+                          ),
+                          child: Text(
+                            'Recent Trips',
+                            style: AppTextStyles.h3(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.bold),
+                          ),
                         );
                       }
                       final trip = trips[index - 1];
@@ -208,7 +247,13 @@ class _TripCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.circular(context.widthPct(12)),
-        boxShadow: [BoxShadow(color: Color(0x14000000), blurRadius: 6, offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x14000000),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,23 +266,37 @@ class _TripCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${trip.date}, ${trip.time}',
-                      style: AppTextStyles.bodySmall(context).copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    '${trip.date}, ${trip.time}',
+                    style: AppTextStyles.bodySmall(context).copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   SizedBox(height: context.heightPct(4)),
-                  Text('Trip',
-                      style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold)),
-                  Text('EV-0000-XX',
-                      style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+                  Text(
+                    'Trip',
+                    style: AppTextStyles.bodyLarge(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'EV-0000-XX',
+                    style: AppTextStyles.bodySmall(
+                      context,
+                    ).copyWith(color: AppColors.textSecondary),
+                  ),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('\$${trip.price.toStringAsFixed(2)}',
-                      style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    '\$${trip.price.toStringAsFixed(2)}',
+                    style: AppTextStyles.h3(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(height: context.heightPct(4)),
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -269,10 +328,21 @@ class _TripCard extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Icon(Icons.circle, color: AppColors.primary, size: context.fontPct(10)),
+                  Icon(
+                    Icons.circle,
+                    color: AppColors.primary,
+                    size: context.fontPct(10),
+                  ),
                   Container(
-                      width: 2, height: context.heightPct(28), color: AppColors.grey300),
-                  Icon(Icons.location_on, color: AppColors.grey500, size: context.fontPct(12)),
+                    width: 2,
+                    height: context.heightPct(28),
+                    color: AppColors.grey300,
+                  ),
+                  Icon(
+                    Icons.location_on,
+                    color: AppColors.grey500,
+                    size: context.fontPct(12),
+                  ),
                 ],
               ),
               SizedBox(width: context.widthPct(12)),
@@ -280,9 +350,17 @@ class _TripCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _LocationText(label: 'Pickup', value: trip.pickup, context: context),
+                    _LocationText(
+                      label: 'Pickup',
+                      value: trip.pickup,
+                      context: context,
+                    ),
                     SizedBox(height: context.heightPct(16)),
-                    _LocationText(label: 'Drop-off', value: trip.dropoff, context: context),
+                    _LocationText(
+                      label: 'Drop-off',
+                      value: trip.dropoff,
+                      context: context,
+                    ),
                   ],
                 ),
               ),
@@ -294,9 +372,17 @@ class _TripCard extends StatelessWidget {
           // ── Stats: distance, time, energy
           Row(
             children: [
-              _TripStat(icon: Icons.straighten, value: '— km', context: context),
+              _TripStat(
+                icon: Icons.straighten,
+                value: '— km',
+                context: context,
+              ),
               SizedBox(width: context.widthPct(16)),
-              _TripStat(icon: Icons.timer_outlined, value: '— mins', context: context),
+              _TripStat(
+                icon: Icons.timer_outlined,
+                value: '— mins',
+                context: context,
+              ),
               SizedBox(width: context.widthPct(16)),
               _TripStat(icon: Icons.bolt, value: '— kWh', context: context),
             ],
@@ -312,15 +398,29 @@ class _LocationText extends StatelessWidget {
   final String value;
   final BuildContext context;
 
-  const _LocationText({required this.label, required this.value, required this.context});
+  const _LocationText({
+    required this.label,
+    required this.value,
+    required this.context,
+  });
 
   @override
   Widget build(BuildContext outerContext) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
-        Text(value, style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.w500)),
+        Text(
+          label,
+          style: AppTextStyles.bodySmall(
+            context,
+          ).copyWith(color: AppColors.textSecondary),
+        ),
+        Text(
+          value,
+          style: AppTextStyles.bodyMedium(
+            context,
+          ).copyWith(fontWeight: FontWeight.w500),
+        ),
       ],
     );
   }
@@ -331,7 +431,11 @@ class _TripStat extends StatelessWidget {
   final String value;
   final BuildContext context;
 
-  const _TripStat({required this.icon, required this.value, required this.context});
+  const _TripStat({
+    required this.icon,
+    required this.value,
+    required this.context,
+  });
 
   @override
   Widget build(BuildContext _) {
@@ -339,7 +443,12 @@ class _TripStat extends StatelessWidget {
       children: [
         Icon(icon, color: AppColors.textSecondary, size: context.fontPct(14)),
         SizedBox(width: context.widthPct(4)),
-        Text(value, style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+        Text(
+          value,
+          style: AppTextStyles.bodySmall(
+            context,
+          ).copyWith(color: AppColors.textSecondary),
+        ),
       ],
     );
   }

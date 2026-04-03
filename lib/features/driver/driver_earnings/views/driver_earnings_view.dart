@@ -5,7 +5,6 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/responsive.dart';
 import 'package:go_router/go_router.dart';
 import '../cubit/driver_earnings_cubit.dart';
-import '../cubit/driver_earnings_state.dart';
 
 class DriverEarningsView extends StatefulWidget {
   const DriverEarningsView({super.key});
@@ -30,20 +29,32 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
           children: [
             // Top App Bar
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: context.widthPct(16), vertical: context.heightPct(12)),
+              padding: EdgeInsets.symmetric(
+                horizontal: context.widthPct(16),
+                vertical: context.heightPct(12),
+              ),
               child: Row(
                 children: [
                   Icon(Icons.menu, color: Colors.black, size: 24),
                   SizedBox(width: context.widthPct(16)),
                   Text(
                     'VOLTRIDE',
-                    style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w900, fontSize: context.fontPct(18), letterSpacing: 1.2),
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w900,
+                      fontSize: context.fontPct(18),
+                      letterSpacing: 1.2,
+                    ),
                   ),
                   const Spacer(),
                   CircleAvatar(
                     radius: context.widthPct(14),
                     backgroundColor: Colors.blueGrey.shade800,
-                    child: Icon(Icons.person, color: Colors.amber.shade200, size: context.widthPct(16)),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.amber.shade200,
+                      size: context.widthPct(16),
+                    ),
                   ),
                 ],
               ),
@@ -56,13 +67,34 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: context.heightPct(20)),
-                    Text('AVAILABLE BALANCE', style: TextStyle(fontSize: 10, color: AppColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                    Text(
+                      'AVAILABLE BALANCE',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
                       children: [
-                        Text('\$2,840', style: AppTextStyles.h1(context).copyWith(fontSize: context.fontPct(48), fontWeight: FontWeight.w900)),
-                        Text('.50', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
+                        Text(
+                          '\$2,840',
+                          style: AppTextStyles.h1(context).copyWith(
+                            fontSize: context.fontPct(48),
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          '.50',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: context.heightPct(16)),
@@ -73,11 +105,22 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.primary,
-                              padding: EdgeInsets.symmetric(vertical: context.heightPct(16)),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: EdgeInsets.symmetric(
+                                vertical: context.heightPct(16),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
                             onPressed: () => context.push('/driver/payment'),
-                            child: Text('Withdraw', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                            child: Text(
+                              'Withdraw',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(width: context.widthPct(12)),
@@ -87,7 +130,10 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                             border: Border.all(color: AppColors.grey200),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Icon(Icons.receipt_long_outlined, color: Colors.black),
+                          child: Icon(
+                            Icons.receipt_long_outlined,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
                     ),
@@ -96,8 +142,21 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Weekly Pulse', style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
-                        Text('MAY 12 - 18', style: TextStyle(fontSize: 10, color: AppColors.primary, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                        Text(
+                          'Weekly Pulse',
+                          style: AppTextStyles.h3(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'MAY 12 - 18',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.0,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: context.heightPct(16)),
@@ -127,19 +186,49 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('ONLINE TIME', style: TextStyle(fontSize: 10, color: AppColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
-                              Text('32h 45m', style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                              Text(
+                                'ONLINE TIME',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: AppColors.textSecondary,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                              Text(
+                                '32h 45m',
+                                style: AppTextStyles.h3(
+                                  context,
+                                ).copyWith(fontWeight: FontWeight.bold),
+                              ),
                             ],
                           ),
                         ),
-                        Container(width: 1, height: 40, color: AppColors.grey200),
+                        Container(
+                          width: 1,
+                          height: 40,
+                          color: AppColors.grey200,
+                        ),
                         Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('TOTAL TRIPS', style: TextStyle(fontSize: 10, color: AppColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
-                              Text('148', style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                              Text(
+                                'TOTAL TRIPS',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: AppColors.textSecondary,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                              Text(
+                                '148',
+                                style: AppTextStyles.h3(
+                                  context,
+                                ).copyWith(fontWeight: FontWeight.bold),
+                              ),
                             ],
                           ),
                         ),
@@ -147,7 +236,12 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                     ),
                     SizedBox(height: context.heightPct(32)),
 
-                    Text('Performance', style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      'Performance',
+                      style: AppTextStyles.h3(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: context.heightPct(16)),
 
                     _PerformanceItem(
@@ -181,7 +275,10 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                       padding: EdgeInsets.all(context.widthPct(20)),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.orange.shade400, Colors.deepOrange.shade600],
+                          colors: [
+                            Colors.orange.shade400,
+                            Colors.deepOrange.shade600,
+                          ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -190,21 +287,54 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('REFER A FRIEND', style: AppTextStyles.h3(context).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+                          Text(
+                            'REFER A FRIEND',
+                            style: AppTextStyles.h3(context).copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
                           SizedBox(height: 4),
-                          Text('Expand the fleet and earn high-voltage rewards.', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                          Text(
+                            'Expand the fleet and earn high-voltage rewards.',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
                           SizedBox(height: 16),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text('\$500', style: AppTextStyles.h1(context).copyWith(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 36)),
+                              Text(
+                                '\$500',
+                                style: AppTextStyles.h1(context).copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 36,
+                                ),
+                              ),
                               SizedBox(width: 8),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 6.0),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                  decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(4)),
-                                  child: Text('BONUS REWARD', style: TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white24,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    'BONUS REWARD',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -217,10 +347,15 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                                 backgroundColor: Colors.white,
                                 foregroundColor: Colors.deepOrange,
                                 padding: EdgeInsets.symmetric(vertical: 14),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                               onPressed: () {},
-                              child: Text('SEND INVITE CODE', style: TextStyle(fontWeight: FontWeight.bold)),
+                              child: Text(
+                                'SEND INVITE CODE',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ],
@@ -231,7 +366,7 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                 ),
               ),
             ),
-            
+
             _buildBottomNavMenu(context),
           ],
         ),
@@ -243,7 +378,13 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2))],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(0, -2),
+          ),
+        ],
       ),
       child: SafeArea(
         child: Padding(
@@ -251,10 +392,27 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _NavIcon(icon: Icons.dashboard_outlined, label: 'HOME', onTap: () => context.go('/driver/home')),
-              _NavIcon(icon: Icons.account_balance_wallet, label: 'EARNINGS', isActive: true, onTap: () {}),
-              _NavIcon(icon: Icons.rocket_launch_outlined, label: 'BOOSTER', onTap: () => context.go('/driver/trips')),
-              _NavIcon(icon: Icons.person_outline, label: 'PROFILE', onTap: () => context.go('/driver/profile')),
+              _NavIcon(
+                icon: Icons.dashboard_outlined,
+                label: 'HOME',
+                onTap: () => context.go('/driver/home'),
+              ),
+              _NavIcon(
+                icon: Icons.account_balance_wallet,
+                label: 'EARNINGS',
+                isActive: true,
+                onTap: () {},
+              ),
+              _NavIcon(
+                icon: Icons.rocket_launch_outlined,
+                label: 'BOOSTER',
+                onTap: () => context.go('/driver/trips'),
+              ),
+              _NavIcon(
+                icon: Icons.person_outline,
+                label: 'PROFILE',
+                onTap: () => context.go('/driver/profile'),
+              ),
             ],
           ),
         ),
@@ -279,12 +437,21 @@ class _Bar extends StatelessWidget {
           width: 28,
           height: height,
           decoration: BoxDecoration(
-            color: active ? AppColors.primary : AppColors.primary.withOpacity(0.2),
+            color: active
+                ? AppColors.primary
+                : AppColors.primary.withOpacity(0.2),
             borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
           ),
         ),
         SizedBox(height: 8),
-        Text(day, style: TextStyle(fontSize: 10, color: active ? AppColors.primary : AppColors.textSecondary, fontWeight: active ? FontWeight.bold : FontWeight.normal)),
+        Text(
+          day,
+          style: TextStyle(
+            fontSize: 10,
+            color: active ? AppColors.primary : AppColors.textSecondary,
+            fontWeight: active ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
       ],
     );
   }
@@ -317,13 +484,18 @@ class _PerformanceItem extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: AppColors.grey200),
         borderRadius: BorderRadius.circular(12),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2))],
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Row(
         children: [
           Container(
             padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Icon(icon, color: AppColors.primary),
           ),
           SizedBox(width: 16),
@@ -331,16 +503,39 @@ class _PerformanceItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
-                Text(subtitle, style: TextStyle(fontSize: 9, color: AppColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                Text(
+                  title,
+                  style: AppTextStyles.bodyMedium(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 9,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                  ),
+                ),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(percentage, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 16)),
-              Text(amount, style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+              Text(
+                percentage,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                amount,
+                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              ),
             ],
           ),
         ],
@@ -355,7 +550,12 @@ class _NavIcon extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-  const _NavIcon({required this.icon, required this.label, this.isActive = false, required this.onTap});
+  const _NavIcon({
+    required this.icon,
+    required this.label,
+    this.isActive = false,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -364,9 +564,20 @@ class _NavIcon extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: isActive ? AppColors.primary : AppColors.grey400, size: 24),
+          Icon(
+            icon,
+            color: isActive ? AppColors.primary : AppColors.grey400,
+            size: 24,
+          ),
           SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: 9, color: isActive ? AppColors.primary : AppColors.grey400, fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 9,
+              color: isActive ? AppColors.primary : AppColors.grey400,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );

@@ -17,10 +17,7 @@ class DriverHeadingToPickup extends DriverTripState {
   final DriverTripModel trip;
   final int remainingMinutes;
 
-  const DriverHeadingToPickup({
-    required this.trip,
-    this.remainingMinutes = 5,
-  });
+  const DriverHeadingToPickup({required this.trip, this.remainingMinutes = 5});
 
   @override
   List<Object?> get props => [trip, remainingMinutes];
@@ -31,10 +28,7 @@ class DriverTripInProgress extends DriverTripState {
   final DriverTripModel trip;
   final int remainingMinutes;
 
-  const DriverTripInProgress({
-    required this.trip,
-    this.remainingMinutes = 18,
-  });
+  const DriverTripInProgress({required this.trip, this.remainingMinutes = 18});
 
   @override
   List<Object?> get props => [trip, remainingMinutes];

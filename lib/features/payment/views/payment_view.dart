@@ -25,36 +25,55 @@ class PaymentView extends StatelessWidget {
                   // ── Top bar
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: context.widthPct(20), vertical: context.heightPct(16)),
+                      horizontal: context.widthPct(20),
+                      vertical: context.heightPct(16),
+                    ),
                     child: Row(
                       children: [
-                        Icon(Icons.menu, color: AppColors.primary, size: context.widthPct(26)),
+                        Icon(
+                          Icons.menu,
+                          color: AppColors.primary,
+                          size: context.widthPct(26),
+                        ),
                         SizedBox(width: context.widthPct(8)),
-                        Text('Crimson Velocity',
-                            style: AppTextStyles.h2(context).copyWith(
-                                color: AppColors.primary, fontWeight: FontWeight.bold)),
+                        Text(
+                          'Crimson Velocity',
+                          style: AppTextStyles.h2(context).copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         const Spacer(),
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: context.widthPct(12), vertical: context.heightPct(5)),
+                            horizontal: context.widthPct(12),
+                            vertical: context.heightPct(5),
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFFFF8F00),
-                            borderRadius: BorderRadius.circular(context.widthPct(20)),
+                            borderRadius: BorderRadius.circular(
+                              context.widthPct(20),
+                            ),
                           ),
-                          child: Text('PREMIUM',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: context.fontPct(10),
-                                letterSpacing: 1.1,
-                              )),
+                          child: Text(
+                            'PREMIUM',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: context.fontPct(10),
+                              letterSpacing: 1.1,
+                            ),
+                          ),
                         ),
                         SizedBox(width: context.widthPct(10)),
                         CircleAvatar(
                           radius: context.widthPct(20),
                           backgroundColor: AppColors.grey200,
-                          child: Icon(Icons.person,
-                              color: AppColors.grey500, size: context.widthPct(20)),
+                          child: Icon(
+                            Icons.person,
+                            color: AppColors.grey500,
+                            size: context.widthPct(20),
+                          ),
                         ),
                       ],
                     ),
@@ -64,7 +83,9 @@ class PaymentView extends StatelessWidget {
 
                   // ── Balance card
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(16),
+                    ),
                     child: Container(
                       width: double.infinity,
                       padding: EdgeInsets.all(context.widthPct(24)),
@@ -74,42 +95,56 @@ class PaymentView extends StatelessWidget {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
-                        borderRadius: BorderRadius.circular(context.widthPct(16)),
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(16),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('AVAILABLE BALANCE',
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: context.fontPct(11),
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
-                              )),
+                          Text(
+                            'AVAILABLE BALANCE',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.8),
+                              fontSize: context.fontPct(11),
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
                           SizedBox(height: context.heightPct(8)),
-                          Text(r'$142.50',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: context.fontPct(36),
-                                fontWeight: FontWeight.bold,
-                              )),
+                          Text(
+                            r'$142.50',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: context.fontPct(36),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: context.heightPct(20)),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: AppColors.primary,
                               padding: EdgeInsets.symmetric(
-                                  horizontal: context.widthPct(32), vertical: context.heightPct(12)),
+                                horizontal: context.widthPct(32),
+                                vertical: context.heightPct(12),
+                              ),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(context.widthPct(50))),
+                                borderRadius: BorderRadius.circular(
+                                  context.widthPct(50),
+                                ),
+                              ),
                               elevation: 0,
                             ),
                             onPressed: () {},
-                            child: Text('Top Up',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: context.fontPct(14),
-                                    color: AppColors.primary)),
+                            child: Text(
+                              'Top Up',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: context.fontPct(14),
+                                color: AppColors.primary,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -120,25 +155,35 @@ class PaymentView extends StatelessWidget {
 
                   // ── Primary Method
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(16),
+                    ),
                     child: Container(
                       padding: EdgeInsets.all(context.widthPct(16)),
                       decoration: BoxDecoration(
                         color: AppColors.background,
-                        borderRadius: BorderRadius.circular(context.widthPct(12)),
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(12),
+                        ),
                         boxShadow: const [
-                          BoxShadow(color: Color(0x0A000000), blurRadius: 6, offset: Offset(0, 2))
+                          BoxShadow(
+                            color: Color(0x0A000000),
+                            blurRadius: 6,
+                            offset: Offset(0, 2),
+                          ),
                         ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('PRIMARY METHOD',
-                              style: AppTextStyles.bodySmall(context).copyWith(
-                                color: AppColors.textSecondary,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.1,
-                              )),
+                          Text(
+                            'PRIMARY METHOD',
+                            style: AppTextStyles.bodySmall(context).copyWith(
+                              color: AppColors.textSecondary,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.1,
+                            ),
+                          ),
                           SizedBox(height: context.heightPct(12)),
                           Row(
                             children: [
@@ -147,32 +192,47 @@ class PaymentView extends StatelessWidget {
                                 padding: EdgeInsets.all(context.widthPct(10)),
                                 decoration: BoxDecoration(
                                   color: AppColors.grey50,
-                                  borderRadius: BorderRadius.circular(context.widthPct(8)),
+                                  borderRadius: BorderRadius.circular(
+                                    context.widthPct(8),
+                                  ),
                                 ),
-                                child: Icon(Icons.credit_card,
-                                    color: AppColors.primary, size: context.widthPct(24)),
+                                child: Icon(
+                                  Icons.credit_card,
+                                  color: AppColors.primary,
+                                  size: context.widthPct(24),
+                                ),
                               ),
                               SizedBox(width: context.widthPct(14)),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Visa •••• 4421',
-                                        style: AppTextStyles.bodyLarge(context)
-                                            .copyWith(fontWeight: FontWeight.bold)),
-                                    Text('EXPIRY   09/27',
-                                        style: AppTextStyles.bodySmall(context)
-                                            .copyWith(color: AppColors.textSecondary)),
+                                    Text(
+                                      'Visa •••• 4421',
+                                      style: AppTextStyles.bodyLarge(
+                                        context,
+                                      ).copyWith(fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      'EXPIRY   09/27',
+                                      style: AppTextStyles.bodySmall(context)
+                                          .copyWith(
+                                            color: AppColors.textSecondary,
+                                          ),
+                                    ),
                                   ],
                                 ),
                               ),
                               GestureDetector(
                                 onTap: () {},
-                                child: Text('Edit Card',
-                                    style: AppTextStyles.bodySmall(context).copyWith(
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                child: Text(
+                                  'Edit Card',
+                                  style: AppTextStyles.bodySmall(context)
+                                      .copyWith(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
@@ -185,7 +245,9 @@ class PaymentView extends StatelessWidget {
 
                   // ── Add Payment Method
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(16),
+                    ),
                     child: GestureDetector(
                       onTap: () {
                         context.read<PaymentCubit>().addCard('Visa **** 9999');
@@ -198,20 +260,35 @@ class PaymentView extends StatelessWidget {
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: context.widthPct(16), vertical: context.heightPct(16)),
+                          horizontal: context.widthPct(16),
+                          vertical: context.heightPct(16),
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.background,
-                          borderRadius: BorderRadius.circular(context.widthPct(12)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(12),
+                          ),
                           border: Border.all(
-                              color: AppColors.grey200, style: BorderStyle.solid, width: 1.5),
+                            color: AppColors.grey200,
+                            style: BorderStyle.solid,
+                            width: 1.5,
+                          ),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.add, color: AppColors.primary, size: context.widthPct(20)),
+                            Icon(
+                              Icons.add,
+                              color: AppColors.primary,
+                              size: context.widthPct(20),
+                            ),
                             SizedBox(width: context.widthPct(12)),
-                            Text('Add Payment Method',
-                                style: AppTextStyles.bodyLarge(context)
-                                    .copyWith(color: AppColors.primary, fontWeight: FontWeight.w500)),
+                            Text(
+                              'Add Payment Method',
+                              style: AppTextStyles.bodyLarge(context).copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                             const Spacer(),
                             Icon(Icons.chevron_right, color: AppColors.grey400),
                           ],
@@ -224,17 +301,27 @@ class PaymentView extends StatelessWidget {
 
                   // ── Recent Transactions header
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(16),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Recent Transactions',
-                            style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                        Text(
+                          'Recent Transactions',
+                          style: AppTextStyles.h3(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
                         GestureDetector(
                           onTap: () => context.push('/trips'),
-                          child: Text('VIEW ALL',
-                              style: AppTextStyles.bodySmall(context).copyWith(
-                                  color: AppColors.primary, fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'VIEW ALL',
+                            style: AppTextStyles.bodySmall(context).copyWith(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -244,7 +331,9 @@ class PaymentView extends StatelessWidget {
 
                   // ── Transaction Cards
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(16),
+                    ),
                     child: Column(
                       children: const [
                         _TransactionCard(
@@ -310,7 +399,11 @@ class _TransactionCard extends StatelessWidget {
         color: AppColors.background,
         borderRadius: BorderRadius.circular(context.widthPct(12)),
         boxShadow: const [
-          BoxShadow(color: Color(0x0A000000), blurRadius: 6, offset: Offset(0, 2))
+          BoxShadow(
+            color: Color(0x0A000000),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: Row(
@@ -325,33 +418,49 @@ class _TransactionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold)),
+                Text(
+                  title,
+                  style: AppTextStyles.bodyLarge(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: context.heightPct(2)),
-                Text(date,
-                    style: AppTextStyles.bodySmall(context)
-                        .copyWith(color: AppColors.textSecondary)),
+                Text(
+                  date,
+                  style: AppTextStyles.bodySmall(
+                    context,
+                  ).copyWith(color: AppColors.textSecondary),
+                ),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(amount,
-                  style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold)),
+              Text(
+                amount,
+                style: AppTextStyles.bodyLarge(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: context.heightPct(4)),
               Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: context.widthPct(6), vertical: context.heightPct(2)),
+                  horizontal: context.widthPct(6),
+                  vertical: context.heightPct(2),
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8F5E9),
                   borderRadius: BorderRadius.circular(context.widthPct(4)),
                 ),
-                child: Text('COMPLETED',
-                    style: TextStyle(
-                      color: const Color(0xFF388E3C),
-                      fontSize: context.fontPct(9),
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Text(
+                  'COMPLETED',
+                  style: TextStyle(
+                    color: const Color(0xFF388E3C),
+                    fontSize: context.fontPct(9),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),

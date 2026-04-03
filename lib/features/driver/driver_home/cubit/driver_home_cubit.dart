@@ -1,11 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/services/location_service.dart';
 import '../data/repos/driver_home_repo.dart';
 import 'driver_home_state.dart';
 
 class DriverHomeCubit extends Cubit<DriverHomeState> {
   final DriverHomeRepo _repo;
 
-  DriverHomeCubit(this._repo) : super(DriverHomeInitial());
+  DriverHomeCubit(this._repo) : super(DriverHomeInitial()) {
+    _fetchInitialLocation();
+  }
+
+  Future<void> _fetchInitialLocation() async {
+    final position = await LocationService.getCurrentLocation();
+    // Use position if needed
+  }
 
   /// Toggle driver online/offline status.
   Future<void> goOnline() async {
@@ -51,7 +59,9 @@ class DriverHomeCubit extends Cubit<DriverHomeState> {
       await _repo.acceptRequest(requestId);
       emit(DriverHomeRequestAccepted(currentRequest));
     } catch (e) {
-      emit(const DriverHomeError('Failed to accept request. Please try again.'));
+      emit(
+        const DriverHomeError('Failed to accept request. Please try again.'),
+      );
     }
   }
 

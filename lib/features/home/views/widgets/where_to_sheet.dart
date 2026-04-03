@@ -20,11 +20,7 @@ class WhereToSheet extends StatelessWidget {
           topRight: Radius.circular(context.widthPct(24)),
         ),
         boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            spreadRadius: 2,
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 2),
         ],
       ),
       child: SafeArea(
@@ -47,16 +43,22 @@ class WhereToSheet extends StatelessWidget {
               SizedBox(height: context.heightPct(20)),
               Text('Hello, Alex!', style: AppTextStyles.h3(context)),
               SizedBox(height: context.heightPct(8)),
-              Text('Where would you like to go?', style: AppTextStyles.bodyMedium(context)),
+              Text(
+                'Where would you like to go?',
+                style: AppTextStyles.bodyMedium(context),
+              ),
               SizedBox(height: context.heightPct(20)),
-              
+
               // Search Input Box
               GestureDetector(
                 onTap: () {
                   context.push('/home/search/destination');
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: context.widthPct(16), vertical: context.heightPct(16)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(16),
+                    vertical: context.heightPct(16),
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.grey100,
                     borderRadius: BorderRadius.circular(context.widthPct(12)),
@@ -65,20 +67,24 @@ class WhereToSheet extends StatelessWidget {
                     children: [
                       Icon(Icons.search, color: AppColors.textSecondary),
                       SizedBox(width: context.widthPct(12)),
-                      Text('Enter destination', style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.textSecondary)),
+                      Text(
+                        'Enter destination',
+                        style: AppTextStyles.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColors.textSecondary),
+                      ),
                     ],
                   ),
                 ),
               ),
               SizedBox(height: context.heightPct(16)),
-              
-              
+
               // Saved Locations Quick Access
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
                   String? homeAddress;
                   String? workAddress;
-                  
+
                   if (state is HomeLoaded) {
                     homeAddress = state.savedHomeAddress;
                     workAddress = state.savedWorkAddress;
@@ -92,13 +98,27 @@ class WhereToSheet extends StatelessWidget {
                           backgroundColor: AppColors.grey200,
                           child: Icon(Icons.home, color: AppColors.textPrimary),
                         ),
-                        title: Text('Home', style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
-                        subtitle: Text(homeAddress ?? 'Set home address', style: AppTextStyles.bodySmall(context).copyWith(color: homeAddress == null ? AppColors.primary : AppColors.textSecondary)),
+                        title: Text(
+                          'Home',
+                          style: AppTextStyles.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          homeAddress ?? 'Set home address',
+                          style: AppTextStyles.bodySmall(context).copyWith(
+                            color: homeAddress == null
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
+                          ),
+                        ),
                         onTap: () {
                           if (homeAddress == null) {
                             context.push('/home/search/home');
                           } else {
-                            context.read<HomeCubit>().selectDestination(homeAddress);
+                            context.read<HomeCubit>().selectDestination(
+                              homeAddress,
+                            );
                           }
                         },
                       ),
@@ -108,13 +128,27 @@ class WhereToSheet extends StatelessWidget {
                           backgroundColor: AppColors.grey200,
                           child: Icon(Icons.work, color: AppColors.textPrimary),
                         ),
-                        title: Text('Work', style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.bold)),
-                        subtitle: Text(workAddress ?? 'Set work address', style: AppTextStyles.bodySmall(context).copyWith(color: workAddress == null ? AppColors.primary : AppColors.textSecondary)),
+                        title: Text(
+                          'Work',
+                          style: AppTextStyles.bodyMedium(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          workAddress ?? 'Set work address',
+                          style: AppTextStyles.bodySmall(context).copyWith(
+                            color: workAddress == null
+                                ? AppColors.primary
+                                : AppColors.textSecondary,
+                          ),
+                        ),
                         onTap: () {
                           if (workAddress == null) {
                             context.push('/home/search/work');
                           } else {
-                            context.read<HomeCubit>().selectDestination(workAddress);
+                            context.read<HomeCubit>().selectDestination(
+                              workAddress,
+                            );
                           }
                         },
                       ),

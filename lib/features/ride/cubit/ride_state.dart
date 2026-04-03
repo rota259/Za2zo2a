@@ -14,7 +14,7 @@ class RideLoading extends RideState {}
 
 class RideOptionsLoaded extends RideState {
   final List<RideModel> rides;
-  
+
   const RideOptionsLoaded(this.rides);
 
   @override
@@ -23,7 +23,7 @@ class RideOptionsLoaded extends RideState {
 
 class RideActive extends RideState {
   final RideModel activeRide;
-  
+
   const RideActive(this.activeRide);
 
   @override

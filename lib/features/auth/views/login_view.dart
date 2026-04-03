@@ -30,7 +30,10 @@ class _LoginViewState extends State<LoginView> {
           context.go('/home');
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: AppColors.error,
+            ),
           );
         }
       },
@@ -70,7 +73,9 @@ class _LoginViewState extends State<LoginView> {
                         height: context.widthPct(60),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFFEBEB),
-                          borderRadius: BorderRadius.circular(context.widthPct(12)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(12),
+                          ),
                         ),
                         child: Icon(
                           Icons.flash_on_rounded,
@@ -91,9 +96,9 @@ class _LoginViewState extends State<LoginView> {
                       SizedBox(height: context.heightPct(8)),
                       Text(
                         'Log in to your Za2zo2a account',
-                        style: AppTextStyles.bodyMedium(context).copyWith(
-                          color: AppColors.textSecondary,
-                        ),
+                        style: AppTextStyles.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColors.textSecondary),
                       ),
                       SizedBox(height: context.heightPct(40)),
 
@@ -103,8 +108,10 @@ class _LoginViewState extends State<LoginView> {
                       CustomTextField(
                         controller: _emailController,
                         hintText: 'Enter your email or phone',
-                        prefixIcon: Icon(Icons.mail_outline_rounded,
-                            color: AppColors.grey400),
+                        prefixIcon: Icon(
+                          Icons.mail_outline_rounded,
+                          color: AppColors.grey400,
+                        ),
                         keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: context.heightPct(20)),
@@ -130,11 +137,15 @@ class _LoginViewState extends State<LoginView> {
                       CustomTextField(
                         controller: _passwordController,
                         hintText: 'Enter your password',
-                        prefixIcon: Icon(Icons.lock_outline_rounded,
-                            color: AppColors.grey400),
+                        prefixIcon: Icon(
+                          Icons.lock_outline_rounded,
+                          color: AppColors.grey400,
+                        ),
                         obscureText: true,
-                        suffixIcon: Icon(Icons.visibility_outlined,
-                            color: AppColors.grey400),
+                        suffixIcon: Icon(
+                          Icons.visibility_outlined,
+                          color: AppColors.grey400,
+                        ),
                       ),
                       SizedBox(height: context.heightPct(30)),
 
@@ -146,17 +157,19 @@ class _LoginViewState extends State<LoginView> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primary,
                             shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(context.widthPct(12))),
+                              borderRadius: BorderRadius.circular(
+                                context.widthPct(12),
+                              ),
+                            ),
                             elevation: 8,
                             shadowColor: AppColors.primary.withOpacity(0.4),
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<AuthCubit>().login(
-                                    _emailController.text,
-                                    _passwordController.text,
-                                  );
+                                _emailController.text,
+                                _passwordController.text,
+                              );
                             }
                           },
                           child: Text(
@@ -176,7 +189,8 @@ class _LoginViewState extends State<LoginView> {
                           const Expanded(child: Divider()),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: context.widthPct(16)),
+                              horizontal: context.widthPct(16),
+                            ),
                             child: Text(
                               'OR CONTINUE WITH',
                               style: AppTextStyles.caption(context).copyWith(
@@ -196,8 +210,10 @@ class _LoginViewState extends State<LoginView> {
                         children: [
                           Expanded(
                             child: _SocialButton(
-                              icon: FaIcon(FontAwesomeIcons.google,
-                                  size: context.widthPct(18)),
+                              icon: FaIcon(
+                                FontAwesomeIcons.google,
+                                size: context.widthPct(18),
+                              ),
                               label: 'Google',
                               onTap: () {},
                             ),
@@ -205,8 +221,10 @@ class _LoginViewState extends State<LoginView> {
                           SizedBox(width: context.widthPct(16)),
                           Expanded(
                             child: _SocialButton(
-                              icon: FaIcon(FontAwesomeIcons.apple,
-                                  size: context.widthPct(18)),
+                              icon: FaIcon(
+                                FontAwesomeIcons.apple,
+                                size: context.widthPct(18),
+                              ),
                               label: 'Apple',
                               onTap: () {},
                             ),
@@ -226,9 +244,9 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   Text(
                     "Don't have an account? ",
-                    style: AppTextStyles.bodyMedium(context).copyWith(
-                      color: AppColors.textSecondary,
-                    ),
+                    style: AppTextStyles.bodyMedium(
+                      context,
+                    ).copyWith(color: AppColors.textSecondary),
                   ),
                   GestureDetector(
                     onTap: () => context.push('/signup'),
@@ -292,9 +310,9 @@ class _SocialButton extends StatelessWidget {
             SizedBox(width: context.widthPct(8)),
             Text(
               label,
-              style: AppTextStyles.bodyMedium(context).copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.bodyMedium(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),

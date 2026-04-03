@@ -44,7 +44,11 @@ class DriverTripCubit extends Cubit<DriverTripState> {
         );
         emit(DriverTripCompleted(completedTrip));
       } catch (e) {
-        emit(const DriverTripError('Failed to complete the trip. Please try again.'));
+        emit(
+          const DriverTripError(
+            'Failed to complete the trip. Please try again.',
+          ),
+        );
       }
     }
   }
@@ -61,7 +65,11 @@ class DriverTripCubit extends Cubit<DriverTripState> {
   }
 
   /// Submit rating for the rider after trip is done.
-  Future<void> submitRiderRating(String tripId, double rating, String? comment) async {
+  Future<void> submitRiderRating(
+    String tripId,
+    double rating,
+    String? comment,
+  ) async {
     try {
       await _repo.submitRiderRating(tripId, rating, comment);
     } catch (_) {

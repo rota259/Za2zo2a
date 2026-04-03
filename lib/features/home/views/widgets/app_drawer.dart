@@ -21,7 +21,9 @@ class AppDrawer extends StatelessWidget {
           BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, state) {
               final name = state is ProfileLoaded ? state.name : 'Alex Volt';
-              final imagePath = state is ProfileLoaded ? state.profileImagePath : null;
+              final imagePath = state is ProfileLoaded
+                  ? state.profileImagePath
+                  : null;
 
               return Container(
                 width: double.infinity,
@@ -38,25 +40,43 @@ class AppDrawer extends StatelessWidget {
                     CircleAvatar(
                       radius: context.widthPct(28),
                       backgroundColor: AppColors.grey200,
-                      backgroundImage: imagePath != null ? FileImage(File(imagePath)) : null,
+                      backgroundImage: imagePath != null
+                          ? FileImage(File(imagePath))
+                          : null,
                       child: imagePath == null
-                          ? Icon(Icons.person, size: context.widthPct(30), color: AppColors.grey500)
+                          ? Icon(
+                              Icons.person,
+                              size: context.widthPct(30),
+                              color: AppColors.grey500,
+                            )
                           : null,
                     ),
                     SizedBox(width: context.widthPct(16)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(name,
-                            style: AppTextStyles.h3(context)
-                                .copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                        Text(
+                          name,
+                          style: AppTextStyles.h3(context).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         SizedBox(height: context.heightPct(4)),
                         Row(
                           children: [
-                            Icon(Icons.location_on, color: Colors.white70, size: context.fontPct(13)),
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.white70,
+                              size: context.fontPct(13),
+                            ),
                             SizedBox(width: context.widthPct(2)),
-                            Text('4.95 Rating',
-                                style: AppTextStyles.bodySmall(context).copyWith(color: Colors.white70)),
+                            Text(
+                              '4.95 Rating',
+                              style: AppTextStyles.bodySmall(
+                                context,
+                              ).copyWith(color: Colors.white70),
+                            ),
                           ],
                         ),
                       ],
@@ -116,25 +136,36 @@ class AppDrawer extends StatelessWidget {
                     top: context.heightPct(20),
                     bottom: context.heightPct(8),
                   ),
-                  child: Text('SAFETY CENTER',
-                      style: AppTextStyles.bodySmall(context).copyWith(
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.1,
-                      )),
+                  child: Text(
+                    'SAFETY CENTER',
+                    style: AppTextStyles.bodySmall(context).copyWith(
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.1,
+                    ),
+                  ),
                 ),
 
                 // Safety header tile
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: context.widthPct(12)),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(12),
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.primary.withOpacity(0.07),
                     borderRadius: BorderRadius.circular(context.widthPct(10)),
                   ),
                   child: ListTile(
-                    leading: Icon(Icons.shield_outlined, color: AppColors.primary),
-                    title: Text('Safety Services',
-                        style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold)),
+                    leading: Icon(
+                      Icons.shield_outlined,
+                      color: AppColors.primary,
+                    ),
+                    title: Text(
+                      'Safety Services',
+                      style: AppTextStyles.bodyLarge(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
                     onTap: () {},
                   ),
                 ),
@@ -162,7 +193,9 @@ class AppDrawer extends StatelessWidget {
 
                 // ── Earn with us banner
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: context.widthPct(12)),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: context.widthPct(12),
+                  ),
                   padding: EdgeInsets.all(context.widthPct(14)),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFF3E0),
@@ -172,11 +205,13 @@ class AppDrawer extends StatelessWidget {
                     children: [
                       Icon(Icons.trending_up, color: Colors.orange.shade700),
                       SizedBox(width: context.widthPct(10)),
-                      Text('Earn with us',
-                          style: AppTextStyles.bodyMedium(context).copyWith(
-                            color: Colors.orange.shade800,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      Text(
+                        'Earn with us',
+                        style: AppTextStyles.bodyMedium(context).copyWith(
+                          color: Colors.orange.shade800,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(width: context.widthPct(8)),
                       Container(
                         padding: EdgeInsets.symmetric(
@@ -185,14 +220,18 @@ class AppDrawer extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           color: Colors.orange.shade700,
-                          borderRadius: BorderRadius.circular(context.widthPct(4)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(4),
+                          ),
                         ),
-                        child: Text('NEW',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: context.fontPct(10),
-                              fontWeight: FontWeight.bold,
-                            )),
+                        child: Text(
+                          'NEW',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: context.fontPct(10),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -210,19 +249,29 @@ class AppDrawer extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Za2zo2a v2.4.0',
-                    style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+                Text(
+                  'Za2zo2a v2.4.0',
+                  style: AppTextStyles.bodySmall(
+                    context,
+                  ).copyWith(color: AppColors.textSecondary),
+                ),
                 GestureDetector(
                   onTap: () => context.go('/login'),
                   child: Row(
                     children: [
-                      Icon(Icons.logout, color: AppColors.primary, size: context.fontPct(16)),
+                      Icon(
+                        Icons.logout,
+                        color: AppColors.primary,
+                        size: context.fontPct(16),
+                      ),
                       SizedBox(width: context.widthPct(4)),
-                      Text(' Sign Out',
-                          style: AppTextStyles.bodySmall(context).copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      Text(
+                        ' Sign Out',
+                        style: AppTextStyles.bodySmall(context).copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -260,8 +309,17 @@ class _DrawerItem extends StatelessWidget {
         ),
         child: Icon(icon, color: iconColor, size: context.widthPct(20)),
       ),
-      title: Text(title, style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.w500)),
-      trailing: Icon(Icons.chevron_right, color: AppColors.grey400, size: context.widthPct(20)),
+      title: Text(
+        title,
+        style: AppTextStyles.bodyLarge(
+          context,
+        ).copyWith(fontWeight: FontWeight.w500),
+      ),
+      trailing: Icon(
+        Icons.chevron_right,
+        color: AppColors.grey400,
+        size: context.widthPct(20),
+      ),
       onTap: () {
         context.pop();
         onTap();
@@ -284,11 +342,22 @@ class _SubDrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: context.widthPct(28), vertical: 0),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: context.widthPct(28),
+        vertical: 0,
+      ),
       dense: true,
-      leading: Icon(icon, size: context.widthPct(20), color: AppColors.textSecondary),
-      title: Text(title,
-          style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.textPrimary)),
+      leading: Icon(
+        icon,
+        size: context.widthPct(20),
+        color: AppColors.textSecondary,
+      ),
+      title: Text(
+        title,
+        style: AppTextStyles.bodyMedium(
+          context,
+        ).copyWith(color: AppColors.textPrimary),
+      ),
       onTap: () {
         context.pop();
         onTap();

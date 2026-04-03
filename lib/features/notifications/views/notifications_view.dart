@@ -87,24 +87,36 @@ class _NotificationsViewState extends State<NotificationsView> {
             // ── Top bar
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: context.widthPct(20), vertical: context.heightPct(16)),
+                horizontal: context.widthPct(20),
+                vertical: context.heightPct(16),
+              ),
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () => context.pop(),
-                    child: Icon(Icons.menu, color: AppColors.primary, size: context.widthPct(26)),
+                    child: Icon(
+                      Icons.menu,
+                      color: AppColors.primary,
+                      size: context.widthPct(26),
+                    ),
                   ),
                   SizedBox(width: context.widthPct(8)),
                   Text(
                     'Crimson Velocity',
-                    style: AppTextStyles.h2(context)
-                        .copyWith(color: AppColors.primary, fontWeight: FontWeight.bold),
+                    style: AppTextStyles.h2(context).copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Spacer(),
                   CircleAvatar(
                     radius: context.widthPct(20),
                     backgroundColor: AppColors.grey200,
-                    child: Icon(Icons.person, color: AppColors.grey500, size: context.widthPct(20)),
+                    child: Icon(
+                      Icons.person,
+                      color: AppColors.grey500,
+                      size: context.widthPct(20),
+                    ),
                   ),
                 ],
               ),
@@ -116,12 +128,19 @@ class _NotificationsViewState extends State<NotificationsView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Inbox',
-                      style: AppTextStyles.h1(context).copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    'Inbox',
+                    style: AppTextStyles.h1(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(height: context.heightPct(4)),
-                  Text('Stay updated with your latest urban movements.',
-                      style: AppTextStyles.bodyMedium(context)
-                          .copyWith(color: AppColors.textSecondary)),
+                  Text(
+                    'Stay updated with your latest urban movements.',
+                    style: AppTextStyles.bodyMedium(
+                      context,
+                    ).copyWith(color: AppColors.textSecondary),
+                  ),
                 ],
               ),
             ),
@@ -143,15 +162,24 @@ class _NotificationsViewState extends State<NotificationsView> {
                         vertical: context.heightPct(8),
                       ),
                       decoration: BoxDecoration(
-                        color: selected ? AppColors.primary : AppColors.background,
-                        borderRadius: BorderRadius.circular(context.widthPct(20)),
+                        color: selected
+                            ? AppColors.primary
+                            : AppColors.background,
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(20),
+                        ),
                         border: Border.all(
-                            color: selected ? AppColors.primary : AppColors.grey200),
+                          color: selected
+                              ? AppColors.primary
+                              : AppColors.grey200,
+                        ),
                       ),
                       child: Text(
                         filter,
                         style: AppTextStyles.bodySmall(context).copyWith(
-                          color: selected ? Colors.white : AppColors.textSecondary,
+                          color: selected
+                              ? Colors.white
+                              : AppColors.textSecondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -172,17 +200,24 @@ class _NotificationsViewState extends State<NotificationsView> {
                 itemBuilder: (context, index) {
                   if (index == filtered.length) {
                     return Padding(
-                      padding: EdgeInsets.symmetric(vertical: context.heightPct(32)),
+                      padding: EdgeInsets.symmetric(
+                        vertical: context.heightPct(32),
+                      ),
                       child: Column(
                         children: [
-                          Icon(Icons.notifications_off_outlined,
-                              color: AppColors.grey300, size: context.widthPct(40)),
+                          Icon(
+                            Icons.notifications_off_outlined,
+                            color: AppColors.grey300,
+                            size: context.widthPct(40),
+                          ),
                           SizedBox(height: context.heightPct(8)),
-                          Text('END OF NOTIFICATIONS',
-                              style: AppTextStyles.bodySmall(context).copyWith(
-                                color: AppColors.grey400,
-                                letterSpacing: 1.2,
-                              )),
+                          Text(
+                            'END OF NOTIFICATIONS',
+                            style: AppTextStyles.bodySmall(context).copyWith(
+                              color: AppColors.grey400,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -213,7 +248,13 @@ class _NotifCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.background,
         borderRadius: BorderRadius.circular(context.widthPct(12)),
-        boxShadow: [BoxShadow(color: const Color(0x0A000000), blurRadius: 6, offset: const Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x0A000000),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,7 +268,11 @@ class _NotifCard extends StatelessWidget {
                   color: notif.iconBg,
                   borderRadius: BorderRadius.circular(context.widthPct(10)),
                 ),
-                child: Icon(notif.icon, color: notif.iconColor, size: context.widthPct(22)),
+                child: Icon(
+                  notif.icon,
+                  color: notif.iconColor,
+                  size: context.widthPct(22),
+                ),
               ),
               SizedBox(width: context.widthPct(14)),
               Expanded(
@@ -240,20 +285,26 @@ class _NotifCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             notif.title,
-                            style: AppTextStyles.bodyLarge(context)
-                                .copyWith(fontWeight: FontWeight.bold),
+                            style: AppTextStyles.bodyLarge(
+                              context,
+                            ).copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Text(notif.time,
-                            style: AppTextStyles.bodySmall(context)
-                                .copyWith(color: AppColors.textSecondary, fontSize: context.fontPct(10))),
+                        Text(
+                          notif.time,
+                          style: AppTextStyles.bodySmall(context).copyWith(
+                            color: AppColors.textSecondary,
+                            fontSize: context.fontPct(10),
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: context.heightPct(4)),
                     Text(
                       notif.body,
-                      style: AppTextStyles.bodySmall(context)
-                          .copyWith(color: AppColors.textSecondary, height: 1.4),
+                      style: AppTextStyles.bodySmall(
+                        context,
+                      ).copyWith(color: AppColors.textSecondary, height: 1.4),
                     ),
                   ],
                 ),
@@ -272,15 +323,21 @@ class _NotifCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.music_note, color: Colors.white70, size: context.widthPct(20)),
+                    Icon(
+                      Icons.music_note,
+                      color: Colors.white70,
+                      size: context.widthPct(20),
+                    ),
                     SizedBox(width: context.widthPct(8)),
-                    Text('ACTIVE IN YOUR AREA',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: context.fontPct(11),
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.1,
-                        )),
+                    Text(
+                      'ACTIVE IN YOUR AREA',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: context.fontPct(11),
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
                   ],
                 ),
               ),

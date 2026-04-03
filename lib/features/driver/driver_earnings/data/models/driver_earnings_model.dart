@@ -46,11 +46,7 @@ class DailyEarning {
   final double amount;
   final int trips;
 
-  DailyEarning({
-    required this.day,
-    required this.amount,
-    required this.trips,
-  });
+  DailyEarning({required this.day, required this.amount, required this.trips});
 
   factory DailyEarning.fromJson(Map<String, dynamic> json) {
     return DailyEarning(

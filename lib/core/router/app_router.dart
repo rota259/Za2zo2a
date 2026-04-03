@@ -13,11 +13,12 @@ import '../../features/ride/views/trip_summary_view.dart';
 import '../../features/ride/views/driver_rating_view.dart';
 import '../../features/home/views/search_location_view.dart';
 import '../../features/trips/views/trip_history_view.dart';
+import '../../features/role_selection/views/role_selection_view.dart';
+import '../../features/map/view/map_screen.dart';
 
 import '../../features/profile/views/profile_view.dart';
 import '../../features/profile/views/settings_view.dart';
 import '../../features/payment/views/payment_view.dart';
-import '../../features/earnings/views/earnings_view.dart';
 import '../../features/notifications/views/notifications_view.dart';
 import '../../features/safety/views/safety_view.dart';
 
@@ -31,12 +32,17 @@ import '../../features/driver/driver_payment/views/driver_payment_view.dart';
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/driver/home',
+    initialLocation: '/',
     routes: [
       GoRoute(
         path: '/',
         builder: (context, state) => const SplashView(), // To be defined
       ),
+      GoRoute(
+        path: '/role-selection',
+        builder: (context, state) => const RoleSelectionView(),
+      ),
+      GoRoute(path: '/map', builder: (context, state) => const MapScreen()),
       GoRoute(path: '/login', builder: (context, state) => const LoginView()),
       GoRoute(path: '/signup', builder: (context, state) => const SignupView()),
       GoRoute(path: '/otp', builder: (context, state) => const OtpView()),
@@ -83,10 +89,7 @@ class AppRouter {
         path: '/payment',
         builder: (context, state) => const PaymentView(),
       ),
-      GoRoute(
-        path: '/earnings',
-        builder: (context, state) => const EarningsView(),
-      ),
+
       GoRoute(
         path: '/notifications',
         builder: (context, state) => const NotificationsView(),

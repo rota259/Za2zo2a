@@ -13,7 +13,9 @@ class DriverProfileCubit extends Cubit<DriverProfileState> {
       final profile = await _repo.getProfile();
       emit(DriverProfileLoaded(profile));
     } catch (e) {
-      emit(const DriverProfileError('Failed to load profile. Please try again.'));
+      emit(
+        const DriverProfileError('Failed to load profile. Please try again.'),
+      );
     }
   }
 

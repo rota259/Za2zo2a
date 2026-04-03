@@ -17,7 +17,10 @@ class OtpView extends StatefulWidget {
 }
 
 class _OtpViewState extends State<OtpView> {
-  final List<TextEditingController> _controllers = List.generate(4, (_) => TextEditingController());
+  final List<TextEditingController> _controllers = List.generate(
+    4,
+    (_) => TextEditingController(),
+  );
   final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
 
   @override
@@ -47,7 +50,10 @@ class _OtpViewState extends State<OtpView> {
           context.go('/home');
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: AppColors.error,
+            ),
           );
         }
       },
@@ -72,9 +78,12 @@ class _OtpViewState extends State<OtpView> {
                   children: [
                     Text('Verify Phone', style: AppTextStyles.h1(context)),
                     SizedBox(height: context.heightPct(8)),
-                    Text('Code is sent to +1 234 567 8900', style: AppTextStyles.bodyMedium(context)),
+                    Text(
+                      'Code is sent to +1 234 567 8900',
+                      style: AppTextStyles.bodyMedium(context),
+                    ),
                     SizedBox(height: context.heightPct(40)),
-                    
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: List.generate(4, (index) {
@@ -91,12 +100,21 @@ class _OtpViewState extends State<OtpView> {
                             decoration: InputDecoration(
                               counterText: '',
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(context.widthPct(12)),
-                                borderSide: BorderSide(color: AppColors.grey300),
+                                borderRadius: BorderRadius.circular(
+                                  context.widthPct(12),
+                                ),
+                                borderSide: BorderSide(
+                                  color: AppColors.grey300,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(context.widthPct(12)),
-                                borderSide: BorderSide(color: AppColors.primary, width: 2),
+                                borderRadius: BorderRadius.circular(
+                                  context.widthPct(12),
+                                ),
+                                borderSide: BorderSide(
+                                  color: AppColors.primary,
+                                  width: 2,
+                                ),
                               ),
                             ),
                             onChanged: (value) => _onTextChanged(index, value),
@@ -104,7 +122,7 @@ class _OtpViewState extends State<OtpView> {
                         );
                       }),
                     ),
-                    
+
                     SizedBox(height: context.heightPct(40)),
                     CustomButton(
                       text: 'Verify',
@@ -115,14 +133,16 @@ class _OtpViewState extends State<OtpView> {
                         }
                       },
                     ),
-                    
+
                     SizedBox(height: context.heightPct(24)),
                     Center(
                       child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Resend Code in 00:30', 
-                          style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.primary),
+                          'Resend Code in 00:30',
+                          style: AppTextStyles.bodyMedium(
+                            context,
+                          ).copyWith(color: AppColors.primary),
                         ),
                       ),
                     ),

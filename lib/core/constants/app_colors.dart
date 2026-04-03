@@ -5,18 +5,18 @@ class AppColors {
   static Color primary = Color(0xFFE23030); // Crimson Red
   static Color secondary = Color(0xFF2C2C2C); // Dark Grey
   static Color background = Color(0xFFFFFFFF);
-  
+
   // Text Colors
   static Color textPrimary = Color(0xFF1E1E1E);
   static Color textSecondary = Color(0xFF757575);
   static Color textInverse = Color(0xFFFFFFFF);
-  
+
   // Semantic
   static Color success = Color(0xFF4CAF50);
   static Color error = Color(0xFFD32F2F);
   static Color warning = Color(0xFFFBC02D);
   static Color info = Color(0xFF1976D2);
-  
+
   // Grey shades
   static Color grey50 = Color(0xFFFAFAFA);
   static Color grey100 = Color(0xFFF5F5F5);
@@ -26,7 +26,7 @@ class AppColors {
   static Color grey500 = Color(0xFF9E9E9E);
   static Color grey600 = Color(0xFF757575);
   static Color grey900 = Color(0xFF212121);
-  
+
   // Map overlays
   static Color mapRouteLine = Color(0xFFE23030);
 

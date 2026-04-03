@@ -17,7 +17,11 @@ class DriverRatingView extends StatefulWidget {
 class _DriverRatingViewState extends State<DriverRatingView> {
   double _rating = 0;
   final _feedbackController = TextEditingController();
-  final List<String> _quickTags = ['Great Service', 'Clean Car', 'Expert Driving'];
+  final List<String> _quickTags = [
+    'Great Service',
+    'Clean Car',
+    'Expert Driving',
+  ];
   final Set<String> _selectedTags = {};
 
   @override
@@ -78,12 +82,19 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                           padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: AppColors.primary, width: 2.5),
+                            border: Border.all(
+                              color: AppColors.primary,
+                              width: 2.5,
+                            ),
                           ),
                           child: CircleAvatar(
                             radius: context.widthPct(48),
                             backgroundColor: AppColors.grey200,
-                            child: Icon(Icons.person, size: context.widthPct(46), color: AppColors.grey400),
+                            child: Icon(
+                              Icons.person,
+                              size: context.widthPct(46),
+                              color: AppColors.grey400,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -94,9 +105,16 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                             decoration: BoxDecoration(
                               color: AppColors.primary,
                               shape: BoxShape.circle,
-                              border: Border.all(color: AppColors.background, width: 2),
+                              border: Border.all(
+                                color: AppColors.background,
+                                width: 2,
+                              ),
                             ),
-                            child: Icon(Icons.verified, color: Colors.white, size: context.fontPct(14)),
+                            child: Icon(
+                              Icons.verified,
+                              color: Colors.white,
+                              size: context.fontPct(14),
+                            ),
                           ),
                         ),
                       ],
@@ -104,27 +122,54 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                     SizedBox(height: context.heightPct(16)),
 
                     // ── Driver Name
-                    Text('Marcus Thompson',
-                        style: AppTextStyles.h2(context).copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      'Marcus Thompson',
+                      style: AppTextStyles.h2(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: context.heightPct(4)),
-                    Text('Toyota Camry • ABC-1234',
-                        style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.primary)),
+                    Text(
+                      'Toyota Camry • ABC-1234',
+                      style: AppTextStyles.bodyMedium(
+                        context,
+                      ).copyWith(color: AppColors.primary),
+                    ),
                     SizedBox(height: context.heightPct(4)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.star, color: AppColors.warning, size: context.fontPct(14)),
+                        Icon(
+                          Icons.star,
+                          color: AppColors.warning,
+                          size: context.fontPct(14),
+                        ),
                         SizedBox(width: context.widthPct(4)),
-                        Text('4.9', style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.warning, fontWeight: FontWeight.bold)),
-                        Text(' (1,462 trips)', style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+                        Text(
+                          '4.9',
+                          style: AppTextStyles.bodySmall(context).copyWith(
+                            color: AppColors.warning,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          ' (1,462 trips)',
+                          style: AppTextStyles.bodySmall(
+                            context,
+                          ).copyWith(color: AppColors.textSecondary),
+                        ),
                       ],
                     ),
 
                     SizedBox(height: context.heightPct(32)),
 
                     // ── How was your ride
-                    Text('How was your ride?',
-                        style: AppTextStyles.h3(context).copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      'How was your ride?',
+                      style: AppTextStyles.h3(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: context.heightPct(20)),
 
                     // ── Star Rating bar
@@ -135,10 +180,14 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                       allowHalfRating: false,
                       itemCount: 5,
                       unratedColor: AppColors.grey300,
-                      itemPadding: EdgeInsets.symmetric(horizontal: context.widthPct(6)),
+                      itemPadding: EdgeInsets.symmetric(
+                        horizontal: context.widthPct(6),
+                      ),
                       itemSize: context.widthPct(40),
-                      itemBuilder: (context, _) => Icon(Icons.star, color: AppColors.warning),
-                      onRatingUpdate: (rating) => setState(() => _rating = rating),
+                      itemBuilder: (context, _) =>
+                          Icon(Icons.star, color: AppColors.warning),
+                      onRatingUpdate: (rating) =>
+                          setState(() => _rating = rating),
                     ),
 
                     SizedBox(height: context.heightPct(28)),
@@ -146,8 +195,12 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                     // ── Optional feedback text
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Optional feedback',
-                          style: AppTextStyles.bodySmall(context).copyWith(color: AppColors.textSecondary)),
+                      child: Text(
+                        'Optional feedback',
+                        style: AppTextStyles.bodySmall(
+                          context,
+                        ).copyWith(color: AppColors.textSecondary),
+                      ),
                     ),
                     SizedBox(height: context.heightPct(8)),
                     TextField(
@@ -156,19 +209,27 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                       style: AppTextStyles.bodyMedium(context),
                       decoration: InputDecoration(
                         hintText: 'Tell us more about your experience...',
-                        hintStyle: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.grey400),
+                        hintStyle: AppTextStyles.bodyMedium(
+                          context,
+                        ).copyWith(color: AppColors.grey400),
                         filled: true,
                         fillColor: AppColors.grey50,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(context.widthPct(12)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(12),
+                          ),
                           borderSide: BorderSide(color: AppColors.grey200),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(context.widthPct(12)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(12),
+                          ),
                           borderSide: BorderSide(color: AppColors.grey200),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(context.widthPct(12)),
+                          borderRadius: BorderRadius.circular(
+                            context.widthPct(12),
+                          ),
                           borderSide: BorderSide(color: AppColors.primary),
                         ),
                         contentPadding: EdgeInsets.all(context.widthPct(16)),
@@ -185,7 +246,9 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                         final selected = _selectedTags.contains(tag);
                         return GestureDetector(
                           onTap: () => setState(() {
-                            selected ? _selectedTags.remove(tag) : _selectedTags.add(tag);
+                            selected
+                                ? _selectedTags.remove(tag)
+                                : _selectedTags.add(tag);
                           }),
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -193,16 +256,24 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                               vertical: context.heightPct(8),
                             ),
                             decoration: BoxDecoration(
-                              color: selected ? AppColors.primary : AppColors.background,
+                              color: selected
+                                  ? AppColors.primary
+                                  : AppColors.background,
                               border: Border.all(
-                                color: selected ? AppColors.primary : AppColors.grey300,
+                                color: selected
+                                    ? AppColors.primary
+                                    : AppColors.grey300,
                               ),
-                              borderRadius: BorderRadius.circular(context.widthPct(20)),
+                              borderRadius: BorderRadius.circular(
+                                context.widthPct(20),
+                              ),
                             ),
                             child: Text(
                               tag,
                               style: AppTextStyles.bodySmall(context).copyWith(
-                                color: selected ? Colors.white : AppColors.textPrimary,
+                                color: selected
+                                    ? Colors.white
+                                    : AppColors.textPrimary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -218,7 +289,9 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                       padding: EdgeInsets.all(context.widthPct(16)),
                       decoration: BoxDecoration(
                         color: AppColors.grey50,
-                        borderRadius: BorderRadius.circular(context.widthPct(12)),
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(12),
+                        ),
                         border: Border.all(color: AppColors.grey200),
                       ),
                       child: Row(
@@ -229,12 +302,20 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                               color: AppColors.primary.withOpacity(0.1),
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(Icons.card_giftcard, color: AppColors.primary, size: context.widthPct(18)),
+                            child: Icon(
+                              Icons.card_giftcard,
+                              color: AppColors.primary,
+                              size: context.widthPct(18),
+                            ),
                           ),
                           SizedBox(width: context.widthPct(12)),
                           Expanded(
-                            child: Text('Add a tip for Marcus?',
-                                style: AppTextStyles.bodyMedium(context).copyWith(fontWeight: FontWeight.w500)),
+                            child: Text(
+                              'Add a tip for Marcus?',
+                              style: AppTextStyles.bodyMedium(
+                                context,
+                              ).copyWith(fontWeight: FontWeight.w500),
+                            ),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -248,13 +329,18 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                               ),
                               decoration: BoxDecoration(
                                 color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(context.widthPct(8)),
+                                borderRadius: BorderRadius.circular(
+                                  context.widthPct(8),
+                                ),
                               ),
-                              child: Text('Add Tip',
-                                  style: AppTextStyles.bodySmall(context).copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              child: Text(
+                                'Add Tip',
+                                style: AppTextStyles.bodySmall(context)
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
                             ),
                           ),
                         ],
@@ -275,7 +361,9 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    padding: EdgeInsets.symmetric(vertical: context.heightPct(18)),
+                    padding: EdgeInsets.symmetric(
+                      vertical: context.heightPct(18),
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(context.widthPct(50)),
                     ),
@@ -309,7 +397,9 @@ class _DriverRatingViewState extends State<DriverRatingView> {
       context: context,
       backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(context.widthPct(24))),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(context.widthPct(24)),
+        ),
       ),
       builder: (ctx) => StatefulBuilder(
         builder: (ctx, setModalState) => Padding(
@@ -327,18 +417,26 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                     onTap: () => setModalState(() => selected = amt),
                     child: Container(
                       width: context.widthPct(72),
-                      padding: EdgeInsets.symmetric(vertical: context.heightPct(14)),
+                      padding: EdgeInsets.symmetric(
+                        vertical: context.heightPct(14),
+                      ),
                       decoration: BoxDecoration(
                         color: isSel ? AppColors.primary : AppColors.grey50,
-                        borderRadius: BorderRadius.circular(context.widthPct(10)),
-                        border: Border.all(color: isSel ? AppColors.primary : AppColors.grey200),
+                        borderRadius: BorderRadius.circular(
+                          context.widthPct(10),
+                        ),
+                        border: Border.all(
+                          color: isSel ? AppColors.primary : AppColors.grey200,
+                        ),
                       ),
                       child: Center(
-                        child: Text('\$$amt',
-                            style: AppTextStyles.bodyLarge(context).copyWith(
-                              color: isSel ? Colors.white : AppColors.textPrimary,
-                              fontWeight: FontWeight.bold,
-                            )),
+                        child: Text(
+                          '\$$amt',
+                          style: AppTextStyles.bodyLarge(context).copyWith(
+                            color: isSel ? Colors.white : AppColors.textPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   );
@@ -350,12 +448,20 @@ class _DriverRatingViewState extends State<DriverRatingView> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.widthPct(50))),
-                    padding: EdgeInsets.symmetric(vertical: context.heightPct(16)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(context.widthPct(50)),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: context.heightPct(16),
+                    ),
                   ),
                   onPressed: () => Navigator.pop(ctx),
-                  child: Text('Confirm \$$selected Tip',
-                      style: AppTextStyles.button(context).copyWith(color: Colors.white)),
+                  child: Text(
+                    'Confirm \$$selected Tip',
+                    style: AppTextStyles.button(
+                      context,
+                    ).copyWith(color: Colors.white),
+                  ),
                 ),
               ),
               SizedBox(height: context.heightPct(8)),

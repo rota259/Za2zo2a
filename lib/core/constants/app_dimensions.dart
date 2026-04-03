@@ -16,7 +16,7 @@ class AppDimensions {
   static const double r16 = 16.0;
   static const double r24 = 24.0;
   static const double r32 = 32.0;
-  
+
   // Icon Sizes
   static const double iconSmall = 16.0;
   static const double iconMedium = 24.0;
