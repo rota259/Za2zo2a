@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:latlong2/latlong.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -14,14 +13,12 @@ class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
   final String? currentLocation;
-  final LatLng? currentLocationCoords;
   final String? selectedDestination;
   final String? savedHomeAddress;
   final String? savedWorkAddress;
 
   const HomeLoaded({
-    this.currentLocation,
-    this.currentLocationCoords,
+    this.currentLocation, 
     this.selectedDestination,
     this.savedHomeAddress,
     this.savedWorkAddress,
@@ -29,8 +26,7 @@ class HomeLoaded extends HomeState {
 
   @override
   List<Object?> get props => [
-    currentLocation,
-    currentLocationCoords,
+    currentLocation, 
     selectedDestination,
     savedHomeAddress,
     savedWorkAddress,

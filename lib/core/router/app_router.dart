@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 // We will import views as we create them
 import '../../features/splash/views/splash_view.dart';
+import '../../features/role_selection/views/role_selection_view.dart';
 import '../../features/auth/views/login_view.dart';
 import '../../features/auth/views/signup_view.dart';
 import '../../features/auth/views/otp_view.dart';
@@ -13,12 +14,14 @@ import '../../features/ride/views/trip_summary_view.dart';
 import '../../features/ride/views/driver_rating_view.dart';
 import '../../features/home/views/search_location_view.dart';
 import '../../features/trips/views/trip_history_view.dart';
-import '../../features/role_selection/views/role_selection_view.dart';
-import '../../features/map/view/map_screen.dart';
+import '../../features/map/views/map_view.dart';
+import '../../features/map/cubit/map_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/profile/views/profile_view.dart';
 import '../../features/profile/views/settings_view.dart';
 import '../../features/payment/views/payment_view.dart';
+
 import '../../features/notifications/views/notifications_view.dart';
 import '../../features/safety/views/safety_view.dart';
 
@@ -32,7 +35,7 @@ import '../../features/driver/driver_payment/views/driver_payment_view.dart';
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/',
+    initialLocation: '/role-selection',
     routes: [
       GoRoute(
         path: '/',
@@ -42,7 +45,6 @@ class AppRouter {
         path: '/role-selection',
         builder: (context, state) => const RoleSelectionView(),
       ),
-      GoRoute(path: '/map', builder: (context, state) => const MapScreen()),
       GoRoute(path: '/login', builder: (context, state) => const LoginView()),
       GoRoute(path: '/signup', builder: (context, state) => const SignupView()),
       GoRoute(path: '/otp', builder: (context, state) => const OtpView()),
@@ -56,6 +58,13 @@ class AppRouter {
       GoRoute(
         path: '/home/ride-selection',
         builder: (context, state) => const RideSelectionView(),
+      ),
+      GoRoute(
+        path: '/map',
+        builder: (context, state) => BlocProvider(
+          create: (_) => MapCubit(),
+          child: const MapView(),
+        ),
       ),
       GoRoute(
         path: '/home/finding-driver',
@@ -89,7 +98,6 @@ class AppRouter {
         path: '/payment',
         builder: (context, state) => const PaymentView(),
       ),
-
       GoRoute(
         path: '/notifications',
         builder: (context, state) => const NotificationsView(),

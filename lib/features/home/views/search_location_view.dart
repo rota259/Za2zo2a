@@ -19,19 +19,19 @@ class SearchLocationView extends StatefulWidget {
 class _SearchLocationViewState extends State<SearchLocationView> {
   final TextEditingController _searchController = TextEditingController();
   final Dio _dio = Dio();
-
+  
   List<dynamic> _searchResults = [];
   bool _isLoading = false;
-
+  
   // Use OpenStreetMap Nominatim for free place search API
   Future<void> _searchPlaces(String query) async {
     if (query.isEmpty) {
       setState(() => _searchResults = []);
       return;
     }
-
+    
     setState(() => _isLoading = true);
-
+    
     try {
       final response = await _dio.get(
         'https://nominatim.openstreetmap.org/search',
@@ -43,7 +43,7 @@ class _SearchLocationViewState extends State<SearchLocationView> {
         },
         options: Options(headers: {'User-Agent': 'Za2zo2a_App/1.0'}),
       );
-
+      
       if (response.statusCode == 200) {
         setState(() {
           _searchResults = response.data;
@@ -117,17 +117,16 @@ class _SearchLocationViewState extends State<SearchLocationView> {
               ),
             ),
           ),
-
-          if (_isLoading) LinearProgressIndicator(color: AppColors.primary),
-
+          
+          if (_isLoading)
+            LinearProgressIndicator(color: AppColors.primary),
+            
           Expanded(
             child: _searchResults.isEmpty && !_isLoading
                 ? Center(
                     child: Text(
                       'Search for a city, street, or landmark.',
-                      style: AppTextStyles.bodyMedium(
-                        context,
-                      ).copyWith(color: AppColors.grey500),
+                      style: AppTextStyles.bodyMedium(context).copyWith(color: AppColors.grey500),
                     ),
                   )
                 : ListView.builder(
@@ -135,20 +134,15 @@ class _SearchLocationViewState extends State<SearchLocationView> {
                     itemBuilder: (context, index) {
                       final place = _searchResults[index];
                       final name = place['display_name'] ?? 'Unknown location';
-
+                      
                       return ListTile(
                         leading: CircleAvatar(
                           backgroundColor: AppColors.grey200,
-                          child: Icon(
-                            Icons.location_on,
-                            color: AppColors.textSecondary,
-                          ),
+                          child: Icon(Icons.location_on, color: AppColors.textSecondary),
                         ),
                         title: Text(
                           name.split(',').first, // main name
-                          style: AppTextStyles.bodyLarge(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.bold),
+                          style: AppTextStyles.bodyLarge(context).copyWith(fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(
                           name,

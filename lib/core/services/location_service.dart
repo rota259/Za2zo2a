@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart' as loc;
 
 class LocationService {
   /// Check permissions and get current position.
@@ -9,7 +10,11 @@ class LocationService {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      final locationPlugin = loc.Location();
+      serviceEnabled = await locationPlugin.requestService();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
     }
 
     permission = await Geolocator.checkPermission();
