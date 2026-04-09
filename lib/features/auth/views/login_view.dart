@@ -162,7 +162,9 @@ class _LoginViewState extends State<LoginView> {
                               ),
                             ),
                             elevation: 8,
-                            shadowColor: AppColors.primary.withOpacity(0.4),
+                            shadowColor: AppColors.primary.withValues(
+                              alpha: 0.4,
+                            ),
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -274,7 +276,7 @@ class _LoginViewState extends State<LoginView> {
         label,
         style: AppTextStyles.bodyMedium(context).copyWith(
           fontWeight: FontWeight.bold,
-          color: AppColors.textPrimary.withOpacity(0.8),
+          color: AppColors.textPrimary.withValues(alpha: 0.8),
         ),
       ),
     );

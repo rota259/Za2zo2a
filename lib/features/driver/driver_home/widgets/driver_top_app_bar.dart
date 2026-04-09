@@ -42,7 +42,7 @@ class DriverTopAppBar extends StatelessWidget {
                 vertical: context.heightPct(6),
               ),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(context.widthPct(20)),
               ),
               child: Row(

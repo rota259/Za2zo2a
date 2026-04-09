@@ -96,7 +96,8 @@ class _SettingsViewState extends State<SettingsView> {
                   title: 'Dark Mode',
                   trailing: Switch.adaptive(
                     value: themeMode == ThemeMode.dark,
-                    activeColor: AppColors.primary,
+                    activeThumbColor: AppColors.primary,
+                    activeTrackColor: AppColors.primary.withValues(alpha: 0.4),
                     onChanged: (val) {
                       context.read<ThemeCubit>().toggleTheme();
                     },

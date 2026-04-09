@@ -547,7 +547,7 @@ class _HighlightRow extends StatelessWidget {
         Container(
           padding: EdgeInsets.all(context.widthPct(8)),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(

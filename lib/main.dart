@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'core/constants/app_colors.dart';
+import 'core/constants/app_strings.dart';
+import 'injection_container.dart' as di;
 import 'core/router/app_router.dart';
 import 'core/network/dio_client.dart';
 
@@ -31,7 +36,15 @@ import 'features/driver/driver_profile/cubit/driver_profile_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterError.onError = (details) {
+    debugPrint('Flutter error: ${details.exceptionAsString()}');
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('Platform error: $error');
+    return true;
+  };
   await Firebase.initializeApp(); // Keeping Firebase as it was in original
+  await di.init();
 
   // Setup Dependency Injection manually
   final dioClient = DioClient();
@@ -104,10 +117,10 @@ class MyApp extends StatelessWidget {
         builder: (context, themeMode) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            title: 'Za2zo2a',
+            title: AppStrings.appName,
             themeMode: themeMode,
             theme: ThemeData(
-              primaryColor: const Color(0xFFE23030),
+              primaryColor: AppColors.primary,
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
                 elevation: 0,
@@ -116,7 +129,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             darkTheme: ThemeData.dark().copyWith(
-              primaryColor: const Color(0xFFE23030),
+              primaryColor: AppColors.primary,
               scaffoldBackgroundColor: const Color(0xFF121212),
               appBarTheme: const AppBarTheme(
                 elevation: 0,

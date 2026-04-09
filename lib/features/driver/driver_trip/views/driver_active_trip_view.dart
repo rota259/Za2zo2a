@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import '../../../../core/services/location_service.dart';
+
+import '../../../map/domain/usecases/get_user_location_use_case.dart';
+import '../../../map/presentation/view/map_view.dart';
+import '../../../map/presentation/viewmodel/map_cubit.dart';
 import '../cubit/driver_trip_cubit.dart';
 import '../cubit/driver_trip_state.dart';
 
@@ -20,25 +21,19 @@ class DriverActiveTripView extends StatefulWidget {
 }
 
 class _DriverActiveTripViewState extends State<DriverActiveTripView> {
-  final MapController _mapController = MapController();
-  LatLng _currentLocation = const LatLng(30.0444, 31.2357);
+  late final MapCubit _mapCubit;
 
   @override
   void initState() {
     super.initState();
-    _getUserLocation();
+    _mapCubit = MapCubit(getUserLocationUseCase: const GetUserLocationUseCase())
+      ..initLocation();
   }
 
-  Future<void> _getUserLocation() async {
-    try {
-      final position = await LocationService.getCurrentLocation();
-      setState(() {
-        _currentLocation = LatLng(position.latitude, position.longitude);
-      });
-      _mapController.move(_currentLocation, 16.0);
-    } catch (e) {
-      debugPrint('Error getting location: $e');
-    }
+  @override
+  void dispose() {
+    _mapCubit.close();
+    super.dispose();
   }
 
   @override
@@ -57,27 +52,28 @@ class _DriverActiveTripViewState extends State<DriverActiveTripView> {
 
         return Scaffold(
           backgroundColor: const Color(0xFF1C2B39),
-          body: Stack(
-            children: [
-              FlutterMap(
-                mapController: _mapController,
-                options: MapOptions(
-                  initialCenter: _currentLocation,
-                  initialZoom: 16.0,
+          body: BlocProvider.value(
+            value: _mapCubit,
+            child: Stack(
+              children: [
+                const Positioned.fill(child: MapView.embedded()),
+                const DriverActiveTripAppBar(),
+                const DriverActiveTripNextTurn(),
+                DriverActiveTripControls(
+                  onLocationPressed: () {
+                    final userLocation =
+                        _mapCubit.lastLoadedState?.userLocation;
+
+                    if (userLocation != null) {
+                      _mapCubit.moveToLocation(userLocation);
+                    } else {
+                      _mapCubit.initLocation();
+                    }
+                  },
                 ),
-                children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: 'com.example.flutter_tasks_mostafa',
-                  ),
-                ],
-              ),
-              const DriverActiveTripAppBar(),
-              const DriverActiveTripNextTurn(),
-              DriverActiveTripControls(onLocationPressed: _getUserLocation),
-              DriverActiveTripSheet(isHeadingToPickup: isHeadingToPickup),
-            ],
+                DriverActiveTripSheet(isHeadingToPickup: isHeadingToPickup),
+              ],
+            ),
           ),
         );
       },

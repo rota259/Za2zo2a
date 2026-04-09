@@ -11,8 +11,7 @@ class DriverHomeCubit extends Cubit<DriverHomeState> {
   }
 
   Future<void> _fetchInitialLocation() async {
-    final position = await LocationService.getCurrentLocation();
-    // Use position if needed
+    await LocationService.getCurrentLocation();
   }
 
   /// Toggle driver online/offline status.

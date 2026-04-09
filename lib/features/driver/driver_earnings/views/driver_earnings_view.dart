@@ -439,7 +439,7 @@ class _Bar extends StatelessWidget {
           decoration: BoxDecoration(
             color: active
                 ? AppColors.primary
-                : AppColors.primary.withOpacity(0.2),
+                : AppColors.primary.withValues(alpha: 0.2),
             borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
           ),
         ),
@@ -493,7 +493,7 @@ class _PerformanceItem extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: AppColors.primary),

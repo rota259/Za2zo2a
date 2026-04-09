@@ -67,7 +67,7 @@ class ActiveTripDetailsSheet extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                       radius: context.widthPct(24),
                       child: Icon(Icons.call, color: AppColors.primary),
                     ),
@@ -221,7 +221,7 @@ class ActiveTripDetailsSheet extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                       elevation: 0,
                       padding: EdgeInsets.symmetric(
                         vertical: context.heightPct(16),

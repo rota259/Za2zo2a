@@ -314,7 +314,7 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
                     padding: EdgeInsets.all(context.widthPct(20)),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.08),
+                      color: AppColors.primary.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(context.widthPct(16)),
                     ),
                     child: Row(
@@ -400,7 +400,7 @@ class _StatCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(context.widthPct(10)),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(context.widthPct(8)),
             ),
             child: Icon(

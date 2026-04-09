@@ -1,43 +1,42 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary & Secondary
-  static Color primary = Color(0xFFE23030); // Crimson Red
-  static Color secondary = Color(0xFF2C2C2C); // Dark Grey
-  static Color background = Color(0xFFFFFFFF);
+  static Color primary = const Color(0xFFE8194B);
+  static const Color primaryLight = Color(0xFFFF6B6B);
+  static const Color darkRed = Color(0xFFB71C1C);
+  static Color secondary = const Color(0xFF2C2C2C);
+  static Color background = Colors.white;
 
-  // Text Colors
-  static Color textPrimary = Color(0xFF1E1E1E);
-  static Color textSecondary = Color(0xFF757575);
-  static Color textInverse = Color(0xFFFFFFFF);
+  static Color textPrimary = const Color(0xFF1E1E1E);
+  static Color textSecondary = const Color(0xFF757575);
+  static Color textInverse = Colors.white;
+  static const Color greyText = Color(0xFF9E9E9E);
 
-  // Semantic
-  static Color success = Color(0xFF4CAF50);
-  static Color error = Color(0xFFD32F2F);
-  static Color warning = Color(0xFFFBC02D);
-  static Color info = Color(0xFF1976D2);
+  static Color success = const Color(0xFF4CAF50);
+  static Color error = const Color(0xFFD32F2F);
+  static Color warning = const Color(0xFFFBC02D);
+  static Color info = const Color(0xFF1976D2);
 
-  // Grey shades
-  static Color grey50 = Color(0xFFFAFAFA);
-  static Color grey100 = Color(0xFFF5F5F5);
-  static Color grey200 = Color(0xFFEEEEEE);
-  static Color grey300 = Color(0xFFE0E0E0);
-  static Color grey400 = Color(0xFFBDBDBD);
-  static Color grey500 = Color(0xFF9E9E9E);
-  static Color grey600 = Color(0xFF757575);
-  static Color grey900 = Color(0xFF212121);
+  static Color grey50 = const Color(0xFFFAFAFA);
+  static Color grey100 = const Color(0xFFF5F5F5);
+  static Color grey200 = const Color(0xFFEEEEEE);
+  static Color grey300 = const Color(0xFFE0E0E0);
+  static Color grey400 = const Color(0xFFBDBDBD);
+  static Color grey500 = greyText;
+  static Color grey600 = const Color(0xFF757575);
+  static Color grey900 = const Color(0xFF212121);
 
-  // Map overlays
-  static Color mapRouteLine = Color(0xFFE23030);
+  static Color mapRouteLine = primary;
+  static const Color ecoBadge = Color(0xFFFFF176);
+  static const Color sosBg = Color(0xFFFFE4EC);
 
-  // Icon backgrounds (tinted)
   static const Color pinkTint = Color(0xFFFDE8E8);
   static const Color orangeTint = Color(0xFFFEF3E7);
   static const Color greyTint = Color(0xFFF3F4F6);
   static const Color blueTint = Color(0xFFEBF5FF);
 
   static void setDark() {
-    primary = const Color(0xFFE23030);
+    primary = const Color(0xFFE8194B);
     secondary = const Color(0xFFF3F4F6);
     background = const Color(0xFF121212);
     textPrimary = const Color(0xFFFFFFFF);
@@ -55,7 +54,7 @@ class AppColors {
   }
 
   static void setLight() {
-    primary = const Color(0xFFE23030);
+    primary = const Color(0xFFE8194B);
     secondary = const Color(0xFF2C2C2C);
     background = const Color(0xFFFFFFFF);
     textPrimary = const Color(0xFF1E1E1E);

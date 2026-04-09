@@ -37,8 +37,8 @@ class DriverOfflineButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(context.widthPct(30)),
             boxShadow: [
               BoxShadow(
-                color: (isOnline ? Colors.grey : AppColors.primary).withOpacity(
-                  0.4,
+                color: (isOnline ? Colors.grey : AppColors.primary).withValues(
+                  alpha: 0.4,
                 ),
                 blurRadius: 15,
                 offset: const Offset(0, 8),

@@ -47,4 +47,8 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthError('Failed to verify OTP.'));
     }
   }
+
+  Future<void> logout() async {
+    emit(AuthInitial());
+  }
 }

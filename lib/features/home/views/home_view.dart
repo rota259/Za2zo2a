@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../../map/domain/usecases/get_user_location_use_case.dart';
+import '../../map/presentation/view/map_view.dart';
+import '../../map/presentation/viewmodel/map_cubit.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import 'widgets/app_drawer.dart';
@@ -18,11 +21,28 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final MapController _mapController = MapController();
+  late final MapCubit _mapCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _mapCubit = MapCubit(getUserLocationUseCase: const GetUserLocationUseCase())
+      ..initLocation();
+  }
+
+  @override
+  void dispose() {
+    _mapCubit.close();
+    super.dispose();
+  }
 
   void _onGpsTap(LatLng? coords) {
-    if (coords != null) {
-      _mapController.move(coords, 15.0);
+    final target = coords ?? _mapCubit.lastLoadedState?.userLocation;
+
+    if (target != null) {
+      _mapCubit.moveToLocation(target);
+    } else {
+      _mapCubit.initLocation();
     }
   }
 
@@ -41,46 +61,30 @@ class _HomeViewState extends State<HomeView> {
             state.selectedDestination != null &&
             state.selectedDestination!.isNotEmpty;
 
-        final LatLng center =
-            (state is HomeLoaded && state.currentLocationCoords != null)
-                ? state.currentLocationCoords!
-                : const LatLng(30.0444, 31.2357);
-
-        return Scaffold(
-          key: _scaffoldKey,
-          drawer: const AppDrawer(),
-          body: Stack(
-            children: [
-              FlutterMap(
-                mapController: _mapController,
-                options: MapOptions(
-                  initialCenter: center,
-                  initialZoom: 15.0,
-                ),
-                children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: 'com.example.flutter_tasks_mostafa',
+        return BlocProvider.value(
+          value: _mapCubit,
+          child: Scaffold(
+            key: _scaffoldKey,
+            drawer: const AppDrawer(),
+            body: Stack(
+              children: [
+                const Positioned.fill(child: MapView.embedded()),
+                HomeTopBar(
+                  scaffoldKey: _scaffoldKey,
+                  onGpsTap: () => _onGpsTap(
+                    state is HomeLoaded ? state.currentLocationCoords : null,
                   ),
-                ],
-              ),
-              HomeTopBar(
-                scaffoldKey: _scaffoldKey,
-                onGpsTap:
-                    () => _onGpsTap(
-                      state is HomeLoaded ? state.currentLocationCoords : null,
-                    ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: hasDest
-                    ? DestinationSheet(state: state)
-                    : const WhereToSheet(),
-              ),
-            ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: hasDest
+                      ? DestinationSheet(state: state)
+                      : const WhereToSheet(),
+                ),
+              ],
+            ),
           ),
         );
       },

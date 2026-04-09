@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../../features/map/domain/usecases/get_user_location_use_case.dart';
+import '../../../../features/map/presentation/view/map_view.dart';
+import '../../../../features/map/presentation/viewmodel/map_cubit.dart';
 import '../cubit/driver_home_cubit.dart';
 import '../cubit/driver_home_state.dart';
 import '../../../../features/home/views/widgets/map_floating_button.dart';
@@ -25,11 +28,28 @@ class DriverHomeView extends StatefulWidget {
 }
 
 class _DriverHomeViewState extends State<DriverHomeView> {
-  final MapController _mapController = MapController();
+  late final MapCubit _mapCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _mapCubit = MapCubit(getUserLocationUseCase: const GetUserLocationUseCase())
+      ..initLocation();
+  }
+
+  @override
+  void dispose() {
+    _mapCubit.close();
+    super.dispose();
+  }
 
   void _onGpsTap(LatLng? coords) {
-    if (coords != null) {
-      _mapController.move(coords, 15.0);
+    final target = coords ?? _mapCubit.lastLoadedState?.userLocation;
+
+    if (target != null) {
+      _mapCubit.moveToLocation(target);
+    } else {
+      _mapCubit.initLocation();
     }
   }
 
@@ -67,37 +87,30 @@ class _DriverHomeViewState extends State<DriverHomeView> {
           backgroundColor: AppColors.grey100,
           body: hasRequest
               ? DriverAvailableTrips(req: (state).request)
-              : _buildOfflineOrWaitingView(state, isOnline),
+              : BlocProvider.value(
+                  value: _mapCubit,
+                  child: _buildOfflineOrWaitingView(context, state, isOnline),
+                ),
           bottomNavigationBar: const DriverBottomNav(),
         );
       },
     );
   }
 
-  Widget _buildOfflineOrWaitingView(DriverHomeState state, bool isOnline) {
-    final LatLng center = state.currentLocationCoords ?? const LatLng(30.0444, 31.2357);
-    
+  Widget _buildOfflineOrWaitingView(
+    BuildContext context,
+    DriverHomeState state,
+    bool isOnline,
+  ) {
     return Stack(
       children: [
-        FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            initialCenter: center,
-            initialZoom: 15.0,
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              userAgentPackageName: 'com.example.flutter_tasks_mostafa',
-            ),
-          ],
-        ),
+        const Positioned.fill(child: MapView.embedded()),
         Center(
           child: Container(
             width: context.widthPct(40),
             height: context.widthPct(40),
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.2),
+              color: AppColors.primary.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
             child: Center(

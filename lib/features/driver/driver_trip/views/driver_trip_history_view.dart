@@ -294,8 +294,8 @@ class _TripCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: trip.paymentMethod == 'cash'
-                          ? AppColors.success.withOpacity(0.1)
-                          : AppColors.info.withOpacity(0.1),
+                          ? AppColors.success.withValues(alpha: 0.1)
+                          : AppColors.info.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(context.widthPct(20)),
                     ),
                     child: Text(

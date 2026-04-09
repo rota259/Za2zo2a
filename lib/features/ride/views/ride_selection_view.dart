@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
-import '../../../../core/services/location_service.dart';
+import '../../map/domain/usecases/get_user_location_use_case.dart';
+import '../../map/presentation/view/map_view.dart';
+import '../../map/presentation/viewmodel/map_cubit.dart';
 import '../cubit/ride_cubit.dart';
 import '../cubit/ride_state.dart';
 import 'widgets/ride_selection_sheet.dart';
@@ -18,24 +18,20 @@ class RideSelectionView extends StatefulWidget {
 }
 
 class _RideSelectionViewState extends State<RideSelectionView> {
-  final MapController _mapController = MapController();
-  LatLng _currentLocation = const LatLng(30.0444, 31.2357);
+  late final MapCubit _mapCubit;
 
   @override
   void initState() {
     super.initState();
+    _mapCubit = MapCubit(getUserLocationUseCase: const GetUserLocationUseCase())
+      ..initLocation();
     context.read<RideCubit>().fetchRideOptions();
-    _getUserLocation();
   }
 
-  Future<void> _getUserLocation() async {
-    try {
-      final pos = await LocationService.getCurrentLocation();
-      setState(() => _currentLocation = LatLng(pos.latitude, pos.longitude));
-      _mapController.move(_currentLocation, 14.0);
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
+  @override
+  void dispose() {
+    _mapCubit.close();
+    super.dispose();
   }
 
   @override
@@ -47,40 +43,30 @@ class _RideSelectionViewState extends State<RideSelectionView> {
         }
       },
       builder: (context, state) {
-        return Scaffold(
-          body: Stack(
-            children: [
-              FlutterMap(
-                mapController: _mapController,
-                options: MapOptions(
-                  initialCenter: _currentLocation,
-                  initialZoom: 14.0,
-                ),
-                children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: 'com.example.app',
-                  ),
-                ],
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.all(context.widthPct(16)),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: AppColors.textPrimary,
+        return BlocProvider.value(
+          value: _mapCubit,
+          child: Scaffold(
+            body: Stack(
+              children: [
+                const Positioned.fill(child: MapView.embedded()),
+                SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.all(context.widthPct(16)),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: AppColors.textPrimary,
+                        ),
+                        onPressed: () => context.pop(),
                       ),
-                      onPressed: () => context.pop(),
                     ),
                   ),
                 ),
-              ),
-              RideSelectionSheet(state: state),
-            ],
+                RideSelectionSheet(state: state),
+              ],
+            ),
           ),
         );
       },

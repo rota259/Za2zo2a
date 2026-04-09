@@ -152,7 +152,7 @@ class AppDrawer extends StatelessWidget {
                     horizontal: context.widthPct(12),
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.07),
+                    color: AppColors.primary.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(context.widthPct(10)),
                   ),
                   child: ListTile(
@@ -304,7 +304,7 @@ class _DrawerItem extends StatelessWidget {
       leading: Container(
         padding: EdgeInsets.all(context.widthPct(8)),
         decoration: BoxDecoration(
-          color: iconColor.withOpacity(0.1),
+          color: iconColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(context.widthPct(8)),
         ),
         child: Icon(icon, color: iconColor, size: context.widthPct(20)),

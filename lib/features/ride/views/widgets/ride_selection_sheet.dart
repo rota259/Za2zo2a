@@ -103,7 +103,7 @@ class _RideSelectionSheetState extends State<RideSelectionSheet> {
                 ),
                 borderRadius: BorderRadius.circular(context.widthPct(12)),
                 color: isSelected
-                    ? AppColors.primary.withOpacity(0.05)
+                    ? AppColors.primary.withValues(alpha: 0.05)
                     : Colors.white,
               ),
               padding: EdgeInsets.all(context.widthPct(16)),

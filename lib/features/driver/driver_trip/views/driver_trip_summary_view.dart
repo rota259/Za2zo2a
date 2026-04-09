@@ -77,7 +77,7 @@ class _DriverTripSummaryViewState extends State<DriverTripSummaryView> {
                         Container(
                           padding: EdgeInsets.all(context.widthPct(12)),
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
+                            color: AppColors.primary.withValues(alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Container(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 extension ResponsiveContext on BuildContext {
   double get screenHeight => MediaQuery.of(this).size.height;
   double get screenWidth => MediaQuery.of(this).size.width;
+  bool get isMobile => screenWidth < 600;
+  bool get isTablet => screenWidth >= 600;
 
   /// Scales width proportionally based on the primary 390px Figma width design
   double widthPct(double px) => (px / 390) * screenWidth;

@@ -105,7 +105,7 @@ class PaymentView extends StatelessWidget {
                           Text(
                             'AVAILABLE BALANCE',
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               fontSize: context.fontPct(11),
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.2,

@@ -69,7 +69,7 @@ class _SafetyViewState extends State<SafetyView> {
                   Container(
                     padding: EdgeInsets.all(context.widthPct(16)),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -93,7 +93,7 @@ class _SafetyViewState extends State<SafetyView> {
                     'Immediately notify authorities and your\nemergency contacts.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.85),
+                      color: Colors.white.withValues(alpha: 0.85),
                       fontSize: context.fontPct(13),
                       height: 1.4,
                     ),
@@ -120,7 +120,7 @@ class _SafetyViewState extends State<SafetyView> {
                       ),
                       decoration: BoxDecoration(
                         color: _holding
-                            ? Colors.white.withOpacity(0.9)
+                            ? Colors.white.withValues(alpha: 0.9)
                             : Colors.white,
                         borderRadius: BorderRadius.circular(
                           context.widthPct(50),
@@ -204,7 +204,7 @@ class _SafetyViewState extends State<SafetyView> {
                   Container(
                     padding: EdgeInsets.all(context.widthPct(8)),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -322,7 +322,7 @@ class _SafetyViewState extends State<SafetyView> {
                     Container(
                       padding: EdgeInsets.all(context.widthPct(10)),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -424,7 +424,7 @@ class _BottomCard extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(context.widthPct(8)),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(context.widthPct(8)),
               ),
               child: Icon(
@@ -469,7 +469,7 @@ class _GridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.white.withOpacity(0.15)
+      ..color = Colors.white.withValues(alpha: 0.15)
       ..strokeWidth = 1;
     for (double x = 0; x < size.width; x += 30) {
       canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
