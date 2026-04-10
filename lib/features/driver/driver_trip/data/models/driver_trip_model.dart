@@ -12,6 +12,10 @@ class DriverTripModel {
   final String rideType;
   final String status; // 'heading_to_pickup' | 'trip_started' | 'completed'
   final DateTime createdAt;
+  final double pickupLat;
+  final double pickupLng;
+  final double destinationLat;
+  final double destinationLng;
 
   DriverTripModel({
     required this.id,
@@ -27,6 +31,10 @@ class DriverTripModel {
     required this.rideType,
     required this.status,
     required this.createdAt,
+    this.pickupLat = 0.0,
+    this.pickupLng = 0.0,
+    this.destinationLat = 0.0,
+    this.destinationLng = 0.0,
   });
 
   factory DriverTripModel.fromJson(Map<String, dynamic> json) {
@@ -44,6 +52,10 @@ class DriverTripModel {
       rideType: json['ride_type'] ?? 'Volt Mini',
       status: json['status'] ?? 'completed',
       createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+      pickupLat: (json['pickup_lat'] ?? 0.0).toDouble(),
+      pickupLng: (json['pickup_lng'] ?? 0.0).toDouble(),
+      destinationLat: (json['destination_lat'] ?? 0.0).toDouble(),
+      destinationLng: (json['destination_lng'] ?? 0.0).toDouble(),
     );
   }
 
@@ -62,6 +74,10 @@ class DriverTripModel {
       'ride_type': rideType,
       'status': status,
       'created_at': createdAt.toIso8601String(),
+      'pickup_lat': pickupLat,
+      'pickup_lng': pickupLng,
+      'destination_lat': destinationLat,
+      'destination_lng': destinationLng,
     };
   }
 }

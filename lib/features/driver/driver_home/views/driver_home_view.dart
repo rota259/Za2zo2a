@@ -73,6 +73,10 @@ class _DriverHomeViewState extends State<DriverHomeView> {
             rideType: req.rideType,
             status: 'heading_to_pickup',
             createdAt: DateTime.now(),
+            pickupLat: req.pickupLat,
+            pickupLng: req.pickupLng,
+            destinationLat: req.destinationLat,
+            destinationLng: req.destinationLng,
           );
           context.read<DriverTripCubit>().startHeadingToPickup(trip);
           context.push('/driver/active-trip');

@@ -38,10 +38,7 @@ class _TripHistoryViewState extends State<TripHistoryView>
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => context.pop(),
-        ),
+
         title: Text('Ride History', style: AppTextStyles.h2(context)),
         centerTitle: true,
         actions: [
