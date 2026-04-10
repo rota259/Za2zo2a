@@ -33,6 +33,7 @@ import 'features/driver/driver_earnings/data/repos/driver_earnings_repo.dart';
 import 'features/driver/driver_earnings/cubit/driver_earnings_cubit.dart';
 import 'features/driver/driver_profile/data/repos/driver_profile_repo.dart';
 import 'features/driver/driver_profile/cubit/driver_profile_cubit.dart';
+import 'features/driver_trip/domain/usecases/get_driver_route_usecase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -104,7 +105,10 @@ class MyApp extends StatelessWidget {
           create: (context) => DriverHomeCubit(driverHomeRepo),
         ),
         BlocProvider<DriverTripCubit>(
-          create: (context) => DriverTripCubit(driverTripRepo),
+          create: (context) => DriverTripCubit(
+            driverTripRepo,
+            di.sl<GetDriverRouteUsecase>(),
+          ),
         ),
         BlocProvider<DriverEarningsCubit>(
           create: (context) => DriverEarningsCubit(driverEarningsRepo),

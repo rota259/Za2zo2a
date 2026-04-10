@@ -44,10 +44,7 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: AppBar(
         backgroundColor: AppColors.grey50,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => context.pop(),
-        ),
+
         title: Text('Rider Profile', style: AppTextStyles.h2(context)),
         centerTitle: true,
         actions: [
