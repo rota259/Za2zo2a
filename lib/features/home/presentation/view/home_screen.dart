@@ -8,6 +8,10 @@ import 'package:latlong2/latlong.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/network/api_error.dart';
+import '../../../../injection_container.dart';
+import '../../../trip/data/models/trip_models.dart';
+import '../../../trip/data/repos/trip_repo.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/home_bottom_sheet.dart';
@@ -108,28 +112,54 @@ class _HomeScreenState extends State<HomeScreen>
     context.read<HomeCubit>().onSearchChanged(label);
   }
 
-  void _handleRequestRide(HomeState state) {
+  bool _requesting = false;
+
+  Future<void> _handleRequestRide(HomeState state) async {
     if (state.selectedLocation == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text(AppStrings.noDestinationAvailable)),
       );
       return;
     }
-
     if (state.userLocation == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text(AppStrings.rideStartUnavailable)),
       );
       return;
     }
+    // Guard against double-request while POST /api/trips is in flight.
+    if (_requesting) return;
+    _requesting = true;
 
-    context.go(
-      '/active-ride/${AppStrings.activeRideIdFallback}',
-      extra: {
-        'origin': state.userLocation,
-        'destination': state.selectedLocation,
-      },
+    final origin = state.userLocation!;
+    final dest = state.selectedLocation!;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
     );
+
+    try {
+      final trip = await sl<TripRepo>().requestTrip(
+        origin: GeoPoint(lat: origin.latitude, lng: origin.longitude),
+        destination: GeoPoint(
+          lat: dest.latitude,
+          lng: dest.longitude,
+          address: state.query.trim().isEmpty ? null : state.query.trim(),
+        ),
+      );
+      if (!mounted) return;
+      Navigator.of(context, rootNavigator: true).pop(); // dismiss loader
+      context.go('/trip/${trip.id}');
+    } on ApiError catch (e) {
+      if (!mounted) return;
+      Navigator.of(context, rootNavigator: true).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message), backgroundColor: AppColors.error),
+      );
+    } finally {
+      _requesting = false;
+    }
   }
 
   @override

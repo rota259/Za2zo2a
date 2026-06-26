@@ -16,16 +16,16 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final shellContext = context;
     final authState = context.watch<AuthCubit>().state;
-    final name = authState is AuthSuccess
+    final name = authState is Authenticated
         ? authState.user.name
         : AppStrings.drawerUserName;
-    final email = authState is AuthSuccess
+    final email = authState is Authenticated
         ? authState.user.email
         : AppStrings.drawerUserEmail;
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthInitial && context.mounted) {
+        if (state is Unauthenticated && context.mounted) {
           context.go('/login');
         }
       },
@@ -73,9 +73,10 @@ class MainShell extends StatelessWidget {
                   AppStrings.logout,
                   style: TextStyle(color: AppColors.darkRed),
                 ),
-                onTap: () {
+                onTap: () async {
                   shellContext.pop();
-                  shellContext.read<AuthCubit>().logout();
+                  await shellContext.read<AuthCubit>().logout();
+                  if (shellContext.mounted) shellContext.go('/login');
                 },
               ),
             ],
@@ -99,10 +100,6 @@ class MainShell extends StatelessWidget {
             BottomNavigationBarItem(
               icon: Icon(Icons.history_outlined),
               label: AppStrings.activity,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map_outlined),
-              label: AppStrings.map,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet_outlined),

@@ -14,15 +14,11 @@ class DriverEarningsLoading extends DriverEarningsState {}
 
 class DriverEarningsLoaded extends DriverEarningsState {
   final DriverEarningsModel earnings;
-  final String selectedPeriod; // 'today' | 'week' | 'month'
 
-  const DriverEarningsLoaded({
-    required this.earnings,
-    this.selectedPeriod = 'week',
-  });
+  const DriverEarningsLoaded({required this.earnings});
 
   @override
-  List<Object?> get props => [earnings, selectedPeriod];
+  List<Object?> get props => [earnings];
 }
 
 class DriverEarningsError extends DriverEarningsState {

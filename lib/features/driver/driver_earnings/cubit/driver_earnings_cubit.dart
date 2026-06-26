@@ -18,16 +18,4 @@ class DriverEarningsCubit extends Cubit<DriverEarningsState> {
       );
     }
   }
-
-  void selectPeriod(String period) {
-    if (state is DriverEarningsLoaded) {
-      final current = state as DriverEarningsLoaded;
-      emit(
-        DriverEarningsLoaded(
-          earnings: current.earnings,
-          selectedPeriod: period,
-        ),
-      );
-    }
-  }
 }

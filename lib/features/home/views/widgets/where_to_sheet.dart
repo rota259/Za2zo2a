@@ -6,6 +6,8 @@ import '../../cubit/home_state.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../auth/cubit/auth_cubit.dart';
+import '../../../auth/cubit/auth_state.dart';
 
 class WhereToSheet extends StatelessWidget {
   const WhereToSheet({super.key});
@@ -41,7 +43,13 @@ class WhereToSheet extends StatelessWidget {
                 ),
               ),
               SizedBox(height: context.heightPct(20)),
-              Text('Hello, Alex!', style: AppTextStyles.h3(context)),
+              Builder(builder: (context) {
+                final authState = context.watch<AuthCubit>().state;
+                final name = authState is Authenticated
+                    ? authState.user.name.split(' ').first
+                    : 'there';
+                return Text('Hello, $name!', style: AppTextStyles.h3(context));
+              }),
               SizedBox(height: context.heightPct(8)),
               Text(
                 'Where would you like to go?',
@@ -116,9 +124,7 @@ class WhereToSheet extends StatelessWidget {
                           if (homeAddress == null) {
                             context.push('/home/search/home');
                           } else {
-                            context.read<HomeCubit>().selectDestination(
-                              homeAddress,
-                            );
+                            context.read<HomeCubit>().selectDestination(homeAddress);
                           }
                         },
                       ),
@@ -146,9 +152,7 @@ class WhereToSheet extends StatelessWidget {
                           if (workAddress == null) {
                             context.push('/home/search/work');
                           } else {
-                            context.read<HomeCubit>().selectDestination(
-                              workAddress,
-                            );
+                            context.read<HomeCubit>().selectDestination(workAddress);
                           }
                         },
                       ),

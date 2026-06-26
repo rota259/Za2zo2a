@@ -1,10 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../core/services/session_manager.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../../injection_container.dart';
 import 'package:go_router/go_router.dart';
 import '../cubit/driver_earnings_cubit.dart';
+import '../cubit/driver_earnings_state.dart';
+import '../data/models/driver_earnings_model.dart';
 
 class DriverEarningsView extends StatefulWidget {
   const DriverEarningsView({super.key});
@@ -14,10 +20,18 @@ class DriverEarningsView extends StatefulWidget {
 }
 
 class _DriverEarningsViewState extends State<DriverEarningsView> {
+  String? _photoPath;
+
   @override
   void initState() {
     super.initState();
     context.read<DriverEarningsCubit>().loadEarnings();
+    _loadPhoto();
+  }
+
+  Future<void> _loadPhoto() async {
+    final path = await sl<SessionManager>().readProfilePhoto();
+    if (mounted && path != null) setState(() => _photoPath = path);
   }
 
   @override
@@ -27,7 +41,6 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
       body: SafeArea(
         child: Column(
           children: [
-            // Top App Bar
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: context.widthPct(16),
@@ -37,336 +50,59 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
                 children: [
                   Icon(Icons.menu, color: Colors.black, size: 24),
                   SizedBox(width: context.widthPct(16)),
-                  Text(
-                    'VOLTRIDE',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w900,
-                      fontSize: context.fontPct(18),
-                      letterSpacing: 1.2,
-                    ),
+                  Expanded(
+                    child: Text('ZA2ZO2A',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w900,
+                            fontSize: context.fontPct(18),
+                            letterSpacing: 1.2)),
                   ),
-                  const Spacer(),
                   CircleAvatar(
                     radius: context.widthPct(14),
                     backgroundColor: Colors.blueGrey.shade800,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.amber.shade200,
-                      size: context.widthPct(16),
-                    ),
+                    backgroundImage: _photoPath != null
+                        ? FileImage(File(_photoPath!))
+                        : null,
+                    child: _photoPath == null
+                        ? Icon(Icons.person,
+                            color: Colors.amber.shade200,
+                            size: context.widthPct(16))
+                        : null,
                   ),
                 ],
               ),
             ),
-
             Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: context.heightPct(20)),
-                    Text(
-                      'AVAILABLE BALANCE',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.0,
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.baseline,
-                      textBaseline: TextBaseline.alphabetic,
-                      children: [
-                        Text(
-                          '\$2,840',
-                          style: AppTextStyles.h1(context).copyWith(
-                            fontSize: context.fontPct(48),
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        Text(
-                          '.50',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: context.heightPct(16)),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
-                              padding: EdgeInsets.symmetric(
-                                vertical: context.heightPct(16),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            onPressed: () => context.push('/driver/payment'),
-                            child: Text(
-                              'Withdraw',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: context.widthPct(12)),
-                        Container(
-                          padding: EdgeInsets.all(context.widthPct(14)),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grey200),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.receipt_long_outlined,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: context.heightPct(32)),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Weekly Pulse',
-                          style: AppTextStyles.h3(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'MAY 12 - 18',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: context.heightPct(16)),
-
-                    // Mock Bar Chart
-                    SizedBox(
-                      height: 120,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          _Bar(day: 'MON', height: 40, active: false),
-                          _Bar(day: 'TUE', height: 60, active: false),
-                          _Bar(day: 'WED', height: 80, active: false),
-                          _Bar(day: 'THU', height: 100, active: true),
-                          _Bar(day: 'FRI', height: 30, active: false),
-                          _Bar(day: 'SAT', height: 50, active: false),
-                          _Bar(day: 'SUN', height: 70, active: false),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: context.heightPct(24)),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'ONLINE TIME',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.textSecondary,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.0,
-                                ),
-                              ),
-                              Text(
-                                '32h 45m',
-                                style: AppTextStyles.h3(
-                                  context,
-                                ).copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          height: 40,
-                          color: AppColors.grey200,
-                        ),
-                        Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'TOTAL TRIPS',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.textSecondary,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1.0,
-                                ),
-                              ),
-                              Text(
-                                '148',
-                                style: AppTextStyles.h3(
-                                  context,
-                                ).copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: context.heightPct(32)),
-
-                    Text(
-                      'Performance',
-                      style: AppTextStyles.h3(
-                        context,
-                      ).copyWith(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: context.heightPct(16)),
-
-                    _PerformanceItem(
-                      icon: Icons.calendar_today_outlined,
-                      title: 'Today vs Yesterday',
-                      subtitle: 'DAILY VELOCITY',
-                      percentage: '^12%',
-                      amount: '+\$42.20',
-                      isPositive: true,
-                    ),
-                    _PerformanceItem(
-                      icon: Icons.show_chart,
-                      title: 'This Week vs Last',
-                      subtitle: 'WEEKLY MOMENTUM',
-                      percentage: '^8.4%',
-                      amount: '+\$180.00',
-                      isPositive: true,
-                    ),
-                    _PerformanceItem(
-                      icon: Icons.calendar_month_outlined,
-                      title: 'Monthly Growth',
-                      subtitle: 'LONG-TERM TREND',
-                      percentage: 'v3.1%',
-                      amount: '-\$112.40',
-                      isPositive: false,
-                    ),
-                    SizedBox(height: context.heightPct(24)),
-
-                    // Refer a friend box
-                    Container(
-                      padding: EdgeInsets.all(context.widthPct(20)),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.orange.shade400,
-                            Colors.deepOrange.shade600,
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+              child: BlocBuilder<DriverEarningsCubit, DriverEarningsState>(
+                builder: (context, state) {
+                  if (state is DriverEarningsLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is DriverEarningsError) {
+                    return Center(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'REFER A FRIEND',
-                            style: AppTextStyles.h3(context).copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Expand the fleet and earn high-voltage rewards.',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 12,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '\$500',
-                                style: AppTextStyles.h1(context).copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 36,
-                                ),
-                              ),
-                              SizedBox(width: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 6.0),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white24,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text(
-                                    'BONUS REWARD',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.deepOrange,
-                                padding: EdgeInsets.symmetric(vertical: 14),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: Text(
-                                'SEND INVITE CODE',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
+                          Text(state.message, textAlign: TextAlign.center),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () =>
+                                context.read<DriverEarningsCubit>().loadEarnings(),
+                            child: const Text('Retry'),
                           ),
                         ],
                       ),
-                    ),
-                    SizedBox(height: context.heightPct(32)),
-                  ],
-                ),
+                    );
+                  }
+                  if (state is DriverEarningsLoaded) {
+                    return _buildContent(context, state.earnings);
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ),
-
             _buildBottomNavMenu(context),
           ],
         ),
@@ -374,16 +110,198 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
     );
   }
 
+  Widget _buildContent(BuildContext context, DriverEarningsModel e) {
+    final breakdown = e.weeklyBreakdown;
+    final maxAmount = breakdown.isEmpty
+        ? 1.0
+        : breakdown.map((d) => d.amount).reduce((a, b) => a > b ? a : b);
+    final today = DateTime.now().weekday; // 1=Mon … 7=Sun
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: context.widthPct(20)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: context.heightPct(20)),
+          Text('AVAILABLE BALANCE',
+              style: TextStyle(
+                  fontSize: 10,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.0)),
+          _balanceRow(context, e.pendingBalance),
+          SizedBox(height: context.heightPct(16)),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: EdgeInsets.symmetric(
+                        vertical: context.heightPct(16)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  onPressed: () => context.push('/driver/payment'),
+                  child: Text('Withdraw',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                ),
+              ),
+              SizedBox(width: context.widthPct(12)),
+              Container(
+                padding: EdgeInsets.all(context.widthPct(14)),
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.grey200),
+                    borderRadius: BorderRadius.circular(12)),
+                child: Icon(Icons.receipt_long_outlined, color: Colors.black),
+              ),
+            ],
+          ),
+          SizedBox(height: context.heightPct(32)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Weekly Pulse',
+                  style: AppTextStyles.h3(context)
+                      .copyWith(fontWeight: FontWeight.bold)),
+              Text(_weekRange(),
+                  style: TextStyle(
+                      fontSize: 10,
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0)),
+            ],
+          ),
+          SizedBox(height: context.heightPct(16)),
+          // CHART — real weeklyBreakdown from /api/driver/earnings
+          SizedBox(
+            height: 120,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: breakdown.isEmpty
+                  ? _emptyBars()
+                  : List.generate(breakdown.length, (i) {
+                      final d = breakdown[i];
+                      final h = maxAmount > 0
+                          ? (d.amount / maxAmount * 100).clamp(4.0, 100.0)
+                          : 4.0;
+                      final dayIndex = i + 1;
+                      return _Bar(
+                          day: d.day.length > 3
+                              ? d.day.substring(0, 3).toUpperCase()
+                              : d.day.toUpperCase(),
+                          height: h,
+                          active: dayIndex == today);
+                    }),
+            ),
+          ),
+          SizedBox(height: context.heightPct(24)),
+          Row(
+            children: [
+              Expanded(
+                child: _statColumn('TOTAL EARNINGS',
+                    '${e.currency} ${e.totalEarnings.toStringAsFixed(0)}'),
+              ),
+              Container(width: 1, height: 40, color: AppColors.grey200),
+              const SizedBox(width: 20),
+              Expanded(
+                child: _statColumn('TOTAL TRIPS', '${e.totalTrips}'),
+              ),
+            ],
+          ),
+          SizedBox(height: context.heightPct(16)),
+          Row(
+            children: [
+              Expanded(
+                child: _statColumn('AVG FARE',
+                    '${e.currency} ${e.avgFare.toStringAsFixed(1)}'),
+              ),
+              Container(width: 1, height: 40, color: AppColors.grey200),
+              const SizedBox(width: 20),
+              Expanded(
+                child: _statColumn('LIFETIME',
+                    '${e.currency} ${e.totalLifetime.toStringAsFixed(0)}'),
+              ),
+            ],
+          ),
+          SizedBox(height: context.heightPct(32)),
+        ],
+      ),
+    );
+  }
+
+  Widget _balanceRow(BuildContext context, double amount) {
+    final whole = amount.toInt().toString();
+    final frac = (amount - amount.toInt()).toStringAsFixed(2).substring(1);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Flexible(
+          child: Text('EGP $whole',
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.h1(context).copyWith(
+                  fontSize: context.fontPct(48),
+                  fontWeight: FontWeight.w900)),
+        ),
+        Text(frac,
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black)),
+      ],
+    );
+  }
+
+  Widget _statColumn(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label,
+            style: TextStyle(
+                fontSize: 10,
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0)),
+        Text(value,
+            style: AppTextStyles.h3(context)
+                .copyWith(fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  List<Widget> _emptyBars() {
+    const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+    return days
+        .map((d) => _Bar(day: d, height: 4, active: false))
+        .toList();
+  }
+
+  String _weekRange() {
+    final now = DateTime.now();
+    final mon = now.subtract(Duration(days: now.weekday - 1));
+    final sun = mon.add(const Duration(days: 6));
+    return '${_monthAbbr(mon.month)} ${mon.day} - ${sun.day}';
+  }
+
+  String _monthAbbr(int m) {
+    const months = [
+      '', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+    ];
+    return months[m];
+  }
+
   Widget _buildBottomNavMenu(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(0, -2),
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -2)),
         ],
       ),
       child: SafeArea(
@@ -392,27 +310,14 @@ class _DriverEarningsViewState extends State<DriverEarningsView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _NavIcon(
-                icon: Icons.dashboard_outlined,
-                label: 'HOME',
-                onTap: () => context.go('/driver/home'),
-              ),
-              _NavIcon(
-                icon: Icons.account_balance_wallet,
-                label: 'EARNINGS',
-                isActive: true,
-                onTap: () {},
-              ),
-              _NavIcon(
-                icon: Icons.rocket_launch_outlined,
-                label: 'BOOSTER',
-                onTap: () => context.go('/driver/trips'),
-              ),
-              _NavIcon(
-                icon: Icons.person_outline,
-                label: 'PROFILE',
-                onTap: () => context.go('/driver/profile'),
-              ),
+              _NavIcon(icon: Icons.dashboard_outlined, label: 'HOME',
+                  onTap: () => context.go('/driver/home')),
+              _NavIcon(icon: Icons.account_balance_wallet, label: 'EARNINGS',
+                  isActive: true, onTap: () {}),
+              _NavIcon(icon: Icons.history, label: 'HISTORY',
+                  onTap: () => context.go('/driver/home')),
+              _NavIcon(icon: Icons.person_outline, label: 'PROFILE',
+                  onTap: () => context.go('/driver/profile')),
             ],
           ),
         ),
@@ -444,105 +349,16 @@ class _Bar extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8),
-        Text(
-          day,
-          style: TextStyle(
-            fontSize: 10,
-            color: active ? AppColors.primary : AppColors.textSecondary,
-            fontWeight: active ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
+        Text(day,
+            style: TextStyle(
+                fontSize: 10,
+                color: active ? AppColors.primary : AppColors.textSecondary,
+                fontWeight: active ? FontWeight.bold : FontWeight.normal)),
       ],
     );
   }
 }
 
-class _PerformanceItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final String percentage;
-  final String amount;
-  final bool isPositive;
-
-  const _PerformanceItem({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.percentage,
-    required this.amount,
-    required this.isPositive,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isPositive ? Colors.green : AppColors.primary;
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: AppColors.grey200),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(icon, color: AppColors.primary),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppTextStyles.bodyMedium(
-                    context,
-                  ).copyWith(fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 9,
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                percentage,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              Text(
-                amount,
-                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _NavIcon extends StatelessWidget {
   final IconData icon;
@@ -564,20 +380,15 @@ class _NavIcon extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            color: isActive ? AppColors.primary : AppColors.grey400,
-            size: 24,
-          ),
-          SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 9,
+          Icon(icon,
               color: isActive ? AppColors.primary : AppColors.grey400,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+              size: 24),
+          SizedBox(height: 4),
+          Text(label,
+              style: TextStyle(
+                  fontSize: 9,
+                  color: isActive ? AppColors.primary : AppColors.grey400,
+                  fontWeight: FontWeight.bold)),
         ],
       ),
     );

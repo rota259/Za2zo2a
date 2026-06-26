@@ -56,10 +56,14 @@ class _HomeViewState extends State<HomeView> {
           );
         }
 
-        final bool hasDest =
-            state is HomeLoaded &&
-            state.selectedDestination != null &&
-            state.selectedDestination!.isNotEmpty;
+        final HomeLoaded? loaded = state is HomeLoaded ? state : null;
+        final dest = loaded?.selectedDestination;
+        final bool hasDest = dest != null && dest.isNotEmpty;
+
+        Widget bottomSheet = const WhereToSheet();
+        if (hasDest && loaded != null) {
+          bottomSheet = DestinationSheet(state: loaded);
+        }
 
         return BlocProvider.value(
           value: _mapCubit,
@@ -71,17 +75,13 @@ class _HomeViewState extends State<HomeView> {
                 const Positioned.fill(child: MapView.embedded()),
                 HomeTopBar(
                   scaffoldKey: _scaffoldKey,
-                  onGpsTap: () => _onGpsTap(
-                    state is HomeLoaded ? state.currentLocationCoords : null,
-                  ),
+                  onGpsTap: () => _onGpsTap(loaded?.currentLocationCoords),
                 ),
                 Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: hasDest
-                      ? DestinationSheet(state: state)
-                      : const WhereToSheet(),
+                  child: bottomSheet,
                 ),
               ],
             ),

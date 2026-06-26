@@ -1,14 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/constants/app_text_styles.dart';
-import '../../../../../core/utils/responsive.dart';
+import 'package:latlong2/latlong.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_text_styles.dart';
+import '../../../../core/utils/responsive.dart';
 import '../cubit/home_cubit.dart';
 
 class SearchLocationView extends StatefulWidget {
-  final String locationType; // 'destination', 'home', 'work'
+  final String locationType;
 
   const SearchLocationView({super.key, required this.locationType});
 
@@ -17,53 +20,81 @@ class SearchLocationView extends StatefulWidget {
 }
 
 class _SearchLocationViewState extends State<SearchLocationView> {
-  final TextEditingController _searchController = TextEditingController();
-  final Dio _dio = Dio();
+  final _searchController = TextEditingController();
+  final _dio = Dio();
+  Timer? _debounce;
 
-  List<dynamic> _searchResults = [];
+  List<Map<String, dynamic>> _results = [];
   bool _isLoading = false;
 
-  // Use OpenStreetMap Nominatim for free place search API
-  Future<void> _searchPlaces(String query) async {
-    if (query.isEmpty) {
-      setState(() => _searchResults = []);
+  Future<void> _search(String query) async {
+    if (query.trim().length < 2) {
+      setState(() => _results = []);
       return;
     }
 
     setState(() => _isLoading = true);
 
     try {
-      final response = await _dio.get(
+      final res = await _dio.get(
         'https://nominatim.openstreetmap.org/search',
         queryParameters: {
           'q': query,
           'format': 'json',
           'addressdetails': 1,
-          'limit': 5,
+          'limit': 15,
+          'countrycodes': 'eg',
+          'accept-language': 'ar,en',
         },
-        options: Options(headers: {'User-Agent': 'Za2zo2a_App/1.0'}),
+        options: Options(headers: {'User-Agent': 'Za2zo2a/1.0'}),
       );
 
-      if (response.statusCode == 200) {
+      if (!mounted) return;
+      if (res.statusCode == 200 && res.data is List) {
         setState(() {
-          _searchResults = response.data;
+          _results = (res.data as List)
+              .whereType<Map>()
+              .map((e) => Map<String, dynamic>.from(e))
+              .toList();
           _isLoading = false;
         });
       }
-    } catch (e) {
-      setState(() => _isLoading = false);
+    } catch (_) {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
-  void _onLocationSelected(String locationName) {
-    if (widget.locationType == 'home') {
-      context.read<HomeCubit>().saveHomeAddress(locationName);
-    } else if (widget.locationType == 'work') {
-      context.read<HomeCubit>().saveWorkAddress(locationName);
-    } else {
-      context.read<HomeCubit>().selectDestination(locationName);
+  void _onChanged(String val) {
+    _debounce?.cancel();
+    if (val.trim().length < 2) {
+      setState(() => _results = []);
+      return;
     }
-    context.pop(); // Go back
+    _debounce = Timer(const Duration(milliseconds: 400), () => _search(val));
+  }
+
+  void _onSelected(Map<String, dynamic> place) {
+    final name = (place['display_name'] as String?) ?? '';
+    final lat = double.tryParse('${place['lat']}');
+    final lng = double.tryParse('${place['lon']}');
+    final coords = (lat != null && lng != null) ? LatLng(lat, lng) : null;
+
+    final cubit = context.read<HomeCubit>();
+    if (widget.locationType == 'home') {
+      cubit.saveHomeAddress(name);
+    } else if (widget.locationType == 'work') {
+      cubit.saveWorkAddress(name);
+    } else {
+      cubit.selectDestination(name, coords: coords);
+    }
+    context.pop();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -87,24 +118,17 @@ class _SearchLocationViewState extends State<SearchLocationView> {
             padding: EdgeInsets.all(context.widthPct(16)),
             child: TextField(
               controller: _searchController,
-              onChanged: (val) {
-                // simple debounce could go here, but doing direct for simplicity
-                if (val.length > 2) {
-                  _searchPlaces(val);
-                } else if (val.isEmpty) {
-                  setState(() => _searchResults = []);
-                }
-              },
+              onChanged: _onChanged,
               autofocus: true,
               decoration: InputDecoration(
-                hintText: 'Search real places...',
+                hintText: 'Search places in Egypt…',
                 prefixIcon: Icon(Icons.search, color: AppColors.textSecondary),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           _searchController.clear();
-                          setState(() => _searchResults = []);
+                          setState(() => _results = []);
                         },
                       )
                     : null,
@@ -118,45 +142,80 @@ class _SearchLocationViewState extends State<SearchLocationView> {
             ),
           ),
 
+          // Pick on map button
+          if (widget.locationType == 'destination')
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: CircleAvatar(
+                  backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                  child: Icon(Icons.map_outlined, color: AppColors.primary),
+                ),
+                title: Text('Pick on map',
+                    style: AppTextStyles.bodyLarge(context)
+                        .copyWith(fontWeight: FontWeight.bold)),
+                subtitle: Text('Tap to choose a location on the map',
+                    style: AppTextStyles.bodySmall(context)),
+                onTap: () async {
+                  final result = await context.push<LatLng>('/home/pick-on-map');
+                  if (result != null && mounted) {
+                    context.read<HomeCubit>().selectDestination(
+                      '${result.latitude.toStringAsFixed(4)}, ${result.longitude.toStringAsFixed(4)}',
+                      coords: result,
+                    );
+                    context.pop();
+                  }
+                },
+              ),
+            ),
+
           if (_isLoading) LinearProgressIndicator(color: AppColors.primary),
 
           Expanded(
-            child: _searchResults.isEmpty && !_isLoading
+            child: _results.isEmpty && !_isLoading
                 ? Center(
-                    child: Text(
-                      'Search for a city, street, or landmark.',
-                      style: AppTextStyles.bodyMedium(
-                        context,
-                      ).copyWith(color: AppColors.grey500),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        'Search for a city, street, or landmark in Egypt.',
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.bodyMedium(context)
+                            .copyWith(color: AppColors.grey500),
+                      ),
                     ),
                   )
                 : ListView.builder(
-                    itemCount: _searchResults.length,
-                    itemBuilder: (context, index) {
-                      final place = _searchResults[index];
-                      final name = place['display_name'] ?? 'Unknown location';
+                    itemCount: _results.length,
+                    itemBuilder: (context, i) {
+                      final place = _results[i];
+                      final fullName =
+                          (place['display_name'] as String?) ?? 'Unknown';
+                      final parts = fullName.split(',');
+                      final mainName = parts.first.trim();
+                      final sub = parts.length > 1
+                          ? parts.sublist(1).join(',').trim()
+                          : '';
+                      final type = (place['type'] as String?) ?? '';
 
                       return ListTile(
                         leading: CircleAvatar(
                           backgroundColor: AppColors.grey200,
                           child: Icon(
-                            Icons.location_on,
+                            _iconForType(type),
                             color: AppColors.textSecondary,
                           ),
                         ),
-                        title: Text(
-                          name.split(',').first, // main name
-                          style: AppTextStyles.bodyLarge(
-                            context,
-                          ).copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTextStyles.bodySmall(context),
-                        ),
-                        onTap: () => _onLocationSelected(name),
+                        title: Text(mainName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.bodyLarge(context)
+                                .copyWith(fontWeight: FontWeight.bold)),
+                        subtitle: Text(sub,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextStyles.bodySmall(context)),
+                        onTap: () => _onSelected(place),
                       );
                     },
                   ),
@@ -164,5 +223,22 @@ class _SearchLocationViewState extends State<SearchLocationView> {
         ],
       ),
     );
+  }
+
+  IconData _iconForType(String type) {
+    switch (type) {
+      case 'city':
+      case 'town':
+      case 'village':
+        return Icons.location_city;
+      case 'road':
+      case 'street':
+        return Icons.add_road;
+      case 'suburb':
+      case 'neighbourhood':
+        return Icons.apartment;
+      default:
+        return Icons.location_on;
+    }
   }
 }

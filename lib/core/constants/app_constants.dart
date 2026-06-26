@@ -5,8 +5,9 @@ class AppConstants {
   static const initialMapZoom = 15.0;
   static const minZoom = 5.0;
   static const maxZoom = 18.0;
-  static const osmTileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-  static const tileUserAgentPackageName = 'com.voltride.app';
+  static const osmTileUrl =
+      'https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png';
+  static const tileUserAgentPackageName = 'com.za2zo2a.app';
   static const searchResultLimit = 10;
   static const nominatimCountryCode = 'eg';
   static const tabletBreakpoint = 900.0;

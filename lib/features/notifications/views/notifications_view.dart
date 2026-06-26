@@ -65,7 +65,7 @@ class _NotificationsViewState extends State<NotificationsView> {
       iconColor: Color(0xFFE91E63),
       title: 'Anniversary Perk!',
       body:
-          'You\'ve been riding with Crimson Velocity for 1 year. Claim your Gold Member badge in your profile.',
+          'You\'ve been riding with Za2zo2a for 1 year. Claim your Gold Member badge in your profile.',
       time: '3 DAYS AGO',
       filter: 'PROMOTION',
       hasImage: false,
@@ -102,7 +102,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                   ),
                   SizedBox(width: context.widthPct(8)),
                   Text(
-                    'Crimson Velocity',
+                    'Za2zo2a',
                     style: AppTextStyles.h2(context).copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,

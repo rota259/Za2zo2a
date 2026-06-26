@@ -23,45 +23,45 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void selectDestination(String? destination) {
+  void selectDestination(String? destination, {LatLng? coords}) {
     if (state is HomeLoaded) {
-      final currentState = state as HomeLoaded;
-      emit(
-        HomeLoaded(
-          currentLocation: currentState.currentLocation,
-          selectedDestination: destination,
-          savedHomeAddress: currentState.savedHomeAddress,
-          savedWorkAddress: currentState.savedWorkAddress,
-        ),
-      );
+      final s = state as HomeLoaded;
+      emit(HomeLoaded(
+        currentLocation: s.currentLocation,
+        currentLocationCoords: s.currentLocationCoords,
+        selectedDestination: destination,
+        selectedDestinationCoords: coords,
+        savedHomeAddress: s.savedHomeAddress,
+        savedWorkAddress: s.savedWorkAddress,
+      ));
     }
   }
 
   void saveHomeAddress(String address) {
     if (state is HomeLoaded) {
-      final current = state as HomeLoaded;
-      emit(
-        HomeLoaded(
-          currentLocation: current.currentLocation,
-          selectedDestination: current.selectedDestination,
-          savedHomeAddress: address,
-          savedWorkAddress: current.savedWorkAddress,
-        ),
-      );
+      final s = state as HomeLoaded;
+      emit(HomeLoaded(
+        currentLocation: s.currentLocation,
+        currentLocationCoords: s.currentLocationCoords,
+        selectedDestination: s.selectedDestination,
+        selectedDestinationCoords: s.selectedDestinationCoords,
+        savedHomeAddress: address,
+        savedWorkAddress: s.savedWorkAddress,
+      ));
     }
   }
 
   void saveWorkAddress(String address) {
     if (state is HomeLoaded) {
-      final current = state as HomeLoaded;
-      emit(
-        HomeLoaded(
-          currentLocation: current.currentLocation,
-          selectedDestination: current.selectedDestination,
-          savedHomeAddress: current.savedHomeAddress,
-          savedWorkAddress: address,
-        ),
-      );
+      final s = state as HomeLoaded;
+      emit(HomeLoaded(
+        currentLocation: s.currentLocation,
+        currentLocationCoords: s.currentLocationCoords,
+        selectedDestination: s.selectedDestination,
+        selectedDestinationCoords: s.selectedDestinationCoords,
+        savedHomeAddress: s.savedHomeAddress,
+        savedWorkAddress: address,
+      ));
     }
   }
 }

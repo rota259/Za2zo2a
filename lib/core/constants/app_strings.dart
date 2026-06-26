@@ -1,8 +1,8 @@
 class AppStrings {
-  static const appName = 'VoltRide';
+  static const appName = 'Za2zo2a';
   static const whereToHint = 'Where to?';
   static const recommendedRide = 'RECOMMENDED RIDE';
-  static const requestRide = 'Request VoltRide';
+  static const requestRide = 'Request Za2zo2a';
   static const rideInProgress = 'Ride in Progress';
   static const nextTurn = 'NEXT TURN';
   static const endTrip = 'END TRIP';
@@ -14,7 +14,7 @@ class AppStrings {
   static const constantPrice = 'CONSTANT PRICE';
   static const nominatimBaseUrl = 'https://nominatim.openstreetmap.org';
   static const osrmBaseUrl = 'http://router.project-osrm.org';
-  static const userAgent = 'VoltRide/1.0';
+  static const userAgent = 'Za2zo2a/1.0';
   static const checkInternet = 'Check your internet connection';
   static const noResults = 'No results found';
   static const couldNotLoadRoute = 'Could not load route. Retrying...';
@@ -56,7 +56,7 @@ class AppStrings {
   static const meterSuffix = 'METERS';
   static const minuteShort = 'min';
   static const minutesShort = 'mins';
-  static const riderConnection = 'VoltRide';
+  static const riderConnection = 'Za2zo2a';
   static const destinationAddress =
       'Pier 39, Beach St, San Francisco, CA 94133';
   static const mockTripDistanceKm = '2.8';
@@ -65,8 +65,8 @@ class AppStrings {
   static const navigateToDestination = 'NAVIGATE TO DESTINATION';
   static const noDestinationAvailable = 'No destination available';
   static const rideStartUnavailable = 'Location is still loading';
-  static const drawerUserName = 'Alex Volt';
-  static const drawerUserEmail = 'alex@voltride.app';
+  static const drawerUserName = 'User';
+  static const drawerUserEmail = '';
   static const activeRideIdFallback = 'sample-ride';
   static const nextTurnFallback = 'Head toward the destination';
   static const searchLanguage = 'ar,en';

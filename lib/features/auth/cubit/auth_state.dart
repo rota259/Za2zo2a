@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../data/models/auth_model.dart';
 
 abstract class AuthState extends Equatable {
@@ -8,23 +9,32 @@ abstract class AuthState extends Equatable {
   List<Object?> get props => [];
 }
 
-class AuthInitial extends AuthState {}
+/// Boot: we don't yet know if there's a valid session.
+class AuthInitial extends AuthState {
+  const AuthInitial();
+}
 
-class AuthLoading extends AuthState {}
+/// A request (restore/login/register/delete) is in flight. Used to disable
+/// submit buttons and prevent double-submit.
+class AuthLoading extends AuthState {
+  const AuthLoading();
+}
 
-class AuthSuccess extends AuthState {
-  final AuthModel user;
-
-  const AuthSuccess(this.user);
+class Authenticated extends AuthState {
+  final UserModel user;
+  const Authenticated(this.user);
 
   @override
   List<Object?> get props => [user];
 }
 
-class AuthError extends AuthState {
-  final String message;
+class Unauthenticated extends AuthState {
+  const Unauthenticated();
+}
 
-  const AuthError(this.message);
+class AuthFailure extends AuthState {
+  final String message;
+  const AuthFailure(this.message);
 
   @override
   List<Object?> get props => [message];

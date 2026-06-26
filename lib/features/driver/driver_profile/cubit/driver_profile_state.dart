@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../data/models/driver_profile_model.dart';
+import '../data/models/driver_model.dart';
 
 abstract class DriverProfileState extends Equatable {
   const DriverProfileState();
@@ -13,7 +13,7 @@ class DriverProfileInitial extends DriverProfileState {}
 class DriverProfileLoading extends DriverProfileState {}
 
 class DriverProfileLoaded extends DriverProfileState {
-  final DriverProfileModel profile;
+  final DriverModel profile;
 
   const DriverProfileLoaded(this.profile);
 
@@ -22,7 +22,7 @@ class DriverProfileLoaded extends DriverProfileState {
 }
 
 class DriverProfileUpdating extends DriverProfileState {
-  final DriverProfileModel profile;
+  final DriverModel profile;
 
   const DriverProfileUpdating(this.profile);
 

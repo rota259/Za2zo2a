@@ -1,42 +1,58 @@
+import '../../../../../core/network/repository_base.dart';
+
+/// Parsed from GET /api/driver/earnings → data: { ... }
 class DriverEarningsModel {
-  final double todayEarnings;
-  final double weekEarnings;
-  final double monthEarnings;
-  final int todayTrips;
-  final int weekTrips;
-  final int monthTrips;
-  final double totalOnlineHours;
-  final double acceptanceRate;
-  final double rating;
+  final double totalEarnings;
+  final int totalTrips;
+  final double avgFare;
+  final String currency;
+  final String period;
+  final double totalLifetime;
+  final double pendingBalance;
   final List<DailyEarning> weeklyBreakdown;
 
   DriverEarningsModel({
-    required this.todayEarnings,
-    required this.weekEarnings,
-    required this.monthEarnings,
-    required this.todayTrips,
-    required this.weekTrips,
-    required this.monthTrips,
-    required this.totalOnlineHours,
-    required this.acceptanceRate,
-    required this.rating,
+    required this.totalEarnings,
+    required this.totalTrips,
+    required this.avgFare,
+    required this.currency,
+    required this.period,
+    required this.totalLifetime,
+    required this.pendingBalance,
     required this.weeklyBreakdown,
   });
 
+  /// Parse from the `data` map inside { success, message, data }.
   factory DriverEarningsModel.fromJson(Map<String, dynamic> json) {
+    // weeklyBreakdown
+    final breakdownRaw = json['weeklyBreakdown'];
+    final breakdown = breakdownRaw is List
+        ? breakdownRaw
+            .whereType<Map>()
+            .map((e) => DailyEarning.fromJson(Map<String, dynamic>.from(e)))
+            .toList()
+        : <DailyEarning>[];
+
+    // nested earnings object
+    final earningsMap = json['earnings'];
+    double lifetime = 0;
+    double pending = 0;
+    if (earningsMap is Map) {
+      lifetime = (earningsMap['totalLifetime'] as num?)?.toDouble() ?? 0;
+      pending = (earningsMap['pendingBalance'] as num?)?.toDouble() ?? 0;
+    }
+
     return DriverEarningsModel(
-      todayEarnings: (json['today_earnings'] ?? 0.0).toDouble(),
-      weekEarnings: (json['week_earnings'] ?? 0.0).toDouble(),
-      monthEarnings: (json['month_earnings'] ?? 0.0).toDouble(),
-      todayTrips: json['today_trips'] ?? 0,
-      weekTrips: json['week_trips'] ?? 0,
-      monthTrips: json['month_trips'] ?? 0,
-      totalOnlineHours: (json['total_online_hours'] ?? 0.0).toDouble(),
-      acceptanceRate: (json['acceptance_rate'] ?? 0.0).toDouble(),
-      rating: (json['rating'] ?? 0.0).toDouble(),
-      weeklyBreakdown: (json['weekly_breakdown'] as List<dynamic>? ?? [])
-          .map((e) => DailyEarning.fromJson(e))
-          .toList(),
+      totalEarnings:
+          json.dbl(['totalEarnings', 'total', 'amount']) ?? 0,
+      totalTrips:
+          json.integer(['totalTrips', 'trips', 'tripCount']) ?? 0,
+      avgFare: json.dbl(['avgFare', 'averageFare']) ?? 0,
+      currency: json.str(['currency']) ?? 'EGP',
+      period: json.str(['period']) ?? 'week',
+      totalLifetime: lifetime,
+      pendingBalance: pending,
+      weeklyBreakdown: breakdown,
     );
   }
 }
@@ -50,9 +66,9 @@ class DailyEarning {
 
   factory DailyEarning.fromJson(Map<String, dynamic> json) {
     return DailyEarning(
-      day: json['day'] ?? '',
-      amount: (json['amount'] ?? 0.0).toDouble(),
-      trips: json['trips'] ?? 0,
+      day: json.str(['day', 'label', 'date']) ?? '',
+      amount: json.dbl(['amount', 'total', 'earnings']) ?? 0,
+      trips: json.integer(['trips', 'count']) ?? 0,
     );
   }
 }

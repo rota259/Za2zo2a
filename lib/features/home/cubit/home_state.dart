@@ -16,6 +16,7 @@ class HomeLoaded extends HomeState {
   final String? currentLocation;
   final LatLng? currentLocationCoords;
   final String? selectedDestination;
+  final LatLng? selectedDestinationCoords;
   final String? savedHomeAddress;
   final String? savedWorkAddress;
 
@@ -23,6 +24,7 @@ class HomeLoaded extends HomeState {
     this.currentLocation,
     this.currentLocationCoords,
     this.selectedDestination,
+    this.selectedDestinationCoords,
     this.savedHomeAddress,
     this.savedWorkAddress,
   });
@@ -32,6 +34,7 @@ class HomeLoaded extends HomeState {
     currentLocation,
     currentLocationCoords,
     selectedDestination,
+    selectedDestinationCoords,
     savedHomeAddress,
     savedWorkAddress,
   ];

@@ -4,7 +4,16 @@ import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/utils/responsive.dart';
 
 class DriverStatsRow extends StatelessWidget {
-  const DriverStatsRow({super.key});
+  final int totalTrips;
+  final String onlineTime;
+  final double acceptanceRate;
+
+  const DriverStatsRow({
+    super.key,
+    this.totalTrips = 0,
+    this.onlineTime = '--',
+    this.acceptanceRate = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +21,14 @@ class DriverStatsRow extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: context.widthPct(16)),
       child: Row(
         children: [
-          _TopStatBox(title: 'EARNINGS', value: '\$142.50'),
+          _TopStatBox(title: 'TRIPS', value: '$totalTrips'),
           SizedBox(width: context.widthPct(8)),
-          _TopStatBox(title: 'TRIPS', value: '12'),
+          _TopStatBox(title: 'ONLINE', value: onlineTime),
           SizedBox(width: context.widthPct(8)),
-          _TopStatBox(title: 'ONLINE', value: '5h 22m'),
+          _TopStatBox(
+            title: 'ACCEPT %',
+            value: '${acceptanceRate.toStringAsFixed(0)}%',
+          ),
         ],
       ),
     );
@@ -60,11 +72,15 @@ class _TopStatBox extends StatelessWidget {
               ),
             ),
             SizedBox(height: context.heightPct(4)),
-            Text(
-              value,
-              style: AppTextStyles.h3(
-                context,
-              ).copyWith(fontWeight: FontWeight.w900),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                value,
+                maxLines: 1,
+                style: AppTextStyles.h3(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w900),
+              ),
             ),
           ],
         ),

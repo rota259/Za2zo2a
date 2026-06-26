@@ -4,12 +4,22 @@ import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/responsive.dart';
 
 class DriverBottomNav extends StatelessWidget {
-  const DriverBottomNav({super.key});
+  final int activeIndex;
+  final ValueChanged<int>? onTabChanged;
+
+  const DriverBottomNav({
+    super.key,
+    this.activeIndex = 0,
+    this.onTabChanged,
+  });
 
   void _onTabTapped(BuildContext context, int index) {
-    if (index == 0) return;
+    if (index == activeIndex) return;
+    if (index == 0 || index == 2) {
+      onTabChanged?.call(index);
+      return;
+    }
     if (index == 1) context.go('/driver/earnings');
-    if (index == 2) context.go('/driver/trips');
     if (index == 3) context.go('/driver/profile');
   }
 
@@ -35,7 +45,7 @@ class DriverBottomNav extends StatelessWidget {
               _NavIcon(
                 icon: Icons.dashboard_outlined,
                 label: 'HOME',
-                isActive: true,
+                isActive: activeIndex == 0,
                 onTap: () => _onTabTapped(context, 0),
               ),
               _NavIcon(
@@ -44,8 +54,9 @@ class DriverBottomNav extends StatelessWidget {
                 onTap: () => _onTabTapped(context, 1),
               ),
               _NavIcon(
-                icon: Icons.rocket_launch_outlined,
-                label: 'BOOSTER',
+                icon: Icons.history,
+                label: 'HISTORY',
+                isActive: activeIndex == 2,
                 onTap: () => _onTabTapped(context, 2),
               ),
               _NavIcon(

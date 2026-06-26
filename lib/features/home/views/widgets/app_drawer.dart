@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../auth/cubit/auth_cubit.dart';
+import '../../../auth/cubit/auth_state.dart';
 import '../../../profile/cubit/profile_cubit.dart';
 import '../../../profile/cubit/profile_state.dart';
 import 'dart:io';
@@ -20,7 +22,11 @@ class AppDrawer extends StatelessWidget {
           // ── Red Header
           BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, state) {
-              final name = state is ProfileLoaded ? state.name : 'Alex Volt';
+              final authState = context.watch<AuthCubit>().state;
+              final user = authState is Authenticated ? authState.user : null;
+              final name = user?.name ??
+                  (state is ProfileLoaded ? state.name : 'User');
+              final rating = user?.rating;
               final imagePath = state is ProfileLoaded
                   ? state.profileImagePath
                   : null;
@@ -72,7 +78,9 @@ class AppDrawer extends StatelessWidget {
                             ),
                             SizedBox(width: context.widthPct(2)),
                             Text(
-                              '4.95 Rating',
+                              rating != null
+                                  ? '${rating.toStringAsFixed(1)} Rating'
+                                  : '',
                               style: AppTextStyles.bodySmall(
                                 context,
                               ).copyWith(color: Colors.white70),
@@ -121,6 +129,12 @@ class AppDrawer extends StatelessWidget {
                   iconColor: AppColors.primary,
                   title: 'Settings',
                   onTap: () => context.push('/settings'),
+                ),
+                _DrawerItem(
+                  icon: Icons.swap_horiz,
+                  iconColor: AppColors.primary,
+                  title: 'Become a Driver',
+                  onTap: () => context.push('/signup/driver'),
                 ),
                 _DrawerItem(
                   icon: Icons.help_outline,
@@ -256,7 +270,10 @@ class AppDrawer extends StatelessWidget {
                   ).copyWith(color: AppColors.textSecondary),
                 ),
                 GestureDetector(
-                  onTap: () => context.go('/login'),
+                  onTap: () async {
+                    await context.read<AuthCubit>().logout();
+                    if (context.mounted) context.go('/login');
+                  },
                   child: Row(
                     children: [
                       Icon(

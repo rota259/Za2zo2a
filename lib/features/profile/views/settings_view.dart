@@ -5,6 +5,9 @@ import '../../../../core/theme/theme_cubit.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../auth/cubit/auth_cubit.dart';
+import '../../auth/cubit/auth_state.dart';
+import '../../auth/views/widgets/delete_account_dialog.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -75,14 +78,29 @@ class _SettingsViewState extends State<SettingsView> {
               ),
             ),
             SizedBox(height: context.heightPct(16)),
-            Text(
-              'Alex Volt',
-              style: AppTextStyles.h2(
-                context,
-              ).copyWith(fontWeight: FontWeight.bold),
-            ),
-            Text('alex@za2zo2a.com', style: AppTextStyles.bodySmall(context)),
-            Text('+1 (555) 012-3456', style: AppTextStyles.bodySmall(context)),
+            Builder(builder: (context) {
+              final authState = context.watch<AuthCubit>().state;
+              final name = authState is Authenticated
+                  ? authState.user.name
+                  : 'User';
+              final email = authState is Authenticated
+                  ? authState.user.email
+                  : '';
+              final phone = authState is Authenticated
+                  ? authState.user.phone
+                  : '';
+              return Column(
+                children: [
+                  Text(name,
+                      style: AppTextStyles.h2(context)
+                          .copyWith(fontWeight: FontWeight.bold)),
+                  if (email.isNotEmpty)
+                    Text(email, style: AppTextStyles.bodySmall(context)),
+                  if (phone.isNotEmpty)
+                    Text(phone, style: AppTextStyles.bodySmall(context)),
+                ],
+              );
+            }),
             SizedBox(height: context.heightPct(30)),
 
             // ── Preferences Section
@@ -178,7 +196,10 @@ class _SettingsViewState extends State<SettingsView> {
                       borderRadius: BorderRadius.circular(context.widthPct(12)),
                     ),
                   ),
-                  onPressed: () => context.go('/login'),
+                  onPressed: () async {
+                    await context.read<AuthCubit>().logout();
+                    if (context.mounted) context.go('/login');
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -193,6 +214,22 @@ class _SettingsViewState extends State<SettingsView> {
                       ),
                     ],
                   ),
+                ),
+              ),
+            ),
+            SizedBox(height: context.heightPct(12)),
+            // ── Delete account (permanent) ────────────────────────────────
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: context.widthPct(24)),
+              child: SizedBox(
+                width: double.infinity,
+                child: TextButton.icon(
+                  icon: const Icon(Icons.delete_forever),
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.darkRed,
+                  ),
+                  onPressed: () => showDeleteAccountFlow(context),
+                  label: const Text('Delete Account'),
                 ),
               ),
             ),

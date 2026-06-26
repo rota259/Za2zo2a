@@ -125,7 +125,7 @@ class _RoleSelectionBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Crimson Velocity',
+            'Za2zo2a',
             style: AppTextStyles.h3(context).copyWith(
               color: AppColors.primary,
               fontWeight: FontWeight.w800,
@@ -209,7 +209,7 @@ class _RoleSelectionBody extends StatelessWidget {
                 ),
                 SizedBox(height: context.heightPct(6)),
                 Text(
-                  'How would you like to use Crimson Velocity today?',
+                  'How would you like to use Za2zo2a today?',
                   style: AppTextStyles.bodySmall(
                     context,
                   ).copyWith(color: Colors.white70),

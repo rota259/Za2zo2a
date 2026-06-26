@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/utils/responsive.dart';
-import '../cubit/driver_home_cubit.dart';
+import '../../dispatch/driver_dispatch_cubit.dart';
 
 class DriverOfflineButton extends StatelessWidget {
   final bool isOnline;
@@ -19,9 +19,9 @@ class DriverOfflineButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (isOnline) {
-            context.read<DriverHomeCubit>().goOffline();
+            context.read<DriverDispatchCubit>().goOffline();
           } else {
-            context.read<DriverHomeCubit>().goOnline();
+            context.read<DriverDispatchCubit>().goOnline();
           }
         },
         child: Container(
@@ -49,7 +49,7 @@ class DriverOfflineButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                isOnline ? Icons.power_settings_new : Icons.power_settings_new,
+                Icons.power_settings_new,
                 color: Colors.white,
                 size: context.widthPct(24),
               ),

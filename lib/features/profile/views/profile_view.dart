@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../auth/cubit/auth_cubit.dart';
+import '../../auth/cubit/auth_state.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
 
@@ -62,13 +64,9 @@ class _ProfileViewState extends State<ProfileView> {
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {},
         builder: (context, state) {
-          final name = state is ProfileLoaded ? state.name : 'Alex Rivera';
-          final email = state is ProfileLoaded
-              ? state.email
-              : 'alex.rivera@voltride.com';
-          final phone = state is ProfileLoaded
-              ? state.phone
-              : '+1 (555) 123-4567';
+          final name = state is ProfileLoaded ? state.name : 'User';
+          final email = state is ProfileLoaded ? state.email : '';
+          final phone = state is ProfileLoaded ? state.phone : '';
           final imagePath = state is ProfileLoaded
               ? state.profileImagePath
               : null;
@@ -176,39 +174,35 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                       SizedBox(height: context.heightPct(6)),
 
-                      // Star Rating
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: AppColors.warning,
-                            size: context.fontPct(16),
-                          ),
-                          SizedBox(width: context.widthPct(4)),
-                          Text(
-                            '4.9',
-                            style: AppTextStyles.bodyMedium(context).copyWith(
-                              color: AppColors.warning,
-                              fontWeight: FontWeight.bold,
+                      // Star Rating — real from backend
+                      Builder(builder: (context) {
+                        final auth = context.watch<AuthCubit>().state;
+                        final user = auth is Authenticated ? auth.user : null;
+                        final rating = user?.rating ?? 5.0;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.star,
+                                color: AppColors.warning,
+                                size: context.fontPct(16)),
+                            SizedBox(width: context.widthPct(4)),
+                            Text(
+                              rating.toStringAsFixed(1),
+                              style: AppTextStyles.bodyMedium(context).copyWith(
+                                  color: AppColors.warning,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          Text(
-                            ' (128 reviews)',
-                            style: AppTextStyles.bodySmall(
-                              context,
-                            ).copyWith(color: AppColors.textSecondary),
-                          ),
-                        ],
-                      ),
+                          ],
+                        );
+                      }),
                       SizedBox(height: context.heightPct(4)),
 
-                      // Member since
+                      // Member since — from createdAt if available
+                      // NEEDS BACKEND: createdAt isn't returned in /me yet
                       Text(
-                        'Member since March 2022',
-                        style: AppTextStyles.bodySmall(
-                          context,
-                        ).copyWith(color: AppColors.textSecondary),
+                        'Za2zo2a Rider',
+                        style: AppTextStyles.bodySmall(context)
+                            .copyWith(color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -217,34 +211,36 @@ class _ProfileViewState extends State<ProfileView> {
                 SizedBox(height: context.heightPct(16)),
 
                 // ───── STATS ROW ─────
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.widthPct(20),
-                  ),
-                  child: Row(
-                    children: [
-                      // Total Trips
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.directions_car,
-                          label: 'TOTAL TRIPS',
-                          value: '142',
-                          unit: '',
+                Builder(builder: (context) {
+                  final auth = context.watch<AuthCubit>().state;
+                  final user = auth is Authenticated ? auth.user : null;
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.widthPct(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: _StatCard(
+                            icon: Icons.directions_car,
+                            label: 'TOTAL TRIPS',
+                            value: '${user?.totalTrips ?? 0}',
+                            unit: '',
+                          ),
                         ),
-                      ),
-                      SizedBox(width: context.widthPct(16)),
-                      // Distance
-                      Expanded(
-                        child: _StatCard(
-                          icon: Icons.route,
-                          label: 'DISTANCE',
-                          value: '850',
-                          unit: 'km',
+                        SizedBox(width: context.widthPct(16)),
+                        Expanded(
+                          child: _StatCard(
+                            icon: Icons.star,
+                            label: 'RATING',
+                            value: (user?.rating ?? 5.0).toStringAsFixed(1),
+                            unit: '★',
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
+                      ],
+                    ),
+                  );
+                }),
 
                 SizedBox(height: context.heightPct(28)),
 
